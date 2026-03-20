@@ -316,6 +316,7 @@
       }
       const pairs = [];
       checked.forEach(function(cb) {
+        const rowIndex = Array.prototype.indexOf.call(checked, cb);
         const row = cb.closest('tr');
         const connSel = row ? row.querySelector('.row-conn-select') : null;
         const connId = connSel ? connSel.value : '';
@@ -323,9 +324,23 @@
           alert('Script "' + cb.value + '" chưa chọn kết nối.');
           return;
         }
-        pairs.push({ name: cb.value, connId: connId });
+        pairs.push({ name: cb.value, connId: connId, _orig: rowIndex });
       });
       if (pairs.length !== checked.length) return;
+
+      // Luôn ưu tiên chạy trước JOB_UPDATE_DM_PHAN_DOI_TRAI.sql (nếu được chọn)
+      // trước JOB_PN_LAI_LICHS.sql, để tránh phụ thuộc dữ liệu không đúng thứ tự.
+      const priority = {
+        "JOB_UPDATE_DM_PHAN_DOI_TRAI.sql": 0,
+        "JOB_PN_LAI_LICHS.sql": 1,
+      };
+      pairs.sort(function(a, b) {
+        const ra = (priority[a.name] ?? 999);
+        const rb = (priority[b.name] ?? 999);
+        if (ra !== rb) return ra - rb;
+        return (a._orig ?? 0) - (b._orig ?? 0);
+      });
+
       if (!confirm('Chạy ' + pairs.length + ' script đã chọn?')) return;
       scriptsRunStopped = false;
       currentScriptRunId = null;
@@ -334,7 +349,7 @@
       if (stopBtn) stopBtn.onclick = function() {
         scriptsRunStopped = true;
         if (currentScriptRunId) {
-          fetch('/api/scripts/stop/' + currentScriptRunId, { method: 'POST' }).catch(function() {});
+          fetch('api/scripts/stop/' + currentScriptRunId, { method: 'POST' }).catch(function() {});
         }
       };
       runScriptsSequential(pairs, 0);
@@ -357,7 +372,7 @@
       fd.append('filename', p.name);
       fd.append('connection_id', p.connId);
       fd.append('run_id', run_id);
-      fetch('/api/scripts/run-one', { method: 'POST', body: fd })
+      fetch('api/scripts/run-one', { method: 'POST', body: fd })
         .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
         .then(function(res) {
           if (scriptsRunStopped) {
@@ -384,7 +399,7 @@
         runScriptsSequential(pairs, pairs.length);
         return;
       }
-      fetch('/api/scripts/run-status/' + run_id)
+      fetch('api/scripts/run-status/' + run_id)
         .then(function(r) { return r.json(); })
         .then(function(d) {
           if (scriptsRunStopped) {
@@ -567,7 +582,8 @@
       document.getElementById('editModalTextarea').value = '';
       document.getElementById('editModal').classList.add('show');
       hookEditorHighlight();
-      fetch('/api/scripts/' + encodeURIComponent(name))
+      const apiUrl = 'api/scripts/' + encodeURIComponent(name);
+      fetch(apiUrl, { credentials: 'same-origin' })
         .then(function(r) {
           if (!r.ok) throw new Error(r.statusText);
           return r.json();
@@ -577,7 +593,7 @@
           updateHighlightFromTextarea();
         })
         .catch(function(e) {
-          alert('Lỗi đọc file: ' + e.message);
+          alert('Lỗi đọc file: ' + e.message + '\\nURL: ' + apiUrl);
           closeEditModal();
         });
     }
@@ -611,7 +627,7 @@
       const formData = new FormData();
       formData.append('filename', noteModalFilename);
       formData.append('note', note);
-      fetch('/api/scripts/note', { method: 'POST', body: formData })
+      fetch('api/scripts/note', { method: 'POST', body: formData })
         .then(function(r) {
           if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
           return r.json();
@@ -625,7 +641,7 @@
 
     function deleteScript(name) {
       if (!confirm('Xóa file "' + name + '"? Thao tác không thể hoàn tác.')) return;
-      fetch('/api/scripts/' + encodeURIComponent(name), { method: 'DELETE' })
+      fetch('api/scripts/' + encodeURIComponent(name), { method: 'DELETE' })
         .then(function(r) {
           if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
           return r.json();
@@ -646,7 +662,7 @@
       }
       const formData = new FormData();
       formData.append('filename', filename);
-      fetch('/api/scripts/new', {
+      fetch('api/scripts/new', {
         method: 'POST',
         body: formData
       })
@@ -668,7 +684,7 @@
       const content = document.getElementById('editModalTextarea').value;
       const formData = new FormData();
       formData.append('content', content);
-      fetch('/api/scripts/' + encodeURIComponent(editModalFilename), {
+      fetch('api/scripts/' + encodeURIComponent(editModalFilename), {
         method: 'POST',
         body: formData
       })

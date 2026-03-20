@@ -533,8 +533,9 @@ def _list_sql_files() -> list[dict]:
             })
         except OSError:
             continue
-    # JOB_PN_LAI_LICHS.sql đứng đầu
-    priority = ["JOB_PN_LAI_LICHS.sql"]
+    # Ưu tiên chạy các job phụ thuộc trước khi đụng tới "bảng lai lịch".
+    # - JOB_UPDATE_DM_PHAN_DOI_TRAI.sql cần chạy trước JOB_PN_LAI_LICHS.sql
+    priority = ["JOB_UPDATE_DM_PHAN_DOI_TRAI.sql", "JOB_PN_LAI_LICHS.sql"]
     by_name = {it["name"]: it for it in items}
     ordered: list[dict] = []
     for p in priority:
