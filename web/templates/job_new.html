@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thêm job mới</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    /* ── Trang ── */
+    .page-title { font-size:1.3rem; font-weight:700; color:#1a237e; margin:0 0 4px; }
+    .page-sub   { font-size:13px; color:#888; margin:0 0 20px; }
+
+    /* ── Card form thông tin job ── */
+    .card {
+      background:#fff; border:1px solid #e0e0e0; border-radius:10px;
+      padding:20px 24px; margin-bottom:20px; box-shadow:0 1px 4px rgba(0,0,0,.06);
+    }
+    .card-title {
+      font-size:12px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
+      color:#1976d2; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid #e8f0fe;
+    }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+    @media(max-width:760px){ .form-grid { grid-template-columns:1fr; } }
+
+    .field label {
+      display:block; font-size:11px; font-weight:700; color:#555;
+      letter-spacing:.4px; text-transform:uppercase; margin-bottom:5px;
+    }
+    .field input, .field select {
+      width:100%; padding:9px 12px; font-size:13px; border:1px solid #d0d7de;
+      border-radius:6px; background:#fafafa; color:#222; outline:none;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    .field input:focus, .field select:focus {
+      border-color:#1976d2; background:#fff;
+      box-shadow:0 0 0 3px rgba(25,118,210,.12);
+    }
+
+    /* ── Bảng nguồn / đích ── */
+    .two-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:680px){ .two-cols { grid-template-columns:1fr; } }
+
+    .panel {
+      border:1px solid #e0e0e0; border-radius:10px; overflow:hidden;
+      box-shadow:0 1px 4px rgba(0,0,0,.05); display:flex; flex-direction:column;
+    }
+    .panel-head {
+      padding:10px 14px; background:#f0f4ff;
+      border-bottom:1px solid #e0e0e0;
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+    .panel-title { font-size:13px; font-weight:700; color:#1a237e; }
+    .panel-title small { font-size:11px; font-weight:400; color:#888; margin-left:4px; }
+    .count-badge {
+      font-size:11px; font-weight:700; color:#1565c0;
+      background:#e3f2fd; border-radius:20px; padding:2px 10px; min-width:28px;
+      text-align:center; transition:background .2s;
+    }
+    .count-badge.has-sel { background:#bbdefb; color:#0d47a1; }
+
+    .panel-filter { padding:8px 12px; background:#fff; border-bottom:1px solid #f0f0f0; }
+    .filter-inner {
+      display:flex; align-items:center; gap:6px;
+      border:1px solid #d0d7de; border-radius:6px; background:#f8fafc; padding:0 10px;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    .filter-inner:focus-within {
+      border-color:#1976d2; background:#fff;
+      box-shadow:0 0 0 3px rgba(25,118,210,.1);
+    }
+    .filter-icon { font-size:13px; color:#aaa; }
+    .filter-input {
+      flex:1; border:none; background:transparent; outline:none;
+      padding:7px 0; font-size:13px; color:#333;
+    }
+    .filter-clear {
+      background:none; border:none; color:#bbb; cursor:pointer; font-size:15px;
+      padding:0 2px; line-height:1; display:none;
+    }
+    .filter-clear.show { display:block; }
+    .filter-clear:hover { color:#666; }
+
+    .panel-actions {
+      display:flex; gap:0; border-bottom:1px solid #f0f0f0; background:#fafafa;
+    }
+    .act-btn {
+      flex:1; background:none; border:none; border-right:1px solid #eee;
+      font-size:12px; color:#1976d2; cursor:pointer; padding:6px 8px;
+      transition:background .12s; font-weight:600;
+    }
+    .act-btn:last-child { border-right:none; }
+    .act-btn:hover { background:#e8f0fe; }
+
+    .panel-list {
+      flex:1; max-height:300px; overflow-y:auto; padding:6px 0; background:#fff;
+    }
+    .panel-list::-webkit-scrollbar { width:5px; }
+    .panel-list::-webkit-scrollbar-thumb { background:#ddd; border-radius:3px; }
+    .panel-list::-webkit-scrollbar-thumb:hover { background:#bbb; }
+
+    .tbl-item {
+      display:flex; align-items:center; gap:10px;
+      padding:7px 14px; cursor:pointer; transition:background .1s;
+      font-size:13px; color:#333; border-bottom:1px solid #fafafa;
+      user-select:none;
+    }
+    .tbl-item:hover { background:#f0f4ff; }
+    .tbl-item.checked { background:#e8f0fe; font-weight:600; color:#1565c0; }
+    .tbl-item input[type=checkbox] { flex-shrink:0; accent-color:#1976d2; width:14px; height:14px; }
+    .tbl-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .panel-empty {
+      padding:20px 14px; text-align:center; color:#bbb; font-size:13px;
+      font-style:italic;
+    }
+    .panel-empty .empty-icon { font-size:28px; display:block; margin-bottom:6px; opacity:.5; }
+
+    /* Skeleton */
+    .skel { padding:6px 14px; }
+    .skel-line {
+      height:26px; border-radius:4px; margin-bottom:5px;
+      background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);
+      background-size:200% 100%; animation:shimmer 1.2s infinite;
+    }
+    @keyframes shimmer { from{background-position:200% 0} to{background-position:-200% 0} }
+
+    /* ── Footer actions ── */
+    .form-actions {
+      display:flex; align-items:center; gap:10px;
+      margin-top:20px; padding-top:16px; border-top:1px solid #eee;
+    }
+    .sel-summary { font-size:12px; color:#666; margin-left:auto; }
+    .sel-summary strong { color:#1a237e; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1 class="page-title">&#43; Thêm job mới</h1>
+    <p class="page-sub">Chọn kết nối, chọn bảng nguồn &amp; đích, rồi tạo job để thiết lập mapping cột.</p>
+    {% if message %}<div class="msg {{ message_type }}">{{ message }}</div>{% endif %}
+
+    <form method="post" action="{{ url_for('job_create') }}" id="jobNewForm">
+
+      <!-- Thông tin job -->
+      <div class="card">
+        <div class="card-title">&#9881; Thông tin job</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Tên job</label>
+            <input type="text" name="job_name" required placeholder="VD: Sync Bảng A" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>Kết nối nguồn</label>
+            <select name="source_connection_id" id="srcConn" required>
+              <option value="">-- Chọn --</option>
+              {% for c in source_connections %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label>Kết nối đích</label>
+            <select name="target_connection_id" id="tgtConn" required>
+              <option value="">-- Chọn --</option>
+              {% for c in target_connections %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chọn bảng -->
+      <div class="two-cols">
+
+        <!-- Bảng nguồn -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">&#128196; Bảng nguồn <small>(Source)</small></span>
+            <span class="count-badge" id="srcCount">0</span>
+          </div>
+          <div class="panel-filter">
+            <div class="filter-inner">
+              <span class="filter-icon">&#128269;</span>
+              <input class="filter-input" id="filterSrc" placeholder="Lọc tên bảng..." autocomplete="off">
+              <button type="button" class="filter-clear" id="clearFilterSrc" title="Xóa" onclick="clearFilter('src')">&#215;</button>
+            </div>
+          </div>
+          <div class="panel-actions">
+            <button type="button" class="act-btn" onclick="selectAll('src')">&#9745; Chọn tất cả</button>
+            <button type="button" class="act-btn" onclick="clearAll('src')">&#9744; Bỏ chọn</button>
+          </div>
+          <div class="panel-list" id="srcTableList">
+            <div class="panel-empty"><span class="empty-icon">&#128268;</span>Chọn kết nối nguồn để tải danh sách bảng.</div>
+          </div>
+        </div>
+
+        <!-- Bảng đích -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">&#127919; Bảng đích <small>(Target)</small></span>
+            <span class="count-badge" id="tgtCount">0</span>
+          </div>
+          <div class="panel-filter">
+            <div class="filter-inner">
+              <span class="filter-icon">&#128269;</span>
+              <input class="filter-input" id="filterTgt" placeholder="Lọc tên bảng..." autocomplete="off">
+              <button type="button" class="filter-clear" id="clearFilterTgt" title="Xóa" onclick="clearFilter('tgt')">&#215;</button>
+            </div>
+          </div>
+          <div class="panel-actions">
+            <button type="button" class="act-btn" onclick="selectAll('tgt')">&#9745; Chọn tất cả</button>
+            <button type="button" class="act-btn" onclick="clearAll('tgt')">&#9744; Bỏ chọn</button>
+          </div>
+          <div class="panel-list" id="tgtTableList">
+            <div class="panel-empty"><span class="empty-icon">&#127919;</span>Chọn kết nối đích để tải danh sách bảng.</div>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" name="selected_source_tables" id="selectedSourceTables">
+      <input type="hidden" name="selected_target_tables" id="selectedTargetTables">
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">&#10003; Tạo (sau đó thêm câu lệnh)</button>
+        <a href="{{ url_for('index') }}" class="btn">Quay lại</a>
+        <span class="sel-summary" id="selSummary"></span>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    var allSrcTables = [], allTgtTables = [];
+
+    function showSkeleton(listId) {
+      var widths = [55,70,45,80,60];
+      document.getElementById(listId).innerHTML =
+        '<div class="skel">' +
+        widths.map(function(w){ return '<div class="skel-line" style="width:'+w+'%"></div>'; }).join('') +
+        '</div>';
+    }
+
+    function loadTables(connId, side) {
+      var listId  = side==='src' ? 'srcTableList' : 'tgtTableList';
+      var countId = side==='src' ? 'srcCount' : 'tgtCount';
+      var label   = side==='src' ? 'nguồn' : 'đích';
+      var icon    = side==='src' ? '&#128268;' : '&#127919;';
+      if (!connId) {
+        document.getElementById(listId).innerHTML =
+          '<div class="panel-empty"><span class="empty-icon">'+icon+'</span>Chọn kết nối '+label+' để tải danh sách bảng.</div>';
+        document.getElementById(countId).textContent = '0';
+        if (side==='src') allSrcTables=[]; else allTgtTables=[];
+        updateSummary(); return;
+      }
+      showSkeleton(listId);
+      document.getElementById(countId).textContent = '…';
+      fetch('/api/connections/'+connId+'/tables')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (d.error) {
+            document.getElementById(listId).innerHTML =
+              '<div class="panel-empty" style="color:#c62828">&#9888; Lỗi: '+escHtml(d.error)+'</div>';
+            document.getElementById(countId).textContent = '!';
+            return;
+          }
+          var tables = d.tables||[];
+          if (side==='src') allSrcTables=tables; else allTgtTables=tables;
+          var filter = document.getElementById(side==='src'?'filterSrc':'filterTgt').value;
+          renderList(side, filter);
+        })
+        .catch(function(){
+          document.getElementById(listId).innerHTML =
+            '<div class="panel-empty" style="color:#c62828">&#9888; Lỗi kết nối server.</div>';
+          document.getElementById(countId).textContent = '!';
+        });
+    }
+
+    function renderList(side, filter) {
+      var all     = side==='src' ? allSrcTables : allTgtTables;
+      var listId  = side==='src' ? 'srcTableList' : 'tgtTableList';
+      var countId = side==='src' ? 'srcCount' : 'tgtCount';
+      var name    = side==='src' ? 'src_tbl' : 'tgt_tbl';
+      var kw      = (filter||'').trim().toUpperCase();
+      var filtered = kw ? all.filter(function(t){ return t.toUpperCase().indexOf(kw)!==-1; }) : all;
+
+      document.getElementById(countId).textContent = filtered.length + (all.length!==filtered.length ? '/'+all.length : '');
+
+      if (!filtered.length) {
+        document.getElementById(listId).innerHTML =
+          '<div class="panel-empty">'+
+          (kw ? '&#128269; Không khớp &ldquo;'+escHtml(filter)+'&rdquo;' : '&#128220; Không có bảng nào.')+
+          '</div>';
+        return;
+      }
+
+      var html = filtered.map(function(t){
+        var safe=escHtml(t), safeVal=t.replace(/"/g,'&quot;');
+        return '<label class="tbl-item" onclick="toggleItem(this)">'+
+               '<input type="checkbox" name="'+name+'" value="'+safeVal+'" tabindex="-1" onclick="event.stopPropagation()">'+
+               '<span class="tbl-name">'+safe+'</span></label>';
+      }).join('');
+      document.getElementById(listId).innerHTML = html;
+
+      // Lắng nghe change trên các checkbox để cập nhật style + summary
+      document.querySelectorAll('#'+listId+' input[type=checkbox]').forEach(function(cb){
+        cb.addEventListener('change', function(){
+          this.closest('.tbl-item').classList.toggle('checked', this.checked);
+          updateBadge(side); updateSummary();
+        });
+      });
+    }
+
+    function toggleItem(label) {
+      var cb = label.querySelector('input[type=checkbox]');
+      cb.checked = !cb.checked;
+      label.classList.toggle('checked', cb.checked);
+      updateBadge(label.querySelector('input').name==='src_tbl'?'src':'tgt');
+      updateSummary();
+    }
+
+    function updateBadge(side) {
+      var name = side==='src'?'src_tbl':'tgt_tbl';
+      var n = document.querySelectorAll('input[name="'+name+'"]:checked').length;
+      var badge = document.getElementById(side==='src'?'srcCount':'tgtCount');
+      badge.classList.toggle('has-sel', n>0);
+    }
+
+    function updateSummary() {
+      var s = document.querySelectorAll('input[name="src_tbl"]:checked').length;
+      var t = document.querySelectorAll('input[name="tgt_tbl"]:checked').length;
+      var el = document.getElementById('selSummary');
+      if (s||t) {
+        el.innerHTML = 'Đã chọn: <strong>'+s+'</strong> bảng nguồn &nbsp;|&nbsp; <strong>'+t+'</strong> bảng đích';
+      } else { el.innerHTML=''; }
+    }
+
+    function selectAll(side) {
+      var name = side==='src'?'src_tbl':'tgt_tbl';
+      document.querySelectorAll('input[name="'+name+'"]').forEach(function(cb){
+        cb.checked=true; cb.closest('.tbl-item').classList.add('checked');
+      });
+      updateBadge(side); updateSummary();
+    }
+    function clearAll(side) {
+      var name = side==='src'?'src_tbl':'tgt_tbl';
+      document.querySelectorAll('input[name="'+name+'"]').forEach(function(cb){
+        cb.checked=false; cb.closest('.tbl-item').classList.remove('checked');
+      });
+      updateBadge(side); updateSummary();
+    }
+
+    function clearFilter(side) {
+      var inp = document.getElementById(side==='src'?'filterSrc':'filterTgt');
+      var btn = document.getElementById(side==='src'?'clearFilterSrc':'clearFilterTgt');
+      inp.value=''; btn.classList.remove('show');
+      renderList(side,'');
+    }
+
+    function escHtml(s){ return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // Sự kiện dropdown kết nối
+    document.getElementById('srcConn').addEventListener('change',function(){ loadTables(this.value,'src'); });
+    document.getElementById('tgtConn').addEventListener('change',function(){ loadTables(this.value,'tgt'); });
+
+    // Filter debounce
+    ['Src','Tgt'].forEach(function(s){
+      var timer;
+      document.getElementById('filter'+s).addEventListener('input',function(){
+        var v=this.value, side=s.toLowerCase();
+        document.getElementById('clearFilter'+s).classList.toggle('show', v.length>0);
+        clearTimeout(timer);
+        timer=setTimeout(function(){ renderList(side,v); },150);
+      });
+    });
+
+    // Gom dữ liệu trước submit
+    document.getElementById('jobNewForm').addEventListener('submit',function(){
+      var src=[],tgt=[];
+      document.querySelectorAll('input[name="src_tbl"]:checked').forEach(function(cb){ src.push(cb.value); });
+      document.querySelectorAll('input[name="tgt_tbl"]:checked').forEach(function(cb){ tgt.push(cb.value); });
+      document.getElementById('selectedSourceTables').value=src.join(',');
+      document.getElementById('selectedTargetTables').value=tgt.join(',');
+    });
+  </script>
+</body>
+</html>

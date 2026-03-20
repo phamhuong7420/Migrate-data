@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapping cột</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    /* ── Page header ── */
+    .page-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .page-header-left { flex: 1; min-width: 0; }
+    .page-title { font-size: 1.25rem; font-weight: 700; color: #1a237e; margin: 0 0 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .conn-path {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #f0f4ff; border: 1px solid #c5cae9; border-radius: 20px;
+      padding: 4px 12px; font-size: 12px; color: #3949ab;
+    }
+    .conn-chip { font-weight: 700; color: #1a237e; }
+    .conn-arrow { color: #90a4ae; font-size: 14px; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+      background: #fff; border: 1px solid #d0d7de; border-radius: 8px;
+      color: #444; font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: all .15s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-back:hover { background: #f0f4ff; border-color: #90a4ae; color: #1a237e; }
+
+    /* ── Table names bar ── */
+    .table-bar {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+    }
+    @media(max-width:640px){ .table-bar { grid-template-columns: 1fr; } }
+    .tbl-field-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+      color: #888; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+    }
+    .tbl-field-label .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-tgt { background: #e91e63; }
+    .dot-src { background: #1976d2; }
+    .tbl-input-wrap { display: flex; gap: 6px; align-items: stretch; }
+    .tbl-input {
+      flex: 1; padding: 9px 12px; border: 1px solid #d0d7de; border-radius: 8px;
+      font-size: 13px; font-weight: 600; color: #1a237e; background: #f8fafc;
+      outline: none; font-family: monospace; transition: border-color .15s, box-shadow .15s;
+    }
+    .tbl-input[readonly] { cursor: default; }
+    .tbl-input:not([readonly]):focus { border-color: #1976d2; background: #fff; box-shadow: 0 0 0 3px rgba(25,118,210,.1); }
+    .btn-reload {
+      display: none; padding: 0 12px; background: #e3f2fd; border: 1px solid #90caf9;
+      border-radius: 8px; color: #1565c0; font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; transition: background .12s;
+    }
+    .btn-reload:hover { background: #bbdefb; }
+    .btn-reload.visible { display: flex; align-items: center; gap: 4px; }
+
+    /* ── Mapping workspace ── */
+    .workspace {
+      display: grid; grid-template-columns: 220px 48px 1fr; gap: 0;
+      border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05); margin-bottom: 0;
+    }
+
+    /* Cột khả dụng */
+    .col-panel {
+      background: #fff; border-right: 1px solid #eee;
+      display: flex; flex-direction: column; max-height: 420px;
+    }
+    .col-panel-head {
+      padding: 10px 12px; background: #fafafa; border-bottom: 1px solid #eee;
+      font-size: 11px; font-weight: 700; color: #888; letter-spacing: .5px;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .col-list { flex: 1; overflow-y: auto; padding: 6px 8px; }
+    .col-list::-webkit-scrollbar { width: 4px; }
+    .col-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+    .col-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 8px; border-radius: 6px; margin-bottom: 3px;
+      font-size: 12px; font-weight: 600; color: #333; cursor: pointer;
+      transition: background .1s; font-family: monospace; background: #f8f9fa;
+      border: 1px solid transparent;
+    }
+    .col-item:hover { background: #e8f0fe; border-color: #c5cae9; color: #1a237e; }
+    .col-item .add-col-btn {
+      background: none; border: none; color: #c0c0c0; font-size: 16px;
+      cursor: pointer; padding: 0 1px; line-height: 1; flex-shrink: 0; font-weight: 700;
+      transition: color .12s;
+    }
+    .col-item:hover .add-col-btn { color: #1976d2; }
+    .col-item.mapped { background: #e8f5e9; border: 1px solid #a5d6a7; color: #1b5e20; }
+    .col-item.mapped .add-col-btn { color: #e53935; font-size: 18px; }
+    .col-item.mapped:hover { background: #ffebee; border-color: #ef9a9a; }
+    .col-item.mapped:hover .add-col-btn { color: #c62828; }
+    .col-empty { font-size: 11px; color: #bbb; text-align: center; padding: 16px 8px; font-style: italic; }
+
+    /* Nút mũi tên giữa */
+    .arrow-col {
+      background: #f7f8fa; border-right: 1px solid #eee;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 8px; padding: 8px 4px;
+    }
+    .arrow-btn {
+      width: 36px; height: 36px; border: none; border-radius: 8px;
+      font-size: 16px; cursor: pointer; font-weight: bold; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .12s, transform .1s;
+    }
+    .arrow-btn:hover { opacity: .85; transform: scale(1.05); }
+    .arrow-btn:active { transform: scale(.97); }
+    .btn-add-all   { background: #1976d2; color: #fff; }
+    .btn-clear-all { background: #90a4ae; color: #fff; }
+
+    /* Mapping rows */
+    .map-panel {
+      background: #fff; display: flex; flex-direction: column; max-height: 420px;
+    }
+    .map-panel-head {
+      padding: 10px 14px; background: #fafafa; border-bottom: 1px solid #eee;
+      font-size: 11px; font-weight: 700; color: #888; letter-spacing: .5px;
+      text-transform: uppercase; flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .map-panel-head .col-labels {
+      display: grid; grid-template-columns: 1fr 1fr 28px;
+      gap: 8px; flex: 1; margin-left: 4px;
+    }
+    .map-panel-head .col-labels span { font-size: 10px; color: #aaa; }
+    .map-list { flex: 1; overflow-y: auto; padding: 8px 10px; }
+    .map-list::-webkit-scrollbar { width: 4px; }
+    .map-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+    .mapping-row {
+      display: grid; grid-template-columns: 1fr 1fr 28px; gap: 6px;
+      align-items: center; padding: 5px 0; border-bottom: 1px solid #f5f5f5;
+      transition: background .1s;
+    }
+    .mapping-row:last-child { border-bottom: none; }
+    .mapping-row:hover { background: #fafcff; }
+    .mapping-row input[type=text] {
+      padding: 6px 10px; border: 1px solid #e0e0e0; border-radius: 6px;
+      font-size: 12px; font-family: monospace; outline: none; width: 100%;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .mapping-row input[type=text][readonly] {
+      background: #f0f4ff; color: #1565c0; border-color: #c5cae9; cursor: default;
+    }
+    .mapping-row input[type=text].src-col-input {
+      background: #fff; color: #333; border-color: #d0d7de;
+    }
+    .mapping-row input[type=text].src-col-input:focus {
+      border-color: #1976d2; box-shadow: 0 0 0 2px rgba(25,118,210,.1);
+    }
+    .del-btn {
+      width: 28px; height: 28px; background: #ffebee; border: 1px solid #ef9a9a;
+      border-radius: 6px; color: #c62828; cursor: pointer; font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .12s; flex-shrink: 0;
+    }
+    .del-btn:hover { background: #ffcdd2; border-color: #c62828; transform: scale(1.08); }
+
+    .map-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 120px; color: #ccc; font-size: 13px; gap: 8px;
+    }
+    .map-empty .empty-icon { font-size: 28px; }
+
+    /* ── SQL output ── */
+    .sql-card {
+      border: 1px solid #1e2d40; border-radius: 0 0 10px 10px; border-top: none;
+      background: #0d1117; overflow: hidden;
+    }
+    .sql-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; background: #161b22; border-bottom: 1px solid #30363d;
+    }
+    .sql-badge {
+      display: flex; align-items: center; gap: 6px; font-size: 11px;
+      font-weight: 700; letter-spacing: .6px; color: #58a6ff; text-transform: uppercase;
+    }
+    .sql-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3fb950; display: inline-block; }
+    .btn-copy-sql {
+      display: flex; align-items: center; gap: 5px; padding: 4px 12px;
+      background: #21262d; border: 1px solid #30363d; border-radius: 6px;
+      color: #cdd9e5; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .12s;
+    }
+    .btn-copy-sql:hover { background: #30363d; border-color: #58a6ff; color: #58a6ff; }
+    .sql-body { padding: 12px 16px; }
+    .sql-text {
+      font-family: 'Courier New', Consolas, monospace; font-size: 12.5px;
+      color: #79c0ff; white-space: pre-wrap; word-break: break-all;
+      line-height: 1.8; min-height: 28px;
+    }
+    .sql-text.empty { color: #484f58; font-style: italic; }
+
+    /* ── Save area ── */
+    .save-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-top: 12px; padding: 12px 16px;
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    }
+    .save-bar-info { font-size: 12px; color: #888; }
+    .save-bar-info strong { color: #1a237e; font-weight: 700; }
+    .btn-save {
+      display: flex; align-items: center; gap: 6px; padding: 9px 22px;
+      background: linear-gradient(135deg,#2e7d32,#1b5e20); color: #fff;
+      border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: opacity .15s, transform .1s;
+    }
+    .btn-save:hover { opacity: .92; transform: translateY(-1px); }
+    .btn-save:active { transform: translateY(0); }
+
+    /* ── Saved SQL box ── */
+    .saved-box {
+      margin-top: 16px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    }
+    .saved-box-head {
+      padding: 8px 14px; background: #f5f5f5; border-bottom: 1px solid #e0e0e0;
+      font-size: 11px; font-weight: 700; color: #888; letter-spacing: .5px;
+      text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+    }
+    .saved-box-head .saved-id { background: #e8f0fe; color: #1565c0; border-radius: 4px; padding: 1px 6px; font-size: 11px; }
+    .saved-box-body { padding: 10px 14px; background: #fff; }
+    .saved-sql-text {
+      font-family: 'Courier New', monospace; font-size: 12px; color: #444;
+      white-space: pre-wrap; word-break: break-all; line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1 class="page-title">{{ stmt.name or (stmt.source_table ~ ' → ' ~ stmt.target_table) }}</h1>
+        <div class="conn-path">
+          <span class="conn-chip">{{ stmt.source_connection_name }}</span>
+          <span class="conn-arrow">&#10142;</span>
+          <span class="conn-chip">{{ stmt.target_connection_name }}</span>
+        </div>
+      </div>
+      <a href="{{ url_for('index') }}" class="btn-back">&#8592; Quay lại</a>
+    </div>
+
+    {% if message %}<div class="msg {{ message_type }}" style="margin-bottom:14px;">{{ message }}</div>{% endif %}
+
+    <!-- Tên bảng -->
+    <div class="table-bar">
+      <div class="tbl-field">
+        <div class="tbl-field-label"><span class="dot dot-tgt"></span>Bảng Đích (Target)</div>
+        <div class="tbl-input-wrap">
+          <input class="tbl-input" type="text" readonly value="{{ stmt.target_table }}">
+        </div>
+      </div>
+      <div class="tbl-field">
+        <div class="tbl-field-label"><span class="dot dot-src"></span>Bảng Nguồn (Source)</div>
+        <div class="tbl-input-wrap">
+          <input class="tbl-input" type="text" id="sourceTableInput" value="{{ stmt.source_table }}"
+                 placeholder="Nhập tên bảng nguồn..." oninput="onSourceTableChange(this)">
+          <button type="button" id="btnReloadSrcCols" class="btn-reload"
+                  onclick="reloadSourceCols()" title="Tải lại cột theo bảng nguồn mới">
+            &#8635; Tải cột
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workspace: Cột khả dụng | Mũi tên | Mapping -->
+    <div class="workspace">
+
+      <!-- Cột khả dụng -->
+      <div class="col-panel">
+        <div class="col-panel-head">Cột khả dụng (Target)</div>
+        <div class="col-list" id="colAvailableList">
+          <p class="col-empty">Đang tải cột…</p>
+        </div>
+      </div>
+
+      <!-- Nút điều hướng -->
+      <div class="arrow-col">
+        <button class="arrow-btn btn-add-all"   id="btnAddAll"   title="Thêm tất cả cột">&#187;</button>
+        <button class="arrow-btn btn-clear-all" id="btnClearAll" title="Xóa tất cả mapping">&#171;</button>
+      </div>
+
+      <!-- Mapping panel -->
+      <div class="map-panel">
+        <div class="map-panel-head">
+          Mapping
+          <div class="col-labels">
+            <span>Target Column</span>
+            <span>Source Expression</span>
+            <span></span>
+          </div>
+        </div>
+        <div class="map-list" id="mappingRows">
+          <div class="map-empty">
+            <span class="empty-icon">&#8644;</span>
+            Chọn cột bên trái hoặc bấm <strong>»</strong> để thêm mapping
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SQL Output -->
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <span class="sql-badge">Generated SQL</span>
+        <button class="btn-copy-sql" id="btnCopySql">&#128203; Copy</button>
+      </div>
+      <div class="sql-body">
+        <div class="sql-text empty" id="sqlOutput">-- Thêm mapping để tạo câu lệnh SQL</div>
+      </div>
+    </div>
+
+    <!-- Save bar -->
+    <div class="save-bar">
+      <div class="save-bar-info">
+        Job ID: <strong>{{ stmt.id }}</strong> &nbsp;|&nbsp;
+        {{ stmt.target_connection_name }}<strong>.</strong>{{ stmt.target_table }}
+      </div>
+      <button type="button" class="btn-save" id="btnSaveStmt">&#10003; Lưu câu lệnh</button>
+    </div>
+
+    <!-- SQL đã lưu -->
+    {% if stmt.sql_text %}
+    <div class="saved-box">
+      <div class="saved-box-head">
+        SQL đã lưu <span class="saved-id">ID {{ stmt.id }}</span>
+      </div>
+      <div class="saved-box-body">
+        <div class="saved-sql-text">{{ stmt.sql_text }}</div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- datalist + form ẩn -->
+    <datalist id="sourceColsDatalist"></datalist>
+    <form method="post" action="{{ url_for('statement_save', stmt_id=stmt.id) }}" id="saveStmtForm" style="display:none;">
+      <input type="hidden" name="sql_text" id="saveStmtSql">
+    </form>
+
+    <script>
+      var sourceConnId   = {{ stmt.source_connection_id or 0 }};
+      var targetConnId   = {{ stmt.target_connection_id or 0 }};
+      var sourceTable    = {{ stmt.source_table | tojson }};
+      var targetTable    = {{ stmt.target_table | tojson }};
+      var sourceConnName = {{ stmt.source_connection_name | tojson }};
+      var targetConnName = {{ stmt.target_connection_name | tojson }};
+      var savedSql       = {{ stmt.sql_text | tojson }};
+      var sourceCols = [], targetCols = [];
+
+      function escHtml(s){ return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function escAttr(s){ return (s+'').replace(/"/g,'&quot;'); }
+
+      function getMappedCols() {
+        var cols = new Set();
+        document.querySelectorAll('.mapping-row input[readonly]').forEach(function(inp){ cols.add(inp.value); });
+        return cols;
+      }
+
+      function syncColItemStates() {
+        var mapped = getMappedCols();
+        document.querySelectorAll('.col-item[data-col-name]').forEach(function(item) {
+          var col = item.getAttribute('data-col-name');
+          var btn = item.querySelector('.add-col-btn');
+          if (mapped.has(col)) {
+            item.classList.add('mapped');
+            btn.textContent = '−';
+            btn.title = 'Xóa khỏi mapping';
+          } else {
+            item.classList.remove('mapped');
+            btn.textContent = '+';
+            btn.title = 'Thêm vào mapping';
+          }
+        });
+      }
+
+      function renderAvailableCols() {
+        var list = document.getElementById('colAvailableList');
+        if (!targetCols.length) { list.innerHTML = '<p class="col-empty">Không có cột.</p>'; return; }
+        list.innerHTML = targetCols.map(function(c) {
+          return '<div class="col-item" data-col-name="' + escAttr(c.column_name) + '">'
+            + '<span>' + escHtml(c.column_name) + '</span>'
+            + '<button class="add-col-btn" data-col="' + escAttr(c.column_name) + '" onclick="toggleMappingFromBtn(this)" title="Thêm">+</button>'
+            + '</div>';
+        }).join('');
+        syncColItemStates();
+      }
+
+      function rebuildDatalist() {
+        var dl = document.getElementById('sourceColsDatalist');
+        dl.innerHTML = sourceCols.map(function(c){
+          return '<option value="' + escAttr(c.column_name) + '">';
+        }).join('');
+      }
+
+      function toggleMappingFromBtn(btn) {
+        var col = btn.getAttribute('data-col');
+        var item = btn.closest('.col-item');
+        if (item.classList.contains('mapped')) {
+          // Xóa khỏi mapping
+          var rows = document.querySelectorAll('.mapping-row input[readonly]');
+          rows.forEach(function(inp) {
+            if (inp.value === col) inp.closest('.mapping-row').remove();
+          });
+          var container = document.getElementById('mappingRows');
+          if (!container.querySelector('.mapping-row')) {
+            container.innerHTML = '<div class="map-empty"><span class="empty-icon">&#8644;</span>Chọn cột bên trái hoặc bấm <strong>»</strong> để thêm mapping</div>';
+          }
+          updateSQL();
+          syncColItemStates();
+        } else {
+          addMapping(col);
+        }
+      }
+
+      function addMappingFromBtn(btn) { addMapping(btn.getAttribute('data-col')); }
+
+      function addMapping(tgtCol, srcVal) {
+        var container = document.getElementById('mappingRows');
+        // Xóa empty state nếu có
+        var empty = container.querySelector('.map-empty');
+        if (empty) empty.remove();
+
+        var row = document.createElement('div');
+        row.className = 'mapping-row';
+        row.innerHTML =
+          '<input type="text" value="' + escAttr(tgtCol) + '" readonly>'
+          + '<input type="text" list="sourceColsDatalist" placeholder="Cột nguồn hoặc biểu thức..."'
+          + ' value="' + escAttr(srcVal || '') + '" oninput="updateSQL()" class="src-col-input">'
+          + '<button class="del-btn" onclick="removeRow(this)" title="Xóa">&#215;</button>';
+        container.appendChild(row);
+        updateSQL();
+        syncColItemStates();
+      }
+
+      function removeRow(btn) {
+        btn.closest('.mapping-row').remove();
+        var container = document.getElementById('mappingRows');
+        if (!container.querySelector('.mapping-row')) {
+          container.innerHTML = '<div class="map-empty"><span class="empty-icon">&#8644;</span>Chọn cột bên trái hoặc bấm <strong>»</strong> để thêm mapping</div>';
+        }
+        updateSQL();
+        syncColItemStates();
+      }
+
+      function parseSQLAndPopulate(sql) {
+        if (!sql || !sql.trim()) return;
+        var m = sql.match(/INSERT\s+(?:\/\*\+[^*]*\*\/\s*)?INTO\s+\S+\s*\(([^)]+)\)\s*SELECT\s+([\s\S]+?)\s+FROM\s+\S+/i);
+        if (!m) return;
+        var tgtCols  = m[1].split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+        var srcExprs = m[2].split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+        document.getElementById('mappingRows').innerHTML = '';
+        tgtCols.forEach(function(tgt, i){ addMapping(tgt, srcExprs[i] || ''); });
+      }
+
+      function updateSQL() {
+        var rows = document.querySelectorAll('.mapping-row');
+        var out  = document.getElementById('sqlOutput');
+        if (!rows.length) {
+          out.textContent = '-- Thêm mapping để tạo câu lệnh SQL';
+          out.dataset.insertSql = '';
+          out.classList.add('empty'); return;
+        }
+        var tgtList = [], srcList = [];
+        rows.forEach(function(row) {
+          tgtList.push(row.querySelector('input[readonly]').value);
+          srcList.push(row.querySelector('.src-col-input').value || '?');
+        });
+        var tgtFull = targetConnName ? targetConnName + '.' + targetTable : targetTable;
+        var srcFull = sourceConnName ? sourceConnName + '.' + sourceTable : sourceTable;
+        var insertSql = 'INSERT INTO ' + tgtFull + ' (' + tgtList.join(', ') + ') SELECT ' + srcList.join(', ') + ' FROM ' + srcFull + ';';
+        var fullSql = insertSql;
+        if (targetTable && targetConnName) {
+          var deleteSql = 'DELETE FROM ' + tgtFull + ';';
+          fullSql = deleteSql + '\n\n' + insertSql;
+        }
+        out.textContent = fullSql;
+        out.dataset.insertSql = insertSql;
+        out.classList.remove('empty');
+      }
+
+      document.getElementById('btnAddAll').addEventListener('click', function(){
+        targetCols.forEach(function(c){ addMapping(c.column_name); });
+      });
+
+      document.getElementById('btnClearAll').addEventListener('click', function(){
+        document.getElementById('mappingRows').innerHTML =
+          '<div class="map-empty"><span class="empty-icon">&#8644;</span>Chọn cột bên trái hoặc bấm <strong>»</strong> để thêm mapping</div>';
+        updateSQL();
+        syncColItemStates();
+      });
+
+      document.getElementById('btnCopySql').addEventListener('click', function(){
+        var sql = document.getElementById('sqlOutput').textContent.trim();
+        if (!sql || sql.startsWith('--')) { alert('Chưa có câu lệnh SQL để copy.'); return; }
+        var btn = document.getElementById('btnCopySql');
+        var orig = btn.innerHTML;
+        function onOk() {
+          btn.innerHTML = '&#10003; Copied!';
+          btn.style.color = '#3fb950';
+          setTimeout(function(){ btn.innerHTML = orig; btn.style.color = ''; }, 1600);
+        }
+        function fallbackCopy() {
+          var ta = document.createElement('textarea');
+          ta.value = sql;
+          ta.style.cssText = 'position:fixed;left:0;top:0;opacity:0;width:2em;height:2em;';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          try {
+            if (document.execCommand('copy')) onOk();
+            else alert('Copy thất bại. Vui lòng chọn và copy thủ công (Ctrl+C).');
+          } catch (e) { alert('Copy thất bại. Vui lòng chọn và copy thủ công (Ctrl+C).'); }
+          document.body.removeChild(ta);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(sql).then(onOk).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      });
+
+      document.getElementById('btnSaveStmt').addEventListener('click', function(){
+        var out = document.getElementById('sqlOutput');
+        var sql = out.dataset.insertSql || out.textContent;
+        if (!sql || sql.startsWith('--')) { alert('Chưa có câu lệnh SQL để lưu.'); return; }
+        document.getElementById('saveStmtSql').value = sql;
+        document.getElementById('saveStmtForm').submit();
+      });
+
+      var _origSourceTable = sourceTable;
+
+      function onSourceTableChange(input) {
+        sourceTable = input.value.trim();
+        updateSQL();
+        var btn = document.getElementById('btnReloadSrcCols');
+        if (sourceTable && sourceTable !== _origSourceTable) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+      }
+
+      function reloadSourceCols() {
+        var tbl = document.getElementById('sourceTableInput').value.trim();
+        if (!tbl) { alert('Vui lòng nhập tên bảng nguồn.'); return; }
+        sourceTable = tbl;
+        document.getElementById('colAvailableList').innerHTML = '<p class="col-empty">Đang tải…</p>';
+        fetch('/api/connections/' + sourceConnId + '/columns?table=' + encodeURIComponent(tbl))
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d.error) { document.getElementById('colAvailableList').innerHTML = '<p class="col-empty" style="color:#c62828">Lỗi: ' + escHtml(d.error) + '</p>'; return; }
+            sourceCols = d.columns || [];
+            rebuildDatalist();
+            renderAvailableCols();
+            updateSQL();
+            _origSourceTable = sourceTable;
+            document.getElementById('btnReloadSrcCols').classList.remove('visible');
+          })
+          .catch(function(){ document.getElementById('colAvailableList').innerHTML = '<p class="col-empty" style="color:#c62828">Lỗi tải cột.</p>'; });
+      }
+
+      // Tự động tải cột khi vào trang
+      if (sourceTable && targetTable) {
+        Promise.all([
+          fetch('/api/connections/' + sourceConnId + '/columns?table=' + encodeURIComponent(sourceTable)).then(function(r){ return r.json(); }),
+          fetch('/api/connections/' + targetConnId + '/columns?table=' + encodeURIComponent(targetTable)).then(function(r){ return r.json(); })
+        ]).then(function(results){
+          sourceCols = results[0].columns || [];
+          targetCols = results[1].columns || [];
+          renderAvailableCols();
+          rebuildDatalist();
+          if (savedSql) { parseSQLAndPopulate(savedSql); syncColItemStates(); }
+          if (results[0].error) document.getElementById('colAvailableList').innerHTML = '<p class="col-empty" style="color:#c62828">Lỗi: ' + escHtml(results[0].error) + '</p>';
+        }).catch(function(){
+          document.getElementById('colAvailableList').innerHTML = '<p class="col-empty" style="color:#c62828">Lỗi tải cột.</p>';
+        });
+      } else {
+        document.getElementById('colAvailableList').innerHTML = '<p class="col-empty">Chưa có bảng nguồn/đích.</p>';
+      }
+    </script>
+  </main>
+</body>
+</html>

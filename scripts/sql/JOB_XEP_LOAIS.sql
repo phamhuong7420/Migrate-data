@@ -1,0 +1,213 @@
+TRUNCATE TABLE QLPN.XEP_LOAIS;
+
+
+
+INSERT INTO QLPN.XEP_LOAIS (
+
+    XEP_LOAI_NAM,
+
+    PHAM_NHAN_ID,
+
+
+
+    CREATION_TIME,
+
+    CREATOR_USER_ID,
+
+    LAST_MODIFICATION_TIME,
+
+    LAST_MODIFIER_USER_ID,
+
+    IS_DELETED,
+
+    DELETER_USER_ID,
+
+    DELETION_TIME,
+
+
+
+    XEP_LOAI_THANG_1,
+
+    XEP_LOAI_THANG_2,
+
+    XEP_LOAI_THANG_3,
+
+    XEP_LOAI_THANG_4,
+
+    XEP_LOAI_THANG_5,
+
+    XEP_LOAI_THANG_6,
+
+    XEP_LOAI_THANG_7,
+
+    XEP_LOAI_THANG_8,
+
+    XEP_LOAI_THANG_9,
+
+    XEP_LOAI_THANG_10,
+
+    XEP_LOAI_THANG_11,
+
+    XEP_LOAI_THANG_12,
+
+
+
+    XEP_LOAI_QUY_I,
+
+    XEP_LOAI_QUY_II,
+
+    XEP_LOAI_QUY_III,
+
+    XEP_LOAI_QUY_IV,
+
+
+
+    XEP_LOAI_6_THANG_DAU_NAM,
+
+    XEP_LOAI_6_THANG_CUOI_NAM,
+
+    XEP_LOAI_CA_NAM,
+
+
+
+    TIEN_LDSX
+
+)
+
+SELECT
+/*+ USE_HASH(pll  pll2) */
+    kq.NAM_XL,
+
+    pll2.ID,
+
+
+
+    /* Audit */
+
+    SYSTIMESTAMP,
+
+    NULL,
+
+    NULL,
+
+    NULL,
+
+    0,
+
+    NULL,
+
+    NULL,
+
+
+
+    /* MONTH → không có data → NULL */
+
+    NULL, NULL, NULL, NULL, NULL, NULL,
+
+    NULL, NULL, NULL, NULL, NULL, NULL,
+
+
+
+    /* QUÝ */
+
+    q1.ID,
+
+    q2.ID,
+
+    q3.ID,
+
+    q4.ID,
+
+
+
+    /* 6 THÁNG */
+
+    d6.ID,
+
+    c6.ID,
+
+
+
+    /* CẢ NĂM */
+
+    ca.ID,
+
+
+
+    /* TIỀN */
+
+    NVL(t.TIEN_Q1,0) + NVL(t.TIEN_Q2,0) + NVL(t.TIEN_Q3,0) + NVL(t.TIEN_Q4,0) + NVL(t.TIEN_KHAC,0)
+
+
+
+FROM QLPN_OLD.PN_KET_QUA_CAI_TAO kq
+
+
+
+INNER JOIN QLPN_OLD.PN_LAI_LICH pll
+
+    ON pll.PN_ID = kq.PN_ID
+
+
+
+INNER JOIN QLPN.PN_LAI_LICHS pll2
+
+    ON pll2.LL_SO_HO_SO_LAN_DAU = pll.SO_HSLD
+
+
+
+/* ===== DM_XEP_LOAI_CAI_TAOS ===== */
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS q1
+
+    ON q1.XLCT_MA = kq.MA_XEP_LOAI_Q1
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS q2
+
+    ON q2.XLCT_MA = kq.MA_XEP_LOAI_Q2
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS q3
+
+    ON q3.XLCT_MA = kq.MA_XEP_LOAI_Q3
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS q4
+
+    ON q4.XLCT_MA = kq.MA_XEP_LOAI_Q4
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS d6
+
+    ON d6.XLCT_MA = kq.MA_XEP_LOAI_DAU
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS c6
+
+    ON c6.XLCT_MA = kq.MA_XEP_LOAI_CUOI
+
+
+
+LEFT JOIN QLPN.DM_XEP_LOAI_CAI_TAOS ca
+
+    ON ca.XLCT_MA = kq.MA_XEP_LOAI_CA
+
+
+
+/* ===== TIỀN ===== */
+
+
+
+LEFT JOIN QLPN_OLD.PN_TIEN_CONG_SX t
+
+    ON t.PN_ID = kq.PN_ID
+
+   AND t.NAM_SX = kq.NAM_XL;

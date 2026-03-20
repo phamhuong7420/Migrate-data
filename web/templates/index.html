@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Danh sách bảng đồng bộ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .name-cell { display: flex; align-items: center; gap: 6px; }
+    .name-edit-link { color: #1565c0; font-weight: 500; text-decoration: none; cursor: pointer; }
+    .name-edit-link:hover { text-decoration: underline; color: #0d47a1; }
+    .his-icon { color: #bbb; font-size: 13px; text-decoration: none;
+                display: inline; vertical-align: middle; margin-left: 2px; }
+    .his-icon:hover { color: #1976d2; }
+    .sql-empty { font-size: 12px; color: #bbb; font-style: italic; }
+    .sql-wrap { display:inline-flex; align-items:center; gap:4px; max-width:320px; position:relative; }
+    .sql-copy-source { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none; }
+    .sql-preview { font-family: 'Courier New', monospace; font-size: 11px; color: #546e7a;
+                   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                   flex:1; min-width:0; }
+    .btn-copy-sql { flex-shrink:0; background:none; border:1px solid #ddd; border-radius:3px;
+                    padding:0 5px; font-size:10px; line-height:18px; color:#999;
+                    cursor:pointer; white-space:nowrap; }
+    .btn-copy-sql:hover { background:#e3f2fd; border-color:#90caf9; color:#1565c0; }
+    .btn-copy-sql.copied { background:#c8e6c9; border-color:#a5d6a7; color:#1b5e20; }
+    .btn-row-del { background:none; border:none; color:#ddd; font-size:14px;
+                   cursor:pointer; padding:2px 4px; border-radius:3px; line-height:1; }
+    .btn-row-del:hover { color:#e53935; background:#ffebee; }
+    .worker-opt { display:block; text-align:center; padding:7px 0; border:2px solid #e0e0e0;
+                  border-radius:6px; font-size:14px; font-weight:700; color:#555;
+                  transition:all .15s; user-select:none; white-space:nowrap; }
+    .worker-opt:hover { border-color:#90caf9; color:#1565c0; }
+    input[name=workerCount]:checked + .worker-opt {
+      border-color:#1976d2; background:#e3f2fd; color:#1565c0; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#1976d2; box-shadow:0 0 0 2px rgba(25,118,210,.15); }
+    .search-count { font-size:12px; color:#888; }
+    tr.row-hidden { display:none; }
+    .pagination { display:flex; align-items:center; gap:4px; margin-top:12px; flex-wrap:wrap; }
+    .pagination button { min-width:34px; height:32px; padding:0 8px; border:1px solid #ddd;
+                         border-radius:4px; background:#fff; color:#333; font-size:13px;
+                         cursor:pointer; transition:all .15s; }
+    .pagination button:hover:not(:disabled) { background:#e3f2fd; border-color:#90caf9; color:#1565c0; }
+    .pagination button.active { background:#1976d2; border-color:#1976d2; color:#fff; font-weight:600; }
+    .pagination button:disabled { opacity:.4; cursor:default; }
+    .pagination .pg-info { font-size:12px; color:#888; margin-left:6px; }
+
+    /* Modal tiến độ chạy job */
+    .run-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45);
+                   z-index:9999; align-items:center; justify-content:center; }
+    .run-overlay.show { display:flex; }
+    .run-modal { background:#fff; border-radius:10px; padding:28px 32px; width:640px; max-width:95vw;
+                 max-height:85vh; display:flex; flex-direction:column; gap:14px; box-shadow:0 8px 40px rgba(0,0,0,.25); }
+    .run-modal h3 { margin:0; font-size:16px; color:#1a237e; }
+    .run-progress-bar-wrap { background:#e0e0e0; border-radius:6px; height:10px; overflow:hidden; }
+    .run-progress-bar { height:100%; background:#1976d2; border-radius:6px; width:0%;
+                        transition:width .3s ease; }
+    .run-status-text { font-size:13px; color:#555; min-height:18px; }
+    .run-log { flex:1; overflow-y:auto; max-height:320px; border:1px solid #eee;
+               border-radius:6px; font-size:12px; font-family:'Courier New',monospace; }
+    .run-log-row { display:grid; grid-template-columns:28px 1fr 90px 80px 80px;
+                   gap:6px; align-items:center; padding:7px 10px; border-bottom:1px solid #f5f5f5; }
+    .run-log-row:last-child { border-bottom:none; }
+    .run-log-row.running { background:#e3f2fd; }
+    .run-log-row.success { background:#f1f8e9; }
+    .run-log-row.error   { background:#ffebee; }
+    .run-log-row .r-idx  { color:#aaa; text-align:right; }
+    .run-log-row .r-name { font-weight:600; color:#333; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .run-log-row .r-st   { text-align:center; font-weight:700; }
+    .run-log-row .r-num  { text-align:right; color:#666; }
+    .run-log-row .r-msg  { grid-column:2/-1; color:#c62828; font-size:11px; padding-top:2px; }
+    .r-st.ok  { color:#2e7d32; }
+    .r-st.err { color:#c62828; }
+    .r-st.spin { color:#1976d2; }
+    .run-footer { display:flex; align-items:center; justify-content:space-between; }
+    .run-summary { font-size:13px; color:#555; }
+    .run-summary .ok  { color:#2e7d32; font-weight:600; }
+    .run-summary .err { color:#c62828; font-weight:600; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Danh sách bảng cần đồng bộ</h1>
+    {% if message %}<div class="msg {{ message_type }}">{{ message }}</div>{% endif %}
+
+    <div class="search-bar">
+      <input type="text" id="searchJob" placeholder="&#128269; Tìm theo tên job..." autocomplete="off">
+      <span class="search-count" id="searchCount"></span>
+    </div>
+
+    <form method="post" action="{{ url_for('jobs_run') }}" id="mainForm">
+      <div class="toolbar">
+        <a href="{{ url_for('job_new_page') }}" class="btn btn-primary">+ Thêm bảng mới</a>
+        <button type="button" class="btn btn-success" onclick="doRun()">&#9654; Chạy đã chọn</button>
+        <span id="selCount" style="font-size:13px;color:#1565c0;font-weight:600;margin-left:4px;"></span>
+        <span style="flex:1;"></span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px;text-align:center;">
+              <input type="checkbox" id="checkAll" title="Chọn tất cả">
+            </th>
+            <th style="width:40px;">ID</th>
+            <th style="width:160px;">Tên</th>
+            <th>Kết nối nguồn</th>
+            <th>Bảng nguồn</th>
+            <th>Kết nối đích</th>
+            <th>Bảng đích</th>
+            <th>Câu lệnh SQL</th>
+            <th style="width:36px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in rows %}
+          <tr data-edit-url="{{ url_for('man_hinh_them_moi', id=r.id) }}">
+            <td style="text-align:center;">
+              <input type="checkbox" name="stmt_ids" value="{{ r.id }}" class="row-check">
+            </td>
+            <td style="white-space:nowrap; vertical-align:middle;">{{ r.id }} <span style="color:#ddd;vertical-align:middle;">|</span> <a href="{{ url_for('job_history', stmt_id=r.id) }}" class="his-icon" title="Lịch sử chạy" onclick="event.stopPropagation()">&#128336;</a></td>
+            <td>
+              <a href="{{ url_for('man_hinh_them_moi', id=r.id) }}" class="name-edit-link"
+                 title="Mở màn hình mapping">{{ r.name or '—' }}</a>
+            </td>
+            <td>{{ r.source_connection_name or '—' }}</td>
+            <td>{{ r.source_table or '—' }}</td>
+            <td>{{ r.target_connection_name or '—' }}</td>
+            <td>{{ r.target_table or '—' }}</td>
+            <td>
+              {% if r.sql_text %}
+              <div class="sql-wrap">
+                <span class="sql-preview" title="{{ r.sql_text | e }}">{{ r.sql_text }}</span>
+                <textarea class="sql-copy-source" readonly aria-hidden="true">{{ r.sql_text }}</textarea>
+                <button type="button" class="btn-copy-sql" onclick="copySql(this)">Copy</button>
+              </div>
+              {% else %}
+                <span class="sql-empty">— chưa có câu lệnh</span>
+              {% endif %}
+            </td>
+            <td style="text-align:center;vertical-align:middle;">
+              <button type="button" class="btn-row-del"
+                data-url="{{ url_for('statement_delete', stmt_id=r.id) }}"
+                data-name="{{ r.name or r.id }}"
+                onclick="doRowDelete(this)" title="Xóa dòng này">&#128465;</button>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="9">Chưa có bảng nào. Chọn "Thêm bảng mới" trong menu.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+    </form>
+  </main>
+
+  <!-- Dialog chọn số luồng trước khi chạy -->
+  <div id="runCfgOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+       z-index:9998;background:rgba(0,0,0,.5);">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                background:#fff;border-radius:10px;box-sizing:border-box;
+                padding:24px;width:340px;max-width:calc(100vw - 32px);
+                box-shadow:0 8px 40px rgba(0,0,0,.3);">
+      <div style="font-size:15px;font-weight:700;color:#1a237e;margin-bottom:14px;">&#9654; Cấu hình chạy</div>
+      <div style="font-size:13px;color:#555;margin-bottom:14px;">
+        Số job đã chọn: <strong id="cfgJobCount"></strong>
+      </div>
+      <div style="font-size:13px;color:#444;font-weight:600;margin-bottom:10px;">Số luồng song song:</div>
+      <div style="display:flex;gap:8px;margin-bottom:20px;">
+        <label style="flex:1;min-width:0;cursor:pointer;">
+          <input type="radio" name="workerCount" value="1" style="display:none;">
+          <span class="worker-opt">1</span>
+        </label>
+        <label style="flex:1;min-width:0;cursor:pointer;">
+          <input type="radio" name="workerCount" value="2" style="display:none;">
+          <span class="worker-opt">2</span>
+        </label>
+        <label style="flex:1;min-width:0;cursor:pointer;">
+          <input type="radio" name="workerCount" value="3" style="display:none;">
+          <span class="worker-opt">3</span>
+        </label>
+        <label style="flex:1;min-width:0;cursor:pointer;">
+          <input type="radio" name="workerCount" value="4" checked style="display:none;">
+          <span class="worker-opt">4</span>
+        </label>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button type="button" class="btn"
+                style="background:#f5f5f5;color:#555;border:1px solid #ddd;"
+                onclick="closeCfg()">Hủy</button>
+        <button type="button" class="btn btn-success"
+                onclick="confirmRun()">&#9654; Chạy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal tiến độ chạy job -->
+  <div class="run-overlay" id="runOverlay">
+    <div class="run-modal">
+      <h3>&#9654; Đang chạy job... <span id="runWorkersBadge" style="font-size:12px;font-weight:400;color:#888;margin-left:6px;"></span></h3>
+      <div class="run-progress-bar-wrap">
+        <div class="run-progress-bar" id="runProgressBar"></div>
+      </div>
+      <div class="run-status-text" id="runStatusText">Đang chuẩn bị...</div>
+      <div class="run-log" id="runLog">
+        <div class="run-log-row" style="color:#aaa;font-family:sans-serif;">
+          <span></span><span>Tên job</span><span style="text-align:center;">Trạng thái</span>
+          <span style="text-align:right;">Xóa</span><span style="text-align:right;">Chèn</span>
+        </div>
+      </div>
+      <div class="run-footer">
+        <div class="run-summary" id="runSummary"></div>
+        <div style="display:flex;gap:8px;">
+          <button type="button" class="btn btn-danger"  id="btnStopRun"
+                  onclick="stopRun()">&#9632; Dừng</button>
+          <button type="button" class="btn btn-success" id="btnReRun"
+                  style="display:none;" onclick="reRun()">&#9654; Chạy tiếp</button>
+          <button type="button" class="btn btn-primary" id="btnCloseRun"
+                  style="display:none;" onclick="closeRunModal()">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const RUN_URL    = "{{ url_for('jobs_run') }}";
+    const DELETE_URL = "{{ url_for('jobs_delete_bulk') }}";
+
+    // --- Phân trang ---
+    const PAGE_SIZE   = 20;
+    const allRows     = Array.from(document.querySelectorAll('tbody tr[data-edit-url]'));
+    const searchInput = document.getElementById('searchJob');
+    const searchCount = document.getElementById('searchCount');
+    const pgEl        = document.getElementById('pagination');
+    let currentPage   = 1;
+    let filteredRows  = allRows.slice(); // danh sách sau khi lọc
+
+    function applyPage() {
+      const total = filteredRows.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end   = start + PAGE_SIZE;
+
+      allRows.forEach(tr => tr.classList.add('row-hidden'));
+      filteredRows.forEach((tr, i) => {
+        tr.classList.toggle('row-hidden', i < start || i >= end);
+      });
+
+      renderPagination(totalPages, total);
+    }
+
+    function renderPagination(totalPages, total) {
+      pgEl.innerHTML = '';
+      if (totalPages <= 1 && total <= PAGE_SIZE) return;
+
+      function mkBtn(label, page, disabled, active) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = label;
+        if (active)   b.classList.add('active');
+        if (disabled) b.disabled = true;
+        b.addEventListener('click', function() {
+          currentPage = page;
+          sessionStorage.setItem('jobPage', page);
+          applyPage();
+        });
+        return b;
+      }
+
+      pgEl.appendChild(mkBtn('«', 1, currentPage === 1));
+      pgEl.appendChild(mkBtn('‹', currentPage - 1, currentPage === 1));
+
+      // Hiển thị tối đa 7 nút trang
+      let startP = Math.max(1, currentPage - 3);
+      let endP   = Math.min(totalPages, startP + 6);
+      if (endP - startP < 6) startP = Math.max(1, endP - 6);
+
+      for (let p = startP; p <= endP; p++) {
+        pgEl.appendChild(mkBtn(p, p, false, p === currentPage));
+      }
+
+      pgEl.appendChild(mkBtn('›', currentPage + 1, currentPage === totalPages));
+      pgEl.appendChild(mkBtn('»', totalPages, currentPage === totalPages));
+
+      const info = document.createElement('span');
+      info.className = 'pg-info';
+      const start = (currentPage - 1) * PAGE_SIZE + 1;
+      const end   = Math.min(currentPage * PAGE_SIZE, total);
+      info.textContent = `${start}–${end} / ${total} job`;
+      pgEl.appendChild(info);
+    }
+
+    // --- Tìm kiếm ---
+    function applySearch(kw) {
+      filteredRows = kw
+        ? allRows.filter(tr => (tr.querySelector('.name-edit-link')?.textContent || '').toLowerCase().includes(kw))
+        : allRows.slice();
+      searchCount.textContent = kw ? `${filteredRows.length} / ${allRows.length} job` : '';
+    }
+
+    searchInput.addEventListener('input', function() {
+      const kw = this.value.trim().toLowerCase();
+      applySearch(kw);
+      sessionStorage.setItem('jobSearch', this.value.trim());
+      currentPage = 1;
+      sessionStorage.setItem('jobPage', '1');
+      applyPage();
+      updateSelCount();
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { this.value = ''; this.dispatchEvent(new Event('input')); }
+    });
+
+    // Khôi phục filter + trang từ sessionStorage (khi quay lại từ trang chi tiết)
+    const _savedQ    = sessionStorage.getItem('jobSearch') || '';
+    const _savedPage = parseInt(sessionStorage.getItem('jobPage')) || 1;
+    if (_savedQ) {
+      searchInput.value = _savedQ;
+      applySearch(_savedQ.toLowerCase());
+    }
+    currentPage = _savedPage;
+    applyPage();
+
+    const checkAllEl   = document.getElementById('checkAll');
+    const selCountEl   = document.getElementById('selCount');
+
+    function updateSelCount() {
+      const n = document.querySelectorAll('.row-check:checked').length;
+      selCountEl.textContent = n > 0 ? `Đã chọn: ${n}` : '';
+      // Đồng bộ trạng thái checkbox header
+      const total = filteredRows.length;
+      const checkedInFiltered = filteredRows.filter(tr => tr.querySelector('.row-check').checked).length;
+      checkAllEl.indeterminate = checkedInFiltered > 0 && checkedInFiltered < total;
+      checkAllEl.checked = total > 0 && checkedInFiltered === total;
+    }
+
+    // checkAll: chọn/bỏ TẤT CẢ các dòng trong filteredRows (toàn bộ phân trang)
+    checkAllEl.addEventListener('change', function() {
+      filteredRows.forEach(tr => { tr.querySelector('.row-check').checked = this.checked; });
+      updateSelCount();
+    });
+
+    // Cập nhật count khi click từng checkbox
+    document.querySelector('tbody').addEventListener('change', function(e) {
+      if (e.target.classList.contains('row-check')) updateSelCount();
+    });
+
+    function copySql(btn) {
+      const wrap = btn.closest('.sql-wrap');
+      const ta = wrap ? wrap.querySelector('.sql-copy-source') : null;
+      const sql = ta ? ta.value : (btn.dataset.sql || '');
+      if (!sql) { alert('Không có nội dung để copy.'); return; }
+      function onOk() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(sql).then(onOk).catch(function() {
+          fallbackCopy(sql, onOk);
+        });
+      } else {
+        fallbackCopy(sql, onOk);
+      }
+    }
+    function fallbackCopy(sql, onOk) {
+      const temp = document.createElement('textarea');
+      temp.value = sql;
+      temp.style.position = 'fixed';
+      temp.style.left = '0';
+      temp.style.top = '0';
+      temp.style.opacity = '0';
+      temp.style.width = '2em';
+      temp.style.height = '2em';
+      document.body.appendChild(temp);
+      temp.focus();
+      temp.select();
+      try {
+        document.execCommand('copy');
+        onOk();
+      } catch (e) {
+        alert('Copy thất bại. Vui lòng chọn và copy thủ công.');
+      }
+      document.body.removeChild(temp);
+    }
+
+    function getChecked() {
+      return Array.from(document.querySelectorAll('.row-check:checked'));
+    }
+
+
+    function doRowDelete(btn) {
+      const name = btn.dataset.name;
+      if (!confirm(`Xóa job "${name}"? Thao tác không thể hoàn tác.`)) return;
+      const f = document.getElementById('mainForm');
+      f.action = btn.dataset.url;
+      f.method = 'post';
+      f.submit();
+    }
+
+    function doDelete() {
+      const checked = getChecked();
+      if (checked.length === 0) { alert('Vui lòng chọn 1 job để xóa.'); return; }
+      if (checked.length > 1)   { alert('Chỉ được xóa 1 job mỗi lần. Vui lòng bỏ chọn bớt.'); return; }
+      if (!confirm('Xóa job này? Thao tác không thể hoàn tác.')) return;
+      const f = document.getElementById('mainForm');
+      f.action = DELETE_URL;
+      f.submit();
+    }
+
+    function closeCfg() {
+      document.getElementById('runCfgOverlay').style.display = 'none';
+    }
+
+    function doRun() {
+      const checked = getChecked();
+      if (checked.length === 0) { alert('Vui lòng chọn ít nhất 1 job để chạy.'); return; }
+      document.getElementById('cfgJobCount').textContent = checked.length + ' job';
+      document.getElementById('runCfgOverlay').style.display = 'flex';
+    }
+
+    function confirmRun() {
+      closeCfg();
+      const checked = getChecked();
+      const ids     = checked.map(cb => cb.value).join(',');
+      const workers = document.querySelector('input[name=workerCount]:checked')?.value || 4;
+      openRunModal(ids, parseInt(workers));
+    }
+
+    let currentEs    = null;
+    let currentRunId = null;
+    let lastRunIds   = null;
+    let lastWorkers  = 4;
+    let doneIds      = new Set();
+
+    function reRun() {
+      if (!lastRunIds) return;
+      const remaining = lastRunIds.split(',').filter(id => !doneIds.has(id)).join(',');
+      if (!remaining) { alert('Tất cả job đã được xử lý rồi.'); return; }
+      openRunModal(remaining, lastWorkers);
+    }
+
+    function stopRun() {
+      const btnStop   = document.getElementById('btnStopRun');
+      const statusTxt = document.getElementById('runStatusText');
+      btnStop.disabled = true;
+      statusTxt.textContent = '⏳ Đang gửi lệnh dừng tới server...';
+
+      // Gọi server cancel Oracle connection đang blocking
+      if (currentRunId) {
+        fetch('/api/jobs/stop/' + currentRunId, { method: 'POST' })
+          .catch(function() {});
+      }
+      // Đóng SSE phía client
+      if (currentEs) {
+        currentEs.close();
+        currentEs = null;
+      }
+      _onStopped();
+    }
+
+    function _onStopped() {
+      const statusTxt = document.getElementById('runStatusText');
+      const btnClose  = document.getElementById('btnCloseRun');
+      const btnStop   = document.getElementById('btnStopRun');
+      const summary   = document.getElementById('runSummary');
+      statusTxt.textContent = '⛔ Đã dừng bởi người dùng.';
+      btnStop.style.display = 'none';
+      const btnReRun = document.getElementById('btnReRun');
+      const remaining = lastRunIds ? lastRunIds.split(',').filter(id => !doneIds.has(id)).length : 0;
+      btnReRun.textContent = remaining > 0 ? `▶ Chạy tiếp (${remaining} job)` : '▶ Chạy tiếp';
+      btnReRun.style.display = remaining > 0 ? 'inline-block' : 'none';
+      btnClose.style.display = 'inline-block';
+      document.querySelectorAll('.r-st.spin').forEach(function(el) {
+        el.textContent = '⛔';
+        el.classList.remove('spin');
+        el.classList.add('err');
+        el.closest('.run-log-row').className = 'run-log-row error';
+      });
+      const ok  = document.querySelectorAll('.run-log-row.success').length;
+      const err = document.querySelectorAll('.run-log-row.error').length;
+      summary.innerHTML = `Đã dừng — <span class="ok">${ok} thành công</span>`
+        + (err ? ` &nbsp;|&nbsp; <span class="err">${err} lỗi/dừng</span>` : '');
+    }
+
+    function openRunModal(ids, workers) {
+      workers = workers || 4;
+      const overlay   = document.getElementById('runOverlay');
+      const bar       = document.getElementById('runProgressBar');
+      const statusTxt = document.getElementById('runStatusText');
+      const log       = document.getElementById('runLog');
+      const summary   = document.getElementById('runSummary');
+      const btnClose  = document.getElementById('btnCloseRun');
+      const btnStop   = document.getElementById('btnStopRun');
+
+      bar.style.width = '0%';
+      statusTxt.textContent = 'Đang kết nối...';
+      log.innerHTML = '<div class="run-log-row" style="color:#aaa;font-family:sans-serif;grid-template-columns:28px 1fr 90px 80px 80px">'
+        + '<span></span><span>Tên job</span><span style="text-align:center;">Trạng thái</span>'
+        + '<span style="text-align:right;">Xóa</span><span style="text-align:right;">Chèn</span></div>';
+      summary.innerHTML = '';
+      btnClose.style.display = 'none';
+      btnStop.disabled = false;
+      btnStop.style.display = 'inline-block';
+      overlay.classList.add('show');
+
+      let cntOk = 0, cntErr = 0;
+      const rowMap = {};
+
+      lastRunIds  = ids;
+      lastWorkers = workers;
+      doneIds     = new Set();
+      document.getElementById('btnReRun').style.display = 'none';
+      if (currentEs) { currentEs.close(); }
+      const es = new EventSource('/api/jobs/run-stream?ids=' + encodeURIComponent(ids)
+                                 + '&workers=' + workers);
+      currentEs   = es;
+      currentRunId = null;
+
+      let completedCnt = 0, totalCnt = 0;
+
+      es.onmessage = function(ev) {
+        const d = JSON.parse(ev.data);
+
+        if (d.type === 'started') {
+          currentRunId = d.run_id;
+          completedCnt = 0; totalCnt = 0;
+          document.getElementById('runWorkersBadge').textContent =
+            `(${d.workers} luồng song song)`;
+        }
+
+        else if (d.type === 'running') {
+          if (!totalCnt) totalCnt = d.total;
+          const spinning = document.querySelectorAll('.r-st.spin').length;
+          statusTxt.textContent =
+            `${completedCnt}/${totalCnt} hoàn tất — ${spinning + 1} luồng đang chạy`;
+          const row = document.createElement('div');
+          row.className = 'run-log-row running';
+          row.innerHTML = `<span class="r-idx">${d.index}</span>`
+            + `<span class="r-name" title="${esc(d.name)}">${esc(d.name)}</span>`
+            + `<span class="r-st spin">⏳</span>`
+            + `<span class="r-num">—</span><span class="r-num">—</span>`;
+          log.appendChild(row);
+          log.scrollTop = log.scrollHeight;
+          rowMap[d.id] = row;
+        }
+
+        else if (d.type === 'chunk') {
+          const row = rowMap[d.id];
+          if (row && d.mode === 'append') {
+            const stEl = row.querySelector('.r-st');
+            if (stEl) stEl.textContent = '⚡';
+            const nm = row.querySelector('.r-name');
+            if (nm) nm.title = `Direct-path INSERT (APPEND) — ${d.total_rows.toLocaleString()} dòng`;
+          }
+        }
+
+        else if (d.type === 'progress') {
+          completedCnt++;
+          if (!totalCnt) totalCnt = d.total;
+          bar.style.width = (completedCnt / totalCnt * 100).toFixed(1) + '%';
+          const spinning = document.querySelectorAll('.r-st.spin').length - 1;
+          statusTxt.textContent = `${completedCnt}/${totalCnt} hoàn tất`
+            + (spinning > 0 ? ` — ${spinning} luồng đang chạy` : '');
+          doneIds.add(String(d.id));
+          const row = rowMap[d.id];
+          if (row) {
+            if (d.status === 'success') {
+              cntOk++;
+              row.className = 'run-log-row success';
+              row.innerHTML = `<span class="r-idx">${d.index}</span>`
+                + `<span class="r-name" title="${esc(d.name)}">${esc(d.name)}</span>`
+                + `<span class="r-st ok">✓</span>`
+                + `<span class="r-num">${d.delete_rows ?? '—'}</span>`
+                + `<span class="r-num">${d.insert_rows ?? '—'}</span>`;
+            } else {
+              cntErr++;
+              row.className = 'run-log-row error';
+              row.innerHTML = `<span class="r-idx">${d.index}</span>`
+                + `<span class="r-name" title="${esc(d.name)}">${esc(d.name)}</span>`
+                + `<span class="r-st err">✗</span>`
+                + `<span class="r-num">—</span><span class="r-num">—</span>`
+                + `<span class="r-msg">${esc(d.message)}</span>`;
+            }
+            log.scrollTop = log.scrollHeight;
+          }
+        }
+
+        else if (d.type === 'stopped') {
+          es.close(); currentEs = null;
+          _onStopped();
+        }
+
+        else if (d.type === 'done') {
+          es.close(); currentEs = null;
+          bar.style.width = '100%';
+          statusTxt.textContent = 'Hoàn tất!';
+          summary.innerHTML = `Kết quả: <span class="ok">${cntOk} thành công</span>`
+            + (cntErr ? ` &nbsp;|&nbsp; <span class="err">${cntErr} lỗi</span>` : '');
+          btnStop.style.display = 'none';
+          document.getElementById('btnReRun').style.display = 'inline-block';
+          btnClose.style.display = 'inline-block';
+        }
+
+        else if (d.type === 'error') {
+          es.close(); currentEs = null;
+          statusTxt.textContent = 'Lỗi: ' + d.message;
+          btnStop.style.display = 'none';
+          document.getElementById('btnReRun').style.display = 'inline-block';
+          btnClose.style.display = 'inline-block';
+        }
+      };
+
+      es.onerror = function() {
+        if (!currentEs) return;
+        es.close(); currentEs = null;
+        statusTxt.textContent = 'Mất kết nối đến server.';
+        btnStop.style.display = 'none';
+        btnClose.style.display = 'inline-block';
+      };
+    }
+
+    function closeRunModal() {
+      document.getElementById('runOverlay').classList.remove('show');
+    }
+
+    function esc(s) {
+      return (s + '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+  </script>
+</body>
+</html>

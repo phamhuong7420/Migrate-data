@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thống kê bảng chạy thành công</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .stats-count  { display:inline-block; background:#e8f5e9; color:#2e7d32;
+                   font-size:13px; font-weight:600; padding:3px 12px;
+                   border-radius:12px; margin-left:10px; vertical-align:middle; }
+    .stats-table  { width:100%; border-collapse:collapse; font-size:13px; }
+    .stats-table th { background:#fafafa; border-bottom:2px solid #eee;
+                     padding:10px 12px; text-align:left; font-weight:600; color:#444; }
+    .stats-table td { padding:9px 12px; border-bottom:1px solid #f3f3f3; vertical-align:top; }
+    .stats-table tr:hover td { background:#f8fff8; }
+    .badge-ok   { display:inline-block; background:#e8f5e9; color:#2e7d32;
+                  border-radius:3px; padding:1px 7px; font-size:11px; font-weight:700; }
+    .link-job   { color:#1565c0; font-weight:500; text-decoration:none; }
+    .link-job:hover { text-decoration:underline; }
+    .run-at     { color:#888; font-size:12px; white-space:nowrap; }
+    .insert-num { font-weight:600; color:#2e7d32; }
+    .empty-note { color:#aaa; font-style:italic; text-align:center; padding:32px; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#2e7d32; box-shadow:0 0 0 2px rgba(46,125,50,.15); }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>
+      Thống kê bảng chạy thành công
+      <span class="stats-count">{{ rows | length }} bảng</span>
+    </h1>
+    <p style="font-size:13px;color:#888;margin:-4px 0 14px;">
+      Danh sách các bảng chạy thành công và số dòng insert (lần chạy gần nhất).
+    </p>
+
+    <div class="search-bar">
+      <input type="text" id="searchStats" placeholder="&#128269; Tìm theo tên job / bảng..." autocomplete="off">
+      <span id="searchStatsCount" style="font-size:12px;color:#888;"></span>
+    </div>
+
+    {% if rows %}
+    <table class="stats-table" id="statsTable">
+      <thead>
+        <tr>
+          <th style="width:36px;">ID</th>
+          <th style="width:200px;">Tên job</th>
+          <th>Bảng đích</th>
+          <th style="width:100px;text-align:right;">Số dòng insert</th>
+          <th style="width:140px;">Thời gian chạy</th>
+          <th style="width:80px;text-align:center;">Trạng thái</th>
+          <th style="width:80px;text-align:center;">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr data-name="{{ (r.job_name or '') | lower }}" data-table="{{ (r.target_table or '') | lower }}">
+          <td style="color:#aaa;text-align:center;">{{ r.stmt_id }}</td>
+          <td>
+            <a href="{{ url_for('job_history', stmt_id=r.stmt_id) }}" class="link-job"
+               title="Xem lịch sử chạy">{{ r.job_name or '—' }}</a>
+          </td>
+          <td>{{ r.target_table or '—' }}</td>
+          <td style="text-align:right;">
+            <span class="insert-num">{% if r.insert_rows is not none %}{{ r.insert_rows }}{% else %}—{% endif %}</span>
+          </td>
+          <td class="run-at">{{ r.run_at }}</td>
+          <td style="text-align:center;">
+            <span class="badge-ok">&#10003; Thành công</span>
+          </td>
+          <td style="text-align:center;">
+            <a href="{{ url_for('job_history', stmt_id=r.stmt_id) }}" class="link-job" style="font-size:12px;">Lịch sử</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">Chưa có bảng nào chạy thành công.</p>
+    {% endif %}
+  </main>
+
+  <script>
+    const inp   = document.getElementById('searchStats');
+    const cntEl = document.getElementById('searchStatsCount');
+    const rows  = Array.from(document.querySelectorAll('#statsTable tbody tr'));
+
+    inp && inp.addEventListener('input', function() {
+      const kw = this.value.trim().toLowerCase();
+      let vis = 0;
+      rows.forEach(function(tr) {
+        const match = !kw
+          || tr.dataset.name.includes(kw)
+          || tr.dataset.table.includes(kw);
+        tr.style.display = match ? '' : 'none';
+        if (match) vis++;
+      });
+      cntEl.textContent = kw ? `${vis} / ${rows.length} bảng` : '';
+    });
+
+    inp && inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { this.value = ''; this.dispatchEvent(new Event('input')); }
+    });
+  </script>
+</body>
+</html>

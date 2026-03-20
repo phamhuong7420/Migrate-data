@@ -1,0 +1,88 @@
+-- New script in ORCL.
+-- Date: Mar 17, 2026
+-- Time: 5:35:11 PM
+TRUNCATE TABLE QLPN.TRON_TRAIS;
+
+INSERT INTO QLPN.TRON_TRAIS (
+    NGAY_TRON,
+    TRUONG_HOP_TRON_ID,
+    NOI_TRON,
+    SO_TRUY_NA,
+    NGAY_TRUY_NA,
+    NGAY_BAT_LAI,
+    DONVI_BAT_LAI,
+    NOI_BAT_LAI,
+    QUYET_DINH_TRUY_NA,
+    NGAY_DINH_NA,
+    PHAM_NHAN_ID,
+    CREATION_TIME,
+    CREATOR_USER_ID,
+    LAST_MODIFICATION_TIME,
+    LAST_MODIFIER_USER_ID,
+    IS_DELETED,
+    DELETER_USER_ID,
+    DELETION_TIME,
+    TINH_TRANG_ID,
+    HINH_THUC_XU_LY_ID,
+    TRUONG_HOP_BAT_LAI_ID
+)
+SELECT
+    CAST(tt.NGAY_TRON AS TIMESTAMP),
+
+    /* MA_TH_TRON → TRUONG_HOP_TRON_ID */
+    dmtht.ID,
+
+    tt.NOI_TRON,
+
+    /* SO_QD_TN → số truy nã */
+    tt.SO_QD_TN,
+
+    /* NGAY_QD_TN → ngày truy nã */
+    CAST(tt.NGAY_QD_TN AS TIMESTAMP),
+
+    CAST(tt.NGAY_BAT_LAI AS TIMESTAMP),
+
+    tt.DON_VI_BAT,
+    tt.NOI_BAT_LAI,
+
+    /* SO_QD_DN → quyết định đình nã */
+    tt.SO_QD_DN,
+
+    /* NGAY_QD_DN → ngày đình nã */
+    CAST(tt.NGAY_QD_DN AS TIMESTAMP),
+
+    pll2.ID,
+
+    /* Audit */
+    SYSTIMESTAMP,
+    NULL,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL,
+
+    /* MA_TINH_TRANG_TRON */
+    dmttt.id,
+
+    /* MA_HTXL_BAT */
+    dmhtxl.id,
+
+    /* MA_TH_BAT */
+    thb.id
+
+FROM QLPN_OLD.PN_TT_TRON_TRAI tt
+
+LEFT JOIN QLPN_OLD.PN_LAI_LICH pll
+    ON pll.PN_ID = tt.PN_ID
+
+LEFT JOIN QLPN.PN_LAI_LICHS pll2
+    ON pll2.LL_SO_HO_SO_LAN_DAU = pll.SO_HSLD
+LEFT JOIN QLPN.DM_TRUONG_HOP_TRONS dmtht
+	ON dmtht.THT_MA = tt.MA_TH_TRON
+LEFT JOIN QLPN.DM_TINH_TRANG_TRONS dmttt
+	ON dmttt.TTT_MA = tt.MA_TINH_TRANG_TRON
+LEFT JOIN QLPN.DM_HINH_THUC_XU_LY_BATS dmhtxl
+	ON dmhtxl.HTXLB_MA = tt.MA_HTXL_BAT
+LEFT JOIN QLPN.DM_TRUONG_HOP_BATS thb
+	ON thb.THB_MA = tt.MA_TH_BAT;

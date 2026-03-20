@@ -1,0 +1,8 @@
+1. copy file scripts to container
+docker cp ./scripts/. oracle-sync-app:/app/scripts/
+
+
+#### Bước 1 — Build image
+docker compose build
+#### Bước 2 — Khởi động container
+docker compose up -d

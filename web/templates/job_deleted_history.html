@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lịch sử câu lệnh DELETE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .del-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .del-table th { background:#fafafa; border-bottom:2px solid #eee;
+                    padding:10px 12px; text-align:left; font-weight:600; color:#444; }
+    .del-table td { padding:9px 12px; border-bottom:1px solid #f3f3f3; vertical-align:top; }
+    .del-table tr:hover td { background:#fafafa; }
+    .run-at { color:#888; font-size:12px; white-space:nowrap; }
+    .sql-preview { font-family:'Courier New',monospace; font-size:11px; color:#546e7a;
+                   max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .sql-wrap { display:inline-flex; align-items:center; gap:4px; max-width:300px; position:relative; }
+    .sql-copy-source { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none; }
+    .btn-copy-sql { flex-shrink:0; background:none; border:1px solid #ddd; border-radius:3px;
+                    padding:0 5px; font-size:10px; line-height:18px; color:#999; cursor:pointer; }
+    .btn-copy-sql:hover { background:#e3f2fd; border-color:#90caf9; color:#1565c0; }
+    .empty-note { color:#aaa; font-style:italic; text-align:center; padding:32px; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#1976d2; box-shadow:0 0 0 2px rgba(25,118,210,.15); }
+    .rows-num { font-weight:600; color:#1565c0; text-align:right; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Lịch sử câu lệnh DELETE</h1>
+    <p style="font-size:13px;color:#888;margin:-4px 0 14px;">
+      Các câu lệnh <code>DELETE FROM</code> đã thực thi khi chạy job đồng bộ. Lưu trong <code>scripts/job_delete_his.xml</code>.
+    </p>
+
+    <div class="search-bar">
+      <input type="text" id="searchDel" placeholder="&#128269; Tìm theo tên job / bảng / câu lệnh..." autocomplete="off">
+      <span id="searchDelCount" style="font-size:12px;color:#888;"></span>
+    </div>
+
+    {% if rows %}
+    <table class="del-table" id="delTable">
+      <thead>
+        <tr>
+          <th style="width:140px;">Thời gian</th>
+          <th style="width:50px;">ID</th>
+          <th style="width:140px;">Tên job</th>
+          <th>Kết nối đích</th>
+          <th>Bảng đích</th>
+          <th style="width:80px;text-align:right;">Số dòng xóa</th>
+          <th>Câu lệnh DELETE</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr data-search="{{ ((r.job_name or '') + ' ' + (r.target_table or '') + ' ' + (r.sql_delete or '')) | lower }}">
+          <td class="run-at">{{ r.run_at }}</td>
+          <td style="color:#aaa;text-align:center;">{{ r.stmt_id }}</td>
+          <td>{{ r.job_name or '—' }}</td>
+          <td>{{ r.target_connection_name or '—' }}</td>
+          <td>{{ r.target_table or '—' }}</td>
+          <td class="rows-num">{% if r.rows_deleted is not none %}{{ r.rows_deleted }}{% else %}—{% endif %}</td>
+          <td>
+            {% if r.sql_delete %}
+            <div class="sql-wrap">
+              <span class="sql-preview" title="{{ r.sql_delete | e }}">{{ r.sql_delete }}</span>
+              <textarea class="sql-copy-source" readonly aria-hidden="true">{{ r.sql_delete }}</textarea>
+              <button type="button" class="btn-copy-sql" onclick="copySql(this)">Copy</button>
+            </div>
+            {% else %}
+            <span style="color:#bbb;font-style:italic;">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">Chưa có câu lệnh DELETE nào được ghi nhận. Chạy job đồng bộ để tạo lịch sử.</p>
+    {% endif %}
+  </main>
+
+  <script>
+    function copySql(btn) {
+      var wrap = btn.closest('.sql-wrap');
+      var ta = wrap ? wrap.querySelector('.sql-copy-source') : null;
+      var sql = ta ? ta.value : '';
+      if (!sql) { alert('Không có nội dung để copy.'); return; }
+      function onOk() {
+        btn.textContent = 'Copied!';
+        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(sql).then(onOk).catch(function() {
+          var temp = document.createElement('textarea');
+          temp.value = sql;
+          temp.style.cssText = 'position:fixed;left:0;top:0;opacity:0';
+          document.body.appendChild(temp);
+          temp.select();
+          try { document.execCommand('copy'); onOk(); } catch(e) { alert('Copy thất bại.'); }
+          document.body.removeChild(temp);
+        });
+      } else {
+        var temp = document.createElement('textarea');
+        temp.value = sql;
+        temp.style.cssText = 'position:fixed;left:0;top:0;opacity:0';
+        document.body.appendChild(temp);
+        temp.select();
+        try { document.execCommand('copy'); onOk(); } catch(e) { alert('Copy thất bại.'); }
+        document.body.removeChild(temp);
+      }
+    }
+
+    var inp = document.getElementById('searchDel');
+    var cntEl = document.getElementById('searchDelCount');
+    var rows = document.querySelectorAll('#delTable tbody tr');
+    if (inp && rows.length) {
+      inp.addEventListener('input', function() {
+        var kw = this.value.trim().toLowerCase();
+        var vis = 0;
+        rows.forEach(function(tr) {
+          var match = !kw || (tr.dataset.search || '').includes(kw);
+          tr.style.display = match ? '' : 'none';
+          if (match) vis++;
+        });
+        cntEl.textContent = kw ? vis + ' / ' + rows.length + ' bản ghi' : '';
+      });
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { this.value = ''; this.dispatchEvent(new Event('input')); }
+      });
+    }
+  </script>
+</body>
+</html>

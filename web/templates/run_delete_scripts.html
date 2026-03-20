@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chạy script xóa (JOB_DELETE)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .scripts-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
+    .scripts-table td, .scripts-table th { vertical-align:middle; }
+    .row-conn-select { padding:6px 10px; border:1px solid #ccc; border-radius:4px; font-size:13px; width:100%; max-width:220px; }
+    .scripts-empty { font-size:13px; color:#888; font-style:italic; }
+    .scripts-running-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);
+      z-index:9999; align-items:center; justify-content:center; }
+    .scripts-running-overlay.show { display:flex; }
+    .scripts-running-box { background:#fff; padding:18px 22px; border-radius:10px;
+      box-shadow:0 6px 24px rgba(0,0,0,.25); font-size:14px; color:#333;
+      display:flex; align-items:center; gap:10px; }
+    .scripts-spinner { width:20px; height:20px; border-radius:50%;
+      border:3px solid #e0e0e0; border-top-color:#e53935;
+      animation:scripts-spin .8s linear infinite; }
+    @keyframes scripts-spin { to { transform:rotate(360deg); } }
+    .script-name-link { color:#1565c0; font-weight:500; cursor:pointer; text-decoration:none; }
+    .script-name-link:hover { text-decoration:underline; color:#0d47a1; }
+    .edit-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:10000;
+                  align-items:center; justify-content:center; }
+    .edit-modal.show { display:flex; }
+    .edit-modal-box { background:#fff; border-radius:10px; padding:20px; width:90%; max-width:720px;
+                     max-height:85vh; display:flex; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,.3); }
+    .edit-modal-box h3 { margin:0 0 12px 0; font-size:15px; color:#1a237e; }
+    .edit-modal-textarea { flex:1; min-height:280px; font-family:'Courier New',monospace; font-size:13px;
+                           padding:10px; border:1px solid #ccc; border-radius:6px; resize:vertical; }
+    .edit-modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+    .edit-modal-label { font-size:13px; font-weight:600; color:#444; margin-bottom:6px; display:block; }
+    .btn-script-del { background:none; border:none; color:#bbb; font-size:16px; cursor:pointer;
+                     padding:4px 6px; border-radius:4px; line-height:1; }
+    .btn-script-del:hover { color:#e53935; background:#ffebee; }
+    .script-note-cell { color:#1565c0; cursor:pointer; font-size:12px; max-width:180px;
+                       overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .script-note-cell:hover { text-decoration:underline; color:#0d47a1; }
+    .script-note-cell.empty { color:#999; font-style:italic; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#e53935; box-shadow:0 0 0 2px rgba(229,57,53,.15); }
+    .search-count { font-size:12px; color:#888; }
+    tr.script-row-hidden { display:none; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Chạy script xóa (JOB_DELETE)</h1>
+    {% if message %}<div class="msg {{ message_type }}">{{ message }}</div>{% endif %}
+
+    <div class="scripts-header">
+      <div style="font-size:12px;color:#777;">
+        Danh sách script: <code>scripts/sql/JOB_DELETE_*.sql</code>
+      </div>
+    </div>
+
+    {% if scripts %}
+    <div class="search-bar">
+      <input type="text" id="searchScript" placeholder="&#128269; Tìm theo tên file..." autocomplete="off">
+      <span class="search-count" id="searchScriptCount"></span>
+    </div>
+    {% endif %}
+
+    <div class="toolbar" style="margin-bottom:10px;">
+      {% if scripts %}
+      <button type="button" class="btn btn-success" onclick="runSelectedScripts()">&#9654; Chạy đã chọn</button>
+      <span id="selCount" style="font-size:13px;color:#1565c0;font-weight:600;margin-left:8px;"></span>
+      {% endif %}
+    </div>
+
+    {% if not scripts %}
+      <p class="scripts-empty">Chưa tìm thấy file <code>JOB_DELETE_*.sql</code> nào trong thư mục <code>scripts/sql/</code>.</p>
+    {% else %}
+      <table class="scripts-table">
+        <thead>
+          <tr>
+            <th style="width:36px;text-align:center;">
+              <input type="checkbox" id="checkAllScripts" title="Chọn tất cả">
+            </th>
+            <th style="width:40px;">#</th>
+            <th style="width:1%; white-space:nowrap;">Tên file</th>
+            <th style="width:180px;">Note</th>
+            <th style="width:100px;text-align:right;">Kích thước (byte)</th>
+            <th style="width:220px;">Kết nối thực thi</th>
+            <th style="width:40px;text-align:center;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in scripts %}
+          <tr data-filename="{{ s.name }}">
+            <td style="text-align:center;">
+              <input type="checkbox" class="script-row-check" value="{{ s.name }}">
+            </td>
+            <td>{{ loop.index }}</td>
+            <td style="white-space:nowrap;"><a href="#" class="script-name-link" data-filename="{{ s.name | e }}" onclick="openEditModal(this.getAttribute('data-filename')); return false;">{{ s.name }}</a></td>
+            <td class="script-note-cell {{ 'empty' if not notes_map.get(s.name) }}" data-filename="{{ s.name | e }}" data-note="{{ (notes_map.get(s.name) or '') | e }}" onclick="openNoteModal(this)" title="{{ (notes_map.get(s.name) or 'Click để thêm/sửa note') | e }}">{{ (notes_map.get(s.name) or '— Thêm note —') | e }}</td>
+            <td style="text-align:right;">{{ s.size }}</td>
+            <td>
+              <select class="row-conn-select" data-filename="{{ s.name }}">
+                <option value="">-- Chọn kết nối --</option>
+                {% for c in connections %}
+                <option value="{{ c.id }}" {% if loop.first %}selected{% endif %}>{{ c.id }} - {{ c.name }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td style="text-align:center;">
+              <button type="button" class="btn-script-del" data-filename="{{ s.name | e }}" onclick="deleteScript(this.getAttribute('data-filename'))" title="Xóa file">&#128465;</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    <form id="runForm" method="post" action="{{ url_for('scripts_run') }}" style="display:none;" data-redirect-base="{{ url_for('scripts_run_delete_pn_lai_lichs') }}">
+      <input type="hidden" name="redirect" value="delete">
+      <div id="runFormInputs"></div>
+    </form>
+  </main>
+
+  <div class="edit-modal" id="noteModal">
+    <div class="edit-modal-box">
+      <h3 id="noteModalTitle">Note</h3>
+      <label class="edit-modal-label">Ghi chú cho file: <span id="noteModalFilename"></span></label>
+      <textarea class="edit-modal-textarea" id="noteModalTextarea" spellcheck="false" style="min-height:120px;"></textarea>
+      <div class="edit-modal-footer">
+        <button type="button" class="btn" style="background:#f5f5f5;color:#555;border:1px solid #ddd;" onclick="closeNoteModal()">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="saveNoteModal()">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit-modal" id="editModal">
+    <div class="edit-modal-box">
+      <h3 id="editModalTitle">Sửa script</h3>
+      <textarea class="edit-modal-textarea" id="editModalTextarea" spellcheck="false"></textarea>
+      <div class="edit-modal-footer">
+        <button type="button" class="btn" style="background:#f5f5f5;color:#555;border:1px solid #ddd;" onclick="closeEditModal()">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="saveEditModal()">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scripts-running-overlay" id="scriptsOverlay">
+    <div class="scripts-running-box" style="flex-direction:column;align-items:stretch;gap:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="scripts-spinner"></div>
+        <div>
+          <div style="font-weight:600;color:#1a237e;">Đang chạy script...</div>
+          <div id="scriptsOverlayText" style="font-size:13px;color:#555;margin-top:2px;"></div>
+        </div>
+      </div>
+      <button type="button" id="scriptsStopBtn" class="btn" style="background:#ffebee;color:#c62828;border:1px solid #ef9a9a;align-self:flex-end;">Dừng</button>
+    </div>
+  </div>
+
+  <script>
+    const checkAllEl = document.getElementById('checkAllScripts');
+    const selCountEl = document.getElementById('selCount');
+
+    function updateSelCount() {
+      if (!selCountEl) return;
+      const visibleRows = document.querySelectorAll('tbody tr[data-filename]:not(.script-row-hidden)');
+      const visibleChecks = visibleRows.length ? visibleRows.length : document.querySelectorAll('.script-row-check').length;
+      const checked = document.querySelectorAll('.script-row-check:checked').length;
+      selCountEl.textContent = checked > 0 ? 'Đã chọn: ' + checked : '';
+      if (checkAllEl) {
+        const total = visibleChecks;
+        const checkedInVisible = Array.from(visibleRows).filter(function(tr) { return tr.querySelector('.script-row-check')?.checked; }).length;
+        checkAllEl.indeterminate = checkedInVisible > 0 && checkedInVisible < total;
+        checkAllEl.checked = total > 0 && checkedInVisible === total;
+      }
+    }
+
+    if (checkAllEl) {
+      checkAllEl.addEventListener('change', function() {
+        document.querySelectorAll('tbody tr[data-filename]:not(.script-row-hidden) .script-row-check').forEach(function(cb) { cb.checked = this.checked; }, this);
+        updateSelCount();
+      });
+    }
+    document.querySelector('tbody')?.addEventListener('change', function(e) {
+      if (e.target.classList.contains('script-row-check')) updateSelCount();
+    });
+    updateSelCount();
+
+    const searchScriptEl = document.getElementById('searchScript');
+    const searchScriptCountEl = document.getElementById('searchScriptCount');
+    function applyScriptSearch(kw) {
+      if (!searchScriptCountEl) return;
+      const rows = document.querySelectorAll('tbody tr[data-filename]');
+      let visible = 0;
+      rows.forEach(function(tr) {
+        const name = (tr.getAttribute('data-filename') || '').toLowerCase();
+        const match = !kw || name.includes(kw);
+        tr.classList.toggle('script-row-hidden', !match);
+        if (match) visible++;
+      });
+      searchScriptCountEl.textContent = kw ? visible + ' / ' + rows.length + ' file' : '';
+      updateSelCount();
+    }
+    if (searchScriptEl) {
+      searchScriptEl.addEventListener('input', function() {
+        const kw = this.value.trim().toLowerCase();
+        sessionStorage.setItem('scriptDeleteSearch', this.value.trim());
+        applyScriptSearch(kw);
+      });
+      searchScriptEl.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { this.value = ''; sessionStorage.setItem('scriptDeleteSearch', ''); this.dispatchEvent(new Event('input')); }
+      });
+      var savedSearch = sessionStorage.getItem('scriptDeleteSearch') || '';
+      if (savedSearch) {
+        searchScriptEl.value = savedSearch;
+        applyScriptSearch(savedSearch.toLowerCase());
+      }
+    }
+
+    let scriptsRunStopped = false;
+    let currentScriptRunId = null;
+    function runSelectedScripts() {
+      const checked = document.querySelectorAll('.script-row-check:checked');
+      if (checked.length === 0) {
+        alert('Vui lòng chọn ít nhất 1 script để chạy.');
+        return;
+      }
+      const pairs = [];
+      checked.forEach(function(cb) {
+        const row = cb.closest('tr');
+        const connSel = row ? row.querySelector('.row-conn-select') : null;
+        const connId = connSel ? connSel.value : '';
+        if (!connId) {
+          alert('Script "' + cb.value + '" chưa chọn kết nối.');
+          return;
+        }
+        pairs.push({ name: cb.value, connId: connId });
+      });
+      if (pairs.length !== checked.length) return;
+      if (!confirm('Chạy ' + pairs.length + ' script đã chọn?')) return;
+      scriptsRunStopped = false;
+      currentScriptRunId = null;
+      showOverlay(1, pairs.length, pairs[0].name);
+      const stopBtn = document.getElementById('scriptsStopBtn');
+      if (stopBtn) stopBtn.onclick = function() {
+        scriptsRunStopped = true;
+        if (currentScriptRunId) {
+          fetch('/api/scripts/stop/' + currentScriptRunId, { method: 'POST' }).catch(function() {});
+        }
+      };
+      runScriptsSequential(pairs, 0);
+    }
+
+    function runScriptsSequential(pairs, index) {
+      if (scriptsRunStopped || index >= pairs.length) {
+        hideOverlay();
+        const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts/run-delete-pn-lai-lichs';
+        const total = pairs.length;
+        const ran = scriptsRunStopped ? index : total;
+        const msg = scriptsRunStopped ? 'Đã dừng. Chạy ' + ran + '/' + total + ' script.' : (total > 1 ? 'Đã chạy ' + total + ' script.' : 'Đã chạy script: ' + pairs[0].name);
+        window.location.href = base + '?message=' + encodeURIComponent(msg) + '&message_type=success';
+        return;
+      }
+      const p = pairs[index];
+      const run_id = 'script_' + Date.now() + '_' + index;
+      currentScriptRunId = run_id;
+      const fd = new FormData();
+      fd.append('filename', p.name);
+      fd.append('connection_id', p.connId);
+      fd.append('run_id', run_id);
+      fetch('/api/scripts/run-one', { method: 'POST', body: fd })
+        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+        .then(function(res) {
+          if (scriptsRunStopped) {
+            runScriptsSequential(pairs, pairs.length);
+            return;
+          }
+          if (!res.ok || !res.data || !res.data.run_id) {
+            hideOverlay();
+            const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts/run-delete-pn-lai-lichs';
+            window.location.href = base + '?message=' + encodeURIComponent('Lỗi khi chạy: ' + (res.data && res.data.error ? res.data.error : 'Không xác định')) + '&message_type=error';
+            return;
+          }
+          pollScriptStatus(run_id, pairs, index);
+        })
+        .catch(function(e) {
+          hideOverlay();
+          const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts/run-delete-pn-lai-lichs';
+          window.location.href = base + '?message=' + encodeURIComponent('Lỗi: ' + e.message) + '&message_type=error';
+        });
+    }
+
+    function pollScriptStatus(run_id, pairs, index) {
+      if (scriptsRunStopped) {
+        runScriptsSequential(pairs, pairs.length);
+        return;
+      }
+      fetch('/api/scripts/run-status/' + run_id)
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (scriptsRunStopped) {
+            runScriptsSequential(pairs, pairs.length);
+            return;
+          }
+          if (d.status === 'running') {
+            setTimeout(function() { pollScriptStatus(run_id, pairs, index); }, 200);
+            return;
+          }
+          if (d.status === 'error' && d.result) {
+            hideOverlay();
+            const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts/run-delete-pn-lai-lichs';
+            window.location.href = base + '?message=' + encodeURIComponent('Lỗi khi chạy ' + (d.result.filename || '') + ': ' + (d.result.error || '')) + '&message_type=error';
+            return;
+          }
+          updateOverlayProgress(index + 1, pairs.length, index + 1 < pairs.length ? pairs[index + 1].name : '');
+          runScriptsSequential(pairs, index + 1);
+        })
+        .catch(function(e) {
+          hideOverlay();
+          const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts/run-delete-pn-lai-lichs';
+          window.location.href = base + '?message=' + encodeURIComponent('Lỗi: ' + e.message) + '&message_type=error';
+        });
+    }
+
+    function showOverlay(current, total, filename) {
+      const overlay = document.getElementById('scriptsOverlay');
+      const textEl = document.getElementById('scriptsOverlayText');
+      if (textEl) textEl.textContent = total > 1 ? 'Đang chạy ' + current + '/' + total + ': ' + filename : filename;
+      if (overlay) overlay.classList.add('show');
+    }
+
+    function updateOverlayProgress(current, total, nextFilename) {
+      const textEl = document.getElementById('scriptsOverlayText');
+      if (textEl) textEl.textContent = total > 1 ? 'Đang chạy ' + current + '/' + total + ': ' + (nextFilename || 'Hoàn tất') : (nextFilename || 'Hoàn tất');
+    }
+
+    function hideOverlay() {
+      const overlay = document.getElementById('scriptsOverlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    let editModalFilename = '';
+    function openEditModal(name) {
+      editModalFilename = name;
+      document.getElementById('editModalTitle').textContent = 'Sửa: ' + name;
+      document.getElementById('editModalTextarea').value = '';
+      document.getElementById('editModal').classList.add('show');
+      fetch('/api/scripts/' + encodeURIComponent(name))
+        .then(function(r) {
+          if (!r.ok) throw new Error(r.statusText);
+          return r.json();
+        })
+        .then(function(data) {
+          document.getElementById('editModalTextarea').value = data.content || '';
+        })
+        .catch(function(e) {
+          alert('Lỗi đọc file: ' + e.message);
+          closeEditModal();
+        });
+    }
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('show');
+      editModalFilename = '';
+    }
+
+    let noteModalFilename = '';
+    function openNoteModal(cell) {
+      noteModalFilename = cell.getAttribute('data-filename') || '';
+      document.getElementById('noteModalFilename').textContent = noteModalFilename;
+      document.getElementById('noteModalTextarea').value = cell.getAttribute('data-note') || '';
+      document.getElementById('noteModal').classList.add('show');
+      document.getElementById('noteModalTextarea').focus();
+    }
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.remove('show');
+      noteModalFilename = '';
+    }
+    function saveNoteModal() {
+      if (!noteModalFilename) return;
+      const note = document.getElementById('noteModalTextarea').value;
+      const formData = new FormData();
+      formData.append('filename', noteModalFilename);
+      formData.append('note', note);
+      fetch('/api/scripts/note', { method: 'POST', body: formData })
+        .then(function(r) {
+          if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
+          return r.json();
+        })
+        .then(function() {
+          closeNoteModal();
+          window.location.reload();
+        })
+        .catch(function(e) { alert('Lỗi: ' + e.message); });
+    }
+
+    function deleteScript(name) {
+      if (!confirm('Xóa file "' + name + '"? Thao tác không thể hoàn tác.')) return;
+      fetch('/api/scripts/' + encodeURIComponent(name), { method: 'DELETE' })
+        .then(function(r) {
+          if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
+          return r.json();
+        })
+        .then(function() { window.location.reload(); })
+        .catch(function(e) { alert('Lỗi: ' + e.message); });
+    }
+
+    function saveEditModal() {
+      if (!editModalFilename) return;
+      const content = document.getElementById('editModalTextarea').value;
+      const formData = new FormData();
+      formData.append('content', content);
+      fetch('/api/scripts/' + encodeURIComponent(editModalFilename), {
+        method: 'POST',
+        body: formData
+      })
+        .then(function(r) {
+          if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
+          return r.json();
+        })
+        .then(function() {
+          closeEditModal();
+          window.location.reload();
+        })
+        .catch(function(e) {
+          alert('Lỗi lưu file: ' + e.message);
+        });
+    }
+  </script>
+</body>
+</html>

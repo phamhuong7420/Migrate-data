@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<config version="1.0">
+  <connections>
+    <connection id="1">
+      <name>QLPN_OLD</name>
+      <connection_type>source</connection_type>
+      <host>192.168.1.102</host>
+      <port>1521</port>
+      <service_name>pdb1.localdomain</service_name>
+      <username>QLPN_OLD</username>
+      <password_enc>Etc1234</password_enc>
+    </connection>
+    <connection id="2">
+      <name>QLPN</name>
+      <connection_type>target</connection_type>
+      <host>192.168.1.102</host>
+      <port>1521</port>
+      <service_name>pdb1.localdomain</service_name>
+      <username>QLPN</username>
+      <password_enc>Etc1234</password_enc>
+    </connection>
+  </connections>
+  <jobs />
+  <job_columns />
+  <job_statements />
+</config>

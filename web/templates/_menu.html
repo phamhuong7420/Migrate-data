@@ -1,0 +1,36 @@
+<nav class="layout-nav">
+  <div class="nav-brand">
+    <span class="nav-brand-icon">&#128257;</span>
+    <span class="nav-brand-text">Oracle Sync</span>
+  </div>
+  <div class="nav-section-label">Cấu hình</div>
+  <a href="{{ url_for('connection_page') }}" class="{{ 'active' if active == 'connection' else '' }}">
+    <span class="nav-icon">&#128279;</span> Kết nối
+  </a>
+  <div class="nav-section-label">Đồng bộ</div>
+  <a href="{{ url_for('index') }}" class="{{ 'active' if active == 'jobs' else '' }}">
+    <span class="nav-icon">&#9776;</span> Danh sách job
+  </a>
+  <a href="{{ url_for('job_new_page') }}" class="{{ 'active' if active == 'job_new' else '' }}">
+    <span class="nav-icon">&#43;</span> Thêm job mới
+  </a>
+  <a href="{{ url_for('jobs_errors') }}" class="{{ 'active' if active == 'jobs_errors' else '' }}">
+    <span class="nav-icon">&#10007;</span> Bảng lỗi
+  </a>
+  <a href="{{ url_for('jobs_stats_success') }}" class="{{ 'active' if active == 'jobs_stats' else '' }}">
+    <span class="nav-icon">&#128200;</span> Thống kê thành công
+  </a>
+  <a href="{{ url_for('jobs_deleted_history') }}" class="{{ 'active' if active == 'jobs_deleted' else '' }}">
+    <span class="nav-icon">&#128337;</span> Lịch sử câu lệnh DELETE
+  </a>
+  <div class="nav-section-label">Script</div>
+  <a href="{{ url_for('scripts_page') }}" class="{{ 'active' if active == 'scripts' else '' }}">
+    <span class="nav-icon">&#128221;</span> Chạy script .sql
+  </a>
+  <a href="{{ url_for('scripts_run_delete_pn_lai_lichs') }}" class="{{ 'active' if active == 'scripts_run_delete_pn_lai_lichs' else '' }}">
+    <span class="nav-icon">&#9654;</span> Chạy JOB_DELETE_PN_LAI_LICHS
+  </a>
+  <a href="{{ url_for('scripts_history') }}" class="{{ 'active' if active == 'scripts_history' else '' }}">
+    <span class="nav-icon">&#128337;</span> Lịch sử chạy script
+  </a>
+</nav>

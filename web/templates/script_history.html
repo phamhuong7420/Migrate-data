@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lịch sử chạy script</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .his-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .his-table th { background:#fafafa; border-bottom:2px solid #eee;
+                    padding:10px 12px; text-align:left; font-weight:600; color:#444; }
+    .his-table td { padding:9px 12px; border-bottom:1px solid #f3f3f3; vertical-align:top; }
+    .his-table tr:hover td { background:#fafafa; }
+    .run-at { color:#888; font-size:12px; white-space:nowrap; }
+    .badge-ok { display:inline-block; background:#e8f5e9; color:#2e7d32;
+                border-radius:3px; padding:1px 7px; font-size:11px; font-weight:700; }
+    .badge-err { display:inline-block; background:#ffebee; color:#c62828;
+                 border-radius:3px; padding:1px 7px; font-size:11px; font-weight:700; }
+    .err-msg { font-family:'Courier New',monospace; font-size:11px; color:#b71c1c;
+               max-width:360px; word-break:break-all; white-space:pre-wrap; }
+    .link-script { color:#1565c0; font-weight:500; text-decoration:none; }
+    .link-script:hover { text-decoration:underline; }
+    .empty-note { color:#aaa; font-style:italic; text-align:center; padding:32px; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#1976d2; box-shadow:0 0 0 2px rgba(25,118,210,.15); }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Lịch sử chạy script</h1>
+    <p style="font-size:13px;color:#888;margin:-4px 0 14px;">
+      Các script SQL đã chạy. Lưu trong <code>scripts/script_his.xml</code>.
+    </p>
+
+    <div class="search-bar">
+      <input type="text" id="searchHis" placeholder="&#128269; Tìm theo tên file / kết nối..." autocomplete="off">
+      <span id="searchHisCount" style="font-size:12px;color:#888;"></span>
+    </div>
+
+    {% if rows %}
+    <table class="his-table" id="hisTable">
+      <thead>
+        <tr>
+          <th style="width:140px;">Thời gian</th>
+          <th style="width:50px;">ID</th>
+          <th style="width:200px;">Tên file</th>
+          <th>Kết nối</th>
+          <th style="width:100px;text-align:center;">Trạng thái</th>
+          <th>Thông báo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr data-search="{{ ((r.filename or '') + ' ' + (r.connection_name or '')) | lower }}">
+          <td class="run-at">{{ r.run_at }}</td>
+          <td style="color:#aaa;text-align:center;">{{ r.id }}</td>
+          <td>
+            <a href="{{ url_for('scripts_page') }}?open={{ r.filename | urlencode }}" class="link-script">{{ r.filename or '—' }}</a>
+          </td>
+          <td>{{ r.connection_id }} - {{ r.connection_name or '—' }}</td>
+          <td style="text-align:center;">
+            {% if r.status == 'success' %}
+            <span class="badge-ok">&#10003; Thành công</span>
+            {% else %}
+            <span class="badge-err">&#10007; Lỗi</span>
+            {% endif %}
+          </td>
+          <td><div class="err-msg">{{ r.message or '' }}</div></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">Chưa có script nào được chạy. Chạy script từ trang "Chạy script .sql" để tạo lịch sử.</p>
+    {% endif %}
+  </main>
+
+  <script>
+    var inp = document.getElementById('searchHis');
+    var cntEl = document.getElementById('searchHisCount');
+    var rows = document.querySelectorAll('#hisTable tbody tr');
+    if (inp && rows.length) {
+      inp.addEventListener('input', function() {
+        var kw = this.value.trim().toLowerCase();
+        var vis = 0;
+        rows.forEach(function(tr) {
+          var match = !kw || (tr.dataset.search || '').includes(kw);
+          tr.style.display = match ? '' : 'none';
+          if (match) vis++;
+        });
+        cntEl.textContent = kw ? vis + ' / ' + rows.length + ' bản ghi' : '';
+      });
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { this.value = ''; this.dispatchEvent(new Event('input')); }
+      });
+    }
+  </script>
+</body>
+</html>

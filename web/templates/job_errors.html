@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Danh sách bảng lỗi</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .err-count  { display:inline-block; background:#ffebee; color:#c62828;
+                  font-size:13px; font-weight:600; padding:3px 12px;
+                  border-radius:12px; margin-left:10px; vertical-align:middle; }
+    .err-table  { width:100%; border-collapse:collapse; font-size:13px; }
+    .err-table th { background:#fafafa; border-bottom:2px solid #eee;
+                    padding:10px 12px; text-align:left; font-weight:600; color:#444; }
+    .err-table td { padding:9px 12px; border-bottom:1px solid #f3f3f3; vertical-align:top; }
+    .err-table tr:hover td { background:#fff8f8; }
+    .badge-err  { display:inline-block; background:#ffebee; color:#c62828;
+                  border-radius:3px; padding:1px 7px; font-size:11px; font-weight:700; }
+    .err-msg    { font-family:'Courier New',monospace; font-size:11px; color:#b71c1c;
+                  max-width:360px; word-break:break-all; white-space:pre-wrap; }
+    .link-job   { color:#1565c0; font-weight:500; text-decoration:none; }
+    .link-job:hover { text-decoration:underline; }
+    .link-his   { color:#bbb; font-size:12px; text-decoration:none; margin-left:4px; }
+    .link-his:hover { color:#1976d2; }
+    .run-at     { color:#888; font-size:12px; white-space:nowrap; }
+    .empty-note { color:#aaa; font-style:italic; text-align:center; padding:32px; }
+    .search-bar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+    .search-bar input { padding:6px 12px; font-size:13px; border:1px solid #ccc;
+                        border-radius:4px; width:280px; outline:none; }
+    .search-bar input:focus { border-color:#e53935; box-shadow:0 0 0 2px rgba(229,57,53,.15); }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>
+      Danh sách bảng lỗi
+      <span class="err-count">{{ errors | length }} lỗi</span>
+    </h1>
+    <p style="font-size:13px;color:#888;margin:-4px 0 14px;">
+      Hiển thị lần chạy <strong>gần nhất</strong> của mỗi job có trạng thái lỗi.
+    </p>
+
+    <div class="search-bar">
+      <input type="text" id="searchErr" placeholder="&#128269; Tìm theo tên job / bảng..." autocomplete="off">
+      <span id="searchErrCount" style="font-size:12px;color:#888;"></span>
+    </div>
+
+    {% if errors %}
+    <table class="err-table" id="errTable">
+      <thead>
+        <tr>
+          <th style="width:36px;">ID</th>
+          <th style="width:200px;">Tên job</th>
+          <th>Bảng đích</th>
+          <th style="width:140px;">Thời gian chạy</th>
+          <th>Thông báo lỗi</th>
+          <th style="width:80px;text-align:center;">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in errors %}
+        <tr data-name="{{ (r.job_name or '') | lower }}" data-table="{{ (r.target_table or '') | lower }}">
+          <td style="color:#aaa;text-align:center;">{{ r.stmt_id }}</td>
+          <td>
+            <a href="{{ url_for('job_history', stmt_id=r.stmt_id) }}" class="link-job"
+               title="Xem lịch sử chạy">{{ r.job_name or '—' }}</a>
+          </td>
+          <td>{{ r.target_table or '—' }}</td>
+          <td class="run-at">{{ r.run_at }}</td>
+          <td><div class="err-msg">{{ r.message or '' }}</div></td>
+          <td style="text-align:center;">
+            <span class="badge-err">&#10007; Lỗi</span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">&#10003; Không có job nào lỗi trong lần chạy gần nhất.</p>
+    {% endif %}
+  </main>
+
+  <script>
+    const inp   = document.getElementById('searchErr');
+    const cntEl = document.getElementById('searchErrCount');
+    const rows  = Array.from(document.querySelectorAll('#errTable tbody tr'));
+
+    inp && inp.addEventListener('input', function() {
+      const kw = this.value.trim().toLowerCase();
+      let vis = 0;
+      rows.forEach(function(tr) {
+        const match = !kw
+          || tr.dataset.name.includes(kw)
+          || tr.dataset.table.includes(kw);
+        tr.style.display = match ? '' : 'none';
+        if (match) vis++;
+      });
+      cntEl.textContent = kw ? `${vis} / ${rows.length} job` : '';
+    });
+
+    inp && inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { this.value = ''; this.dispatchEvent(new Event('input')); }
+    });
+  </script>
+</body>
+</html>

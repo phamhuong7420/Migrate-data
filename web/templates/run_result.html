@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kết quả chạy đồng bộ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Kết quả chạy đồng bộ</h1>
+
+    {% set success_count = results | selectattr('status', 'eq', 'success') | list | length %}
+    {% set error_count   = results | selectattr('status', 'eq', 'error')   | list | length %}
+
+    <div class="run-summary">
+      <span class="badge badge-total">Tổng: {{ results | length }}</span>
+      <span class="badge badge-success">&#10003; Thành công: {{ success_count }}</span>
+      <span class="badge badge-error">&#10007; Lỗi: {{ error_count }}</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên job</th>
+          <th>Bảng đích</th>
+          <th style="text-align:center;">Đã xóa (dòng)</th>
+          <th style="text-align:center;">Đã chèn (dòng)</th>
+          <th>Trạng thái</th>
+          <th>Thông báo lỗi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in results %}
+        <tr class="run-row-{{ r.status }}">
+          <td>{{ r.id }}</td>
+          <td>{{ r.name or '—' }}</td>
+          <td>{{ r.table or '—' }}</td>
+          <td style="text-align:center;">
+            {% if r.delete_rows is not none %}
+              <span class="badge badge-error" style="padding:2px 8px;">{{ r.delete_rows }}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td style="text-align:center;">
+            {% if r.insert_rows is not none %}
+              <span class="badge badge-success" style="padding:2px 8px;">{{ r.insert_rows }}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td>
+            {% if r.status == 'success' %}
+              <span class="status-success">&#10003; Thành công</span>
+            {% else %}
+              <span class="status-error">&#10007; Lỗi</span>
+            {% endif %}
+          </td>
+          <td class="run-msg">{{ r.message or '' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">Không có kết quả.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p style="margin-top:16px;">
+      <a href="{{ url_for('index') }}" class="btn btn-primary">&#8592; Quay lại danh sách</a>
+    </p>
+  </main>
+</body>
+</html>

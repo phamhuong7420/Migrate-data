@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lịch sử chạy job</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .his-meta { font-size:13px; color:#555; margin:4px 0 16px; }
+    .his-meta strong { color:#1a237e; }
+    .his-empty { color:#999; font-size:13px; padding:20px 0; }
+    .tag-success { display:inline-block; background:#c8e6c9; color:#1b5e20; border-radius:10px; padding:2px 10px; font-size:12px; font-weight:600; }
+    .tag-error   { display:inline-block; background:#ffcdd2; color:#b71c1c; border-radius:10px; padding:2px 10px; font-size:12px; font-weight:600; }
+    .err-msg { font-size:12px; color:#c62828; word-break:break-word; max-width:380px; }
+    td.num { text-align:center; font-weight:600; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <p style="margin-bottom:10px;">
+      <a href="{{ back_url }}" class="btn btn-primary">&#8592; Quay lại</a>
+    </p>
+
+    <h1>Lịch sử chạy: {{ stmt.name or stmt.target_table }}</h1>
+    <div class="his-meta">
+      Job ID: <strong>{{ stmt.id }}</strong>
+      &nbsp;|&nbsp; Bảng nguồn: <strong>{{ stmt.source_table }}</strong>
+      &nbsp;→&nbsp; Bảng đích: <strong>{{ stmt.target_table }}</strong>
+      &nbsp;|&nbsp; Kết nối: <strong>{{ stmt.source_connection_name }}</strong> → <strong>{{ stmt.target_connection_name }}</strong>
+    </div>
+
+    {% if histories %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Thời gian chạy</th>
+          <th style="text-align:center;">Trạng thái</th>
+          <th style="text-align:center;">Đã xóa</th>
+          <th style="text-align:center;">Đã chèn</th>
+          <th>Thông báo lỗi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for h in histories %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td style="white-space:nowrap;">{{ h.run_at }}</td>
+          <td style="text-align:center;">
+            {% if h.status == 'success' %}
+              <span class="tag-success">&#10003; Thành công</span>
+            {% else %}
+              <span class="tag-error">&#10007; Lỗi</span>
+            {% endif %}
+          </td>
+          <td class="num">
+            {% if h.delete_rows is not none %}{{ h.delete_rows }}{% else %}—{% endif %}
+          </td>
+          <td class="num">
+            {% if h.insert_rows is not none %}{{ h.insert_rows }}{% else %}—{% endif %}
+          </td>
+          <td><span class="err-msg">{{ h.message or '' }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="his-empty">Chưa có lịch sử chạy nào cho job này.</p>
+    {% endif %}
+  </main>
+</body>
+</html>

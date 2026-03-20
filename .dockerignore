@@ -1,0 +1,22 @@
+# Không đưa vào image
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Data files — mount volume riêng khi chạy container
+scripts/
+
+# Dev / editor
+.env
+.env.*
+*.log
+.git/
+.gitignore
+.vscode/
+.cursor/
+
+# Docs
+README.md

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kết nối Oracle</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .page-header { margin-bottom: 24px; }
+    .page-title  { font-size: 1.3rem; font-weight: 700; color: #1a237e; margin: 0 0 4px; }
+    .page-sub    { font-size: 13px; color: #888; margin: 0; }
+
+    /* ── Layout 2 cột: form trái, danh sách phải ── */
+    .conn-layout { display: grid; grid-template-columns: 360px 1fr; gap: 24px; align-items: start; }
+    @media(max-width: 900px) { .conn-layout { grid-template-columns: 1fr; } }
+
+    /* ── Card ── */
+    .card {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06); overflow: hidden;
+    }
+    .card-head {
+      padding: 14px 20px; background: linear-gradient(135deg,#1a237e 0%,#283593 100%);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-head-icon { font-size: 18px; color: rgba(255,255,255,.9); }
+    .card-head-title { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: .3px; }
+    .card-body { padding: 20px; }
+
+    /* ── Form fields ── */
+    .field-row { margin-bottom: 14px; }
+    .field-row:last-child { margin-bottom: 0; }
+    .field-row label {
+      display: block; font-size: 11px; font-weight: 700; color: #555;
+      letter-spacing: .5px; text-transform: uppercase; margin-bottom: 5px;
+    }
+    .field-row input, .field-row select {
+      width: 100%; padding: 9px 12px; font-size: 13px; border: 1px solid #d0d7de;
+      border-radius: 7px; background: #f8fafc; color: #222; outline: none;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+    .field-row input:focus, .field-row select:focus {
+      border-color: #1976d2; background: #fff;
+      box-shadow: 0 0 0 3px rgba(25,118,210,.12);
+    }
+    .field-row.row-2 { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
+
+    .type-toggle { display: flex; border: 1px solid #d0d7de; border-radius: 7px; overflow: hidden; }
+    .type-toggle input[type=radio] { display: none; }
+    .type-toggle label {
+      flex: 1; text-align: center; padding: 9px 0; font-size: 13px; font-weight: 600;
+      cursor: pointer; color: #666; background: #f8fafc; transition: all .15s;
+      margin: 0; text-transform: none; letter-spacing: 0;
+    }
+    .type-toggle label:first-of-type { border-right: 1px solid #d0d7de; }
+    .type-toggle input[type=radio]:checked + label {
+      background: #1976d2; color: #fff; border-color: #1976d2;
+    }
+
+    .form-actions { display: flex; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+    .btn-submit {
+      flex: 1; padding: 10px; font-size: 13px; font-weight: 700;
+      background: linear-gradient(135deg,#1976d2,#1565c0); color: #fff;
+      border: none; border-radius: 7px; cursor: pointer; transition: opacity .15s, transform .1s;
+    }
+    .btn-submit:hover { opacity: .92; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ── Bảng danh sách ── */
+    .conn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .conn-table thead th {
+      background: #f0f4ff; color: #1a237e; font-weight: 700; font-size: 11px;
+      letter-spacing: .5px; text-transform: uppercase; padding: 10px 14px;
+      border-bottom: 2px solid #c5cae9; text-align: left; white-space: nowrap;
+    }
+    .conn-table tbody tr {
+      border-bottom: 1px solid #f0f0f0; transition: background .1s;
+    }
+    .conn-table tbody tr:last-child { border-bottom: none; }
+    .conn-table tbody tr:hover { background: #f8faff; }
+    .conn-table td { padding: 11px 14px; vertical-align: middle; color: #333; }
+
+    .conn-name { font-weight: 600; color: #222; }
+    .conn-host { font-size: 12px; color: #666; font-family: monospace; }
+
+    .badge-src { display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:700; background:#e3f2fd; color:#1565c0; }
+    .badge-tgt { display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:700; background:#fce4ec; color:#c2185b; }
+
+    .action-cell { display: flex; gap: 6px; }
+    .btn-edit, .btn-del {
+      padding: 5px 14px; font-size: 12px; font-weight: 600; border: none;
+      border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block;
+      transition: opacity .12s, transform .1s;
+    }
+    .btn-edit { background: #e8f0fe; color: #1976d2; }
+    .btn-edit:hover { background: #c5d8f7; }
+    .btn-del  { background: #ffebee; color: #c62828; }
+    .btn-del:hover  { background: #ffcdd2; }
+
+    .empty-row td {
+      text-align: center; padding: 28px; color: #aaa;
+      font-size: 13px; font-style: italic;
+    }
+    .empty-row .empty-icon { font-size: 28px; display: block; margin-bottom: 6px; opacity: .5; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+
+    <div class="page-header">
+      <h1 class="page-title">&#128268; Quản lý kết nối Oracle</h1>
+      <p class="page-sub">Khai báo thông tin host, port và tài khoản cho database nguồn và đích.</p>
+    </div>
+
+    {% if message %}<div class="msg {{ message_type }}">{{ message }}</div>{% endif %}
+
+    <div class="conn-layout">
+
+      <!-- Form thêm mới -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-head-icon">&#43;</span>
+          <span class="card-head-title">Thêm kết nối mới</span>
+        </div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('add_connection') }}">
+
+            <div class="field-row">
+              <label>Tên kết nối</label>
+              <input name="name" required placeholder="VD: QLPN_OLD" autocomplete="off">
+            </div>
+
+            <div class="field-row">
+              <label>Loại</label>
+              <div class="type-toggle">
+                <input type="radio" name="connection_type" id="type_src" value="source" checked>
+                <label for="type_src">&#8594; Nguồn (Source)</label>
+                <input type="radio" name="connection_type" id="type_tgt" value="target">
+                <label for="type_tgt">&#8592; Đích (Target)</label>
+              </div>
+            </div>
+
+            <div class="field-row row-2">
+              <div>
+                <label>Host / IP</label>
+                <input name="host" required placeholder="10.0.0.1">
+              </div>
+              <div>
+                <label>Port</label>
+                <input name="port" type="number" value="1521" required>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <label>Service Name</label>
+              <input name="service_name" required placeholder="ORCL hoặc pdb1">
+            </div>
+
+            <div class="field-row">
+              <label>Username</label>
+              <input name="username" required placeholder="oracle_user" autocomplete="off">
+            </div>
+
+            <div class="field-row">
+              <label>Password</label>
+              <input name="password" type="password" placeholder="Nhập mật khẩu" autocomplete="new-password">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">&#10003; Lưu kết nối</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Danh sách kết nối -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-head-icon">&#9776;</span>
+          <span class="card-head-title">Danh sách kết nối đã khai báo</span>
+        </div>
+        <table class="conn-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>Loại</th>
+              <th>Host : Port / Service</th>
+              <th>User</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in connections %}
+            <tr>
+              <td style="color:#aaa; text-align:center;">{{ c.id }}</td>
+              <td><span class="conn-name">{{ c.name }}</span></td>
+              <td>
+                {% if c.connection_type == 'source' %}
+                  <span class="badge-src">&#8594; Nguồn</span>
+                {% elif c.connection_type == 'target' %}
+                  <span class="badge-tgt">&#8592; Đích</span>
+                {% else %}
+                  {{ c.connection_type }}
+                {% endif %}
+              </td>
+              <td><span class="conn-host">{{ c.host }}:{{ c.port }} / {{ c.service_name }}</span></td>
+              <td>{{ c.username }}</td>
+              <td>
+                <div class="action-cell">
+                  <a href="{{ url_for('edit_connection', id=c.id) }}" class="btn-edit">&#9998; Sửa</a>
+                  <form method="post" action="{{ url_for('delete_connection', id=c.id) }}"
+                        style="display:inline;" onsubmit="return confirm('Xóa kết nối «{{ c.name }}»?');">
+                    <button type="submit" class="btn-del">&#128465; Xóa</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% else %}
+            <tr class="empty-row">
+              <td colspan="6">
+                <span class="empty-icon">&#128268;</span>
+                Chưa có kết nối nào. Điền form bên trái và bấm Lưu.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

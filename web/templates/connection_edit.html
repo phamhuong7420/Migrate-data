@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sửa kết nối</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .page-title { font-size: 1.3rem; font-weight: 700; color: #1a237e; margin: 0 0 4px; }
+    .page-sub   { font-size: 13px; color: #888; margin: 0 0 20px; }
+
+    .card {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06); overflow: hidden; max-width: 480px;
+    }
+    .card-head {
+      padding: 14px 20px; background: linear-gradient(135deg,#1a237e 0%,#283593 100%);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-head-icon  { font-size: 18px; color: rgba(255,255,255,.9); }
+    .card-head-title { font-size: 14px; font-weight: 700; color: #fff; }
+    .card-head-sub   { font-size: 12px; color: rgba(255,255,255,.6); margin-left: auto; }
+    .card-body { padding: 20px; }
+
+    .field-row { margin-bottom: 14px; }
+    .field-row:last-child { margin-bottom: 0; }
+    .field-row label {
+      display: block; font-size: 11px; font-weight: 700; color: #555;
+      letter-spacing: .5px; text-transform: uppercase; margin-bottom: 5px;
+    }
+    .field-row input, .field-row select {
+      width: 100%; padding: 9px 12px; font-size: 13px; border: 1px solid #d0d7de;
+      border-radius: 7px; background: #f8fafc; color: #222; outline: none;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+    .field-row input:focus, .field-row select:focus {
+      border-color: #1976d2; background: #fff;
+      box-shadow: 0 0 0 3px rgba(25,118,210,.12);
+    }
+    .field-row.row-2 { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
+
+    .type-toggle { display: flex; border: 1px solid #d0d7de; border-radius: 7px; overflow: hidden; }
+    .type-toggle input[type=radio] { display: none; }
+    .type-toggle label {
+      flex: 1; text-align: center; padding: 9px 0; font-size: 13px; font-weight: 600;
+      cursor: pointer; color: #666; background: #f8fafc; transition: all .15s;
+      margin: 0; text-transform: none; letter-spacing: 0;
+    }
+    .type-toggle label:first-of-type { border-right: 1px solid #d0d7de; }
+    .type-toggle input[type=radio]:checked + label { background: #1976d2; color: #fff; }
+
+    .hint { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+    .form-actions { display: flex; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+    .btn-save {
+      flex: 1; padding: 10px; font-size: 13px; font-weight: 700;
+      background: linear-gradient(135deg,#1976d2,#1565c0); color: #fff;
+      border: none; border-radius: 7px; cursor: pointer; transition: opacity .15s;
+    }
+    .btn-save:hover { opacity: .9; }
+    .btn-back {
+      padding: 10px 18px; font-size: 13px; font-weight: 600;
+      background: #f0f0f0; color: #555; border: none; border-radius: 7px;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;
+      transition: background .12s;
+    }
+    .btn-back:hover { background: #e0e0e0; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+
+    <h1 class="page-title">&#9998; Sửa kết nối</h1>
+    <p class="page-sub">Cập nhật thông tin kết nối Oracle.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-head-icon">&#128268;</span>
+        <span class="card-head-title">{{ conn.name }}</span>
+        <span class="card-head-sub">ID: {{ conn.id }}</span>
+      </div>
+      <div class="card-body">
+        <form method="post" action="{{ url_for('update_connection', id=conn.id) }}">
+
+          <div class="field-row">
+            <label>Tên kết nối</label>
+            <input name="name" value="{{ conn.name }}" required autocomplete="off">
+          </div>
+
+          <div class="field-row">
+            <label>Loại</label>
+            <div class="type-toggle">
+              <input type="radio" name="connection_type" id="type_src" value="source"
+                     {{ 'checked' if conn.connection_type == 'source' else '' }}>
+              <label for="type_src">&#8594; Nguồn (Source)</label>
+              <input type="radio" name="connection_type" id="type_tgt" value="target"
+                     {{ 'checked' if conn.connection_type == 'target' else '' }}>
+              <label for="type_tgt">&#8592; Đích (Target)</label>
+            </div>
+          </div>
+
+          <div class="field-row row-2">
+            <div>
+              <label>Host / IP</label>
+              <input name="host" value="{{ conn.host }}" required>
+            </div>
+            <div>
+              <label>Port</label>
+              <input name="port" type="number" value="{{ conn.port }}" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label>Service Name</label>
+            <input name="service_name" value="{{ conn.service_name }}" required>
+          </div>
+
+          <div class="field-row">
+            <label>Username</label>
+            <input name="username" value="{{ conn.username }}" required autocomplete="off">
+          </div>
+
+          <div class="field-row">
+            <label>Password</label>
+            <input name="password" type="password" placeholder="Để trống nếu không đổi" autocomplete="new-password">
+            <p class="hint">&#8505; Để trống nếu không muốn thay đổi mật khẩu.</p>
+          </div>
+
+          <div class="form-actions">
+            <a href="{{ url_for('connection_page') }}" class="btn-back">&#8592; Quay lại</a>
+            <button type="submit" class="btn-save">&#10003; Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
