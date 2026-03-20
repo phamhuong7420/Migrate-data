@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản lý user - Oracle Sync</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .user-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items:start; }
+    @media(max-width: 1100px) { .user-grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background:#fff;
+      border:1px solid #e3e7ff;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+      padding:16px;
+    }
+
+    .panel-title {
+      margin: -2px 0 12px 0;
+      font-size:15px;
+      font-weight:800;
+      color:#fff;
+      padding:10px 12px;
+      border-radius:10px;
+      background: linear-gradient(135deg,#1a237e 0%,#283593 100%);
+    }
+
+    .perm-grid { display:flex; flex-wrap:wrap; gap:10px; }
+    .perm-item {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #d0d7de;
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:13px;
+      color:#333;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .perm-item input { margin:0; width:16px; height:16px; accent-color:#1976d2; }
+
+    /* Khi checkbox bật: highlight chip (Chromium/Firefox hiện hỗ trợ :has tốt) */
+    .perm-item:has(input:checked) {
+      background:#e3f2fd;
+      border-color:#90caf9;
+      box-shadow:0 0 0 2px rgba(25,118,210,.08) inset;
+    }
+
+    .perm-tag {
+      display:inline-block;
+      padding:2px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      background:#1565c0;
+      border:1px solid #0d47a1;
+      color:#fff;
+      margin:0 6px 8px 0;
+    }
+
+    .section-title {
+      font-size:13px;
+      font-weight:900;
+      color:#1a237e;
+      margin-bottom:10px;
+    }
+
+    .table-small td, .table-small th { font-size: 13px; }
+
+    /* Nút chính nổi bật hơn */
+    .btn.btn-primary {
+      background: linear-gradient(135deg,#1976d2,#1565c0) !important;
+      border:1px solid rgba(0,0,0,.02);
+      color:#fff;
+      padding:10px 14px;
+    }
+    .btn.btn-primary:hover { opacity:.92; }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <h1>Quản lý user</h1>
+    {% if message %}
+      <div class="msg {{ message_type }}">{{ message }}</div>
+    {% endif %}
+
+    <div class="user-grid">
+      <div class="panel">
+        <div class="panel-title">Tạo/Cập nhật mật khẩu</div>
+        <form method="post" action="{{ url_for('user_manage_page') }}">
+          <div class="field-row">
+            <label>Tên user</label>
+            <input name="username" required autocomplete="off" style="width:100%;" value="{{ target_username }}">
+          </div>
+          <div class="field-row">
+            <label>Mật khẩu (tuỳ chọn)</label>
+            <input name="password" type="password" autocomplete="new-password" style="width:100%;" placeholder="Để trống = không đổi">
+          </div>
+          <div style="margin-top:14px;">
+            <div class="section-title">Quyền (permissions)</div>
+            <div class="perm-grid">
+              <label class="perm-item">
+                <input type="checkbox" name="edit_connections" value="1" {% if target_permissions.get('edit_connections') == 1 %}checked{% endif %} />
+                edit_connections
+              </label>
+              <label class="perm-item">
+                <input type="checkbox" name="edit_jobs" value="1" {% if target_permissions.get('edit_jobs') == 1 %}checked{% endif %} />
+                edit_jobs
+              </label>
+              <label class="perm-item">
+                <input type="checkbox" name="run_jobs" value="1" {% if target_permissions.get('run_jobs') == 1 %}checked{% endif %} />
+                run_jobs
+              </label>
+              <label class="perm-item">
+                <input type="checkbox" name="stop_jobs" value="1" {% if target_permissions.get('stop_jobs') == 1 %}checked{% endif %} />
+                stop_jobs
+              </label>
+              <label class="perm-item">
+                <input type="checkbox" name="edit_scripts" value="1" {% if target_permissions.get('edit_scripts') == 1 %}checked{% endif %} />
+                edit_scripts
+              </label>
+              <label class="perm-item">
+                <input type="checkbox" name="run_scripts" value="1" {% if target_permissions.get('run_scripts') == 1 %}checked{% endif %} />
+                run_scripts
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-right:0;">Lưu mật khẩu</button>
+          </div>
+        </form>
+        <p style="margin:12px 0 0 0;color:#777;font-size:12.5px;">
+          Chỉ user <b>sys</b> được phép thao tác. File lưu: <code>scripts/auth_users.txt</code> (JSON).
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title" style="margin:0 0 10px 0; font-size:14px;">Danh sách user hiện có</div>
+        {% if users %}
+          <table class="table-small">
+            <thead>
+              <tr>
+                <th style="width:260px;">Username</th>
+                <th>Permissions (đang bật)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for u in users %}
+              <tr>
+                <td>
+                  <a href="{{ url_for('user_manage_page', target_user=u.username) }}" style="color:#1565c0; font-weight:700; text-decoration:none;">
+                    {{ u.username }}
+                  </a>
+                </td>
+                <td style="color:#333;font-size:13px;">
+                  {% set perms = u.permissions or {} %}
+                  {% set has_any = false %}
+                  {% for p, v in perms.items() %}
+                    {% if v == 1 %}
+                      {% set has_any = true %}
+                      <span class="perm-tag">{{ p }}</span>
+                    {% endif %}
+                  {% endfor %}
+                  {% if not has_any %}—{% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="msg success" style="background:#fff3e0;border:1px solid #ffe0b2;color:#ef6c00;">
+            Chưa có file `scripts/auth_users.txt` hoặc file rỗng.
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+

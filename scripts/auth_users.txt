@@ -1,4 +1,46 @@
-sys:yhn22tgb
-thangnd:thangnd
-thuyntt:thuyntt
-
+{
+  "sys": {
+    "password": "yhn26tgb",
+    "permissions": {
+      "edit_connections": 1,
+      "edit_jobs": 1,
+      "run_jobs": 1,
+      "stop_jobs": 1,
+      "edit_scripts": 1,
+      "run_scripts": 1
+    }
+  },
+  "minhnnetc": {
+    "password": "minhnnetc",
+    "permissions": {
+      "edit_connections": 0,
+      "edit_jobs": 1,
+      "run_jobs": 1,
+      "stop_jobs": 1,
+      "edit_scripts": 1,
+      "run_scripts": 1
+    }
+  },
+  "thangnd": {
+    "password": "thangnd",
+    "permissions": {
+      "edit_connections": 0,
+      "edit_jobs": 1,
+      "run_jobs": 1,
+      "stop_jobs": 1,
+      "edit_scripts": 1,
+      "run_scripts": 1
+    }
+  },
+  "thuyntt": {
+    "password": "thuyntt",
+    "permissions": {
+      "edit_connections": 0,
+      "edit_jobs": 1,
+      "run_jobs": 1,
+      "stop_jobs": 1,
+      "edit_scripts": 1,
+      "run_scripts": 1
+    }
+  }
+}

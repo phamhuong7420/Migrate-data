@@ -14,12 +14,16 @@ import json
 import csv
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import deque
 import queue as _queue
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
+try:
+    import sqlparse
+except ModuleNotFoundError:  # fallback để app không crash khi thiếu dependency
+    sqlparse = None
 import oracledb
 from flask import Flask, request, redirect, url_for, render_template, jsonify, Response, stream_with_context, session
 
@@ -50,67 +54,196 @@ app = Flask(
 )
 
 # --- Auth (simple session login) ---
-# Tài khoản quản trị: đọc từ file (scripts/auth_users.txt),
-# mỗi dòng: username:password
+# Tài khoản quản trị: đọc từ file `scripts/auth_users.txt` (JSON).
+# Schema B:
+# {
+#   "sys": { "password": "...", "permissions": { "edit_connections": 1, ... } },
+#   "user2": { ... }
+# }
 app.secret_key = os.environ.get("ORACLE_SYNC_SESSION_SECRET", "dev-insecure-change-me")
 
 def _is_logged_in() -> bool:
     return bool(session.get("logged_in"))
 
 AUTH_USERS_FILE = _root / "scripts" / "auth_users.txt"
+_auth_users_lock = threading.Lock()
 
 USER_ACTIVITY_LOG_FILE = _root / "scripts" / "user_activity_log.csv"
 _user_activity_lock = threading.Lock()
 _user_activity_fieldnames = ["run_at", "user", "action", "status", "message", "meta"]
 
-def _load_auth_users() -> dict[str, str]:
+def _load_auth_users() -> dict[str, dict]:
     """
-    Load users từ scripts/auth_users.txt.
-    Nếu file không tồn tại hoặc nội dung rỗng => trả về dict rỗng (không cho login).
+    Load users từ scripts/auth_users.txt (JSON).
+    Trả về dạng:
+      { username: { "password": str, "permissions": {perm: 0/1, ...} } }
     """
     if not AUTH_USERS_FILE.exists():
         return {}
-    users: dict[str, str] = {}
     try:
-        for raw in AUTH_USERS_FILE.read_text(encoding="utf-8").splitlines():
-            line = (raw or "").strip()
-            if not line or line.startswith("#"):
+        text = AUTH_USERS_FILE.read_text(encoding="utf-8").strip()
+        if not text:
+            return {}
+        data = json.loads(text)
+        if not isinstance(data, dict):
+            return {}
+        users: dict[str, dict] = {}
+        for u, rec in data.items():
+            if not isinstance(rec, dict):
                 continue
-            if ":" not in line:
+            pw = rec.get("password")
+            perms = rec.get("permissions") or {}
+            if not isinstance(pw, str):
                 continue
-            u, p = line.split(":", 1)
-            u = (u or "").strip()
-            p = p or ""
-            if u:
-                users[u] = p
+            if not isinstance(perms, dict):
+                perms = {}
+            users[u] = {"password": pw, "permissions": perms}
+        return users
     except Exception:
         return {}
-    return users
+
+
+PERMISSIONS = [
+    "edit_connections",
+    "edit_jobs",
+    "run_jobs",
+    "stop_jobs",
+    "edit_scripts",
+    "run_scripts",
+]
+# default_allow: edit_jobs, run_jobs, stop_jobs, edit_scripts, run_scripts
+DEFAULT_ALLOW = {
+    "edit_jobs",
+    "run_jobs",
+    "stop_jobs",
+    "edit_scripts",
+    "run_scripts",
+}
+
+def _effective_permissions(username: str) -> dict[str, int]:
+    if username == "sys":
+        return {k: 1 for k in PERMISSIONS}
+
+    users = _load_auth_users()
+    rec = users.get(username) or {}
+    perms_in_file = rec.get("permissions") or {}
+
+    eff = {k: (1 if k in DEFAULT_ALLOW else 0) for k in PERMISSIONS}
+    if isinstance(perms_in_file, dict):
+        for k in PERMISSIONS:
+            if k in perms_in_file:
+                try:
+                    eff[k] = 1 if int(perms_in_file.get(k)) == 1 else 0
+                except Exception:
+                    pass
+    return eff
+
+def _save_auth_users(users: dict[str, dict]) -> None:
+    """
+    Ghi users vào scripts/auth_users.txt (JSON).
+    Input: {username: {password: str, permissions: {...}}}
+    """
+    AUTH_USERS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    payload: dict = {}
+    for u, rec in users.items():
+        if not isinstance(rec, dict):
+            continue
+        pw = rec.get("password")
+        perms = rec.get("permissions") or {}
+        if not isinstance(pw, str):
+            continue
+        if not isinstance(perms, dict):
+            perms = {}
+        payload[u] = {"password": pw, "permissions": perms}
+    ordered = {k: payload[k] for k in sorted(payload.keys(), key=lambda x: (x or "").lower())}
+    AUTH_USERS_FILE.write_text(json.dumps(ordered, ensure_ascii=False, indent=2), encoding="utf-8")
 
 @app.before_request
 def _auth_guard():
     # Cho phép assets static và trang login/logout
     if request.path.startswith("/static/"):
         return
-    # Chỉ `sys` mới xem được trang log.
-    if request.path.startswith("/user-activity"):
-        if not _is_logged_in():
-            return redirect(url_for("login_page", next=request.path))
-        if session.get("admin_user") != "sys":
-            return ("Unauthorized", 403)
     if request.path in ("/login", "/logout"):
         return
 
-    if _is_logged_in():
+    accept = request.headers.get("Accept", "")
+
+    # Chưa login: redirect hoặc trả JSON cho API
+    if not _is_logged_in():
+        if request.path.startswith("/api/") or "text/event-stream" in accept:
+            return jsonify({"ok": False, "error": "Unauthorized"}), 401
+        return redirect(url_for("login_page", next=request.path))
+
+    # Logged in
+    username = session.get("admin_user", "")
+
+    # sys-only pages
+    if request.path.startswith("/user-activity") or request.path.startswith("/user-manage"):
+        if username != "sys":
+            return ("Unauthorized", 403)
         return
 
-    # Chặn API bằng 401 JSON để client JS nhận được lỗi rõ ràng.
-    accept = request.headers.get("Accept", "")
-    if request.path.startswith("/api/") or "text/event-stream" in accept:
-        return jsonify({"ok": False, "error": "Unauthorized"}), 401
+    def _has_perm(perm: str) -> bool:
+        if username == "sys":
+            return True
+        return _effective_permissions(username).get(perm) == 1
 
-    # Các trang HTML: chuyển hướng về trang login.
-    return redirect(url_for("login_page", next=request.path))
+    def _required_perm() -> str | None:
+        # Connection chỉnh sửa
+        if request.path.startswith("/connection"):
+            return "edit_connections"
+
+        # Job chạy / stop
+        if request.path == "/jobs/run" and request.method == "POST":
+            return "run_jobs"
+        if request.path.startswith("/api/jobs/run-stream"):
+            return "run_jobs"
+        if request.path.startswith("/api/jobs/stop/"):
+            return "stop_jobs"
+
+        # Job chỉnh sửa/tạo
+        if request.path in ("/job/new", "/job/create"):
+            return "edit_jobs"
+        if request.path.startswith("/job/"):
+            if request.path.endswith("/history"):
+                return None
+            if request.path.endswith("/them-moi") or request.path.endswith("/edit") or request.path.endswith("/save") or request.path.endswith("/delete"):
+                return "edit_jobs"
+        if request.path == "/jobs/delete-bulk" and request.method == "POST":
+            return "edit_jobs"
+        if request.path.startswith("/api/job/") and request.path.endswith("/sql") and request.method == "POST":
+            return "edit_jobs"
+
+        # Script chạy / stop
+        if request.path == "/scripts/run" and request.method == "POST":
+            return "run_scripts"
+        if request.path.startswith("/api/scripts/run-one"):
+            return "run_scripts"
+        if request.path.startswith("/api/scripts/stop/"):
+            return "run_scripts"
+
+        # Script chỉnh sửa/tạo/xóa
+        if request.path.startswith("/api/scripts/new") and request.method == "POST":
+            return "edit_scripts"
+        if request.path.startswith("/api/scripts/note") and request.method == "POST":
+            return "edit_scripts"
+        if request.path.startswith("/api/scripts/") and request.method in ("POST", "DELETE"):
+            # GET script content vẫn mở cho mọi user
+            return "edit_scripts"
+
+        return None
+
+    perm = _required_perm()
+    if perm and not _has_perm(perm):
+        return ("Unauthorized", 403)
+
+
+@app.context_processor
+def _inject_current_perms():
+    if not _is_logged_in():
+        return {"current_perms": {}}
+    user = session.get("admin_user", "")
+    return {"current_perms": _effective_permissions(user)}
 
 
 def _append_user_activity(user: str, action: str, status: str, message: str = "", meta: dict | None = None) -> None:
@@ -137,6 +270,8 @@ def _append_user_activity(user: str, action: str, status: str, message: str = ""
 
     # Tránh ghi đồng thời từ nhiều thread (job/script).
     with _user_activity_lock:
+        # Dọn log cũ hơn 24h trước khi append.
+        _cleanup_user_activity_log(ttl_hours=24)
         file_exists = USER_ACTIVITY_LOG_FILE.exists()
         USER_ACTIVITY_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
         with open(USER_ACTIVITY_LOG_FILE, "a", newline="", encoding="utf-8") as f:
@@ -159,6 +294,109 @@ def _load_user_activity(limit: int = 200) -> list[dict]:
     except Exception:
         return []
     return list(rows)
+
+
+def _cleanup_user_activity_log(ttl_hours: int = 24) -> None:
+    """
+    Xóa các dòng log cũ hơn TTL khỏi scripts/user_activity_log.csv.
+    Gọi bên trong cùng lock ghi log để tránh race condition.
+    """
+    if not USER_ACTIVITY_LOG_FILE.exists():
+        return
+
+    cutoff = datetime.now() - timedelta(hours=int(ttl_hours))
+    try:
+        with open(USER_ACTIVITY_LOG_FILE, "r", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+    except Exception:
+        return
+
+
+def _format_sql_for_script(sql_text: str) -> str:
+    """
+    Format SQL khi lưu script (.sql) cho dễ đọc:
+    - keyword_case: UPPER
+    - reindent: true
+    - giữ nguyên comment/string (không strip)
+    Nếu formatter lỗi thì fallback về nội dung gốc.
+    """
+    def _filter_blank_lines(text: str) -> str:
+        # Chuẩn hóa các kiểu newline và các ký tự "khoảng trắng đặc biệt"
+        norm = (
+            text.replace("\r\n", "\n")
+            .replace("\r", "\n")
+            .replace("\u2028", "\n")  # line separator
+            .replace("\u2029", "\n")  # paragraph separator
+            .replace("\u0085", "\n")  # next line
+        )
+        kept: list[str] = []
+        for ln in norm.split("\n"):
+            # Các ký tự "không nhìn thấy" có thể khiến ln.strip() != "" nhưng mắt vẫn thấy trống.
+            ln_check = re.sub(
+                r"[\u00A0\u202F\u3000\u200B-\u200F\u2060\uFEFF]",
+                "",
+                ln,
+            )
+            if ln_check.strip() == "":
+                continue
+            kept.append(ln.rstrip())
+        # Chuẩn hóa lại đầu/cuối (dù đã filter, vẫn giữ an toàn)
+        while kept and kept[0].strip() == "":
+            kept.pop(0)
+        while kept and kept[-1].strip() == "":
+            kept.pop()
+        return "\n".join(kept)
+
+    try:
+        if sql_text is None:
+            return ""
+        raw_text = str(sql_text)
+
+        # Nếu không có sqlparse thì vẫn filter blank-line để không tạo khoảng trống khi lưu.
+        if sqlparse is None:
+            return _filter_blank_lines(raw_text)
+
+        formatted = sqlparse.format(
+            raw_text,
+            reindent=True,
+            reindent_aligned=True,
+            keyword_case="upper",
+            strip_comments=False,
+            use_space_around_operators=True,
+        )
+        return _filter_blank_lines(str(formatted))
+    except Exception:
+        # Formatter lỗi: vẫn cố gắng không tạo blank-line.
+        try:
+            return _filter_blank_lines(str(sql_text))
+        except Exception:
+            return str(sql_text)
+
+    kept: list[dict] = []
+    for r in rows:
+        ra = (r.get("run_at") or "").strip()
+        try:
+            dt = datetime.strptime(ra, "%Y-%m-%d %H:%M:%S")
+        except Exception:
+            # Nếu không parse được thì giữ lại để không mất dữ liệu.
+            kept.append(r)
+            continue
+        if dt >= cutoff:
+            kept.append(r)
+
+    # Nếu không cần dọn (giữ nguyên), không ghi lại file để giảm IO.
+    if len(kept) == len(rows):
+        return
+
+    try:
+        with open(USER_ACTIVITY_LOG_FILE, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=_user_activity_fieldnames)
+            writer.writeheader()
+            for r in kept:
+                writer.writerow({k: r.get(k, "") for k in _user_activity_fieldnames})
+    except Exception:
+        return
 
 # run_id -> {"stop": threading.Event, "conns": dict[int, conn], "lock": Lock}
 _active_runs: dict = {}
@@ -410,7 +648,7 @@ def api_script_new():
     if err:
         return jsonify({"error": err}), 400
     try:
-        script_file.write_text(content, encoding="utf-8")
+        script_file.write_text(_format_sql_for_script(content), encoding="utf-8")
         _append_user_activity(
             user=active_user,
             action="script_new",
@@ -438,7 +676,7 @@ def api_script_get(filename: str):
         return jsonify({"error": "File không hợp lệ hoặc không tồn tại."}), 404
     try:
         content = script_file.read_text(encoding="utf-8")
-        return jsonify({"content": content})
+        return jsonify({"content": _format_sql_for_script(content)})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -624,7 +862,7 @@ def api_script_save(filename: str):
         content = ""
     active_user = session.get("admin_user", "")
     try:
-        script_file.write_text(content, encoding="utf-8")
+        script_file.write_text(_format_sql_for_script(content), encoding="utf-8")
         _append_user_activity(
             user=active_user,
             action="script_save",
@@ -877,7 +1115,8 @@ def login_page():
         password = request.form.get("password") or ""
 
         users = _load_auth_users()
-        if users.get(username) == password:
+        rec = users.get(username) or {}
+        if rec.get("password") == password:
             session["logged_in"] = True
             session["admin_user"] = username
             next_url = request.args.get("next", "").strip() or url_for("index")
@@ -907,6 +1146,86 @@ def login_page():
 def logout_page():
     session.clear()
     return redirect(url_for("login_page"))
+
+
+# --- Trang quản lý user (sys-only) ---
+@app.route("/user-manage", methods=["GET", "POST"])
+def user_manage_page():
+    active_user = session.get("admin_user", "")
+    if active_user != "sys":
+        return ("Unauthorized", 403)
+
+    message = None
+    message_type = "success"
+    target_username = (request.args.get("target_user") or "").strip()
+    target_permissions: dict[str, int] = {p: (1 if p in DEFAULT_ALLOW else 0) for p in PERMISSIONS}
+
+    if request.method == "POST":
+        target_username = (request.form.get("username") or "").strip()
+        target_password = (request.form.get("password") or "").strip()
+
+        try:
+            if not target_username or ":" in target_username:
+                raise ValueError("Tên user không hợp lệ.")
+
+            with _auth_users_lock:
+                users = _load_auth_users()
+                existing = users.get(target_username) or {}
+
+                perms: dict[str, int] = {}
+                for p in PERMISSIONS:
+                    perms[p] = 1 if request.form.get(p) in ("1", "on", "true") else 0
+
+                # sys luôn có toàn quyền
+                if target_username == "sys":
+                    perms = {k: 1 for k in PERMISSIONS}
+
+                # Nếu password rỗng => giữ nguyên password cũ (chỉ áp dụng khi user đã tồn tại)
+                if target_password:
+                    pw_to_save = target_password
+                else:
+                    pw_to_save = existing.get("password") if isinstance(existing, dict) else None
+                    if not pw_to_save:
+                        raise ValueError("Mật khẩu bắt buộc khi thêm user mới.")
+
+                users[target_username] = {"password": pw_to_save, "permissions": perms}
+                _save_auth_users(users)
+
+            _append_user_activity(
+                user=active_user,
+                action="auth_user_set_permissions",
+                status="success",
+                message="",
+                meta={"target_user": target_username, "permissions": perms, "changed_password": bool(target_password)},
+            )
+            message = "Đã cập nhật quyền."
+            message_type = "success"
+        except Exception as e:
+            _append_user_activity(
+                user=active_user,
+                action="auth_user_set_permissions",
+                status="error",
+                message=str(e),
+                meta={"target_user": target_username},
+            )
+            message = f"Lỗi: {e}"
+            message_type = "error"
+
+    users = _load_auth_users()
+    if target_username:
+        target_permissions = _effective_permissions(target_username)
+    user_rows = []
+    for u in sorted(users.keys(), key=lambda x: (x or "").lower()):
+        user_rows.append({"username": u, "permissions": _effective_permissions(u)})
+    return render_template(
+        "user_manage.html",
+        active="user_manage",
+        users=user_rows,
+        target_username=target_username,
+        target_permissions=target_permissions,
+        message=message,
+        message_type=message_type,
+    )
 
 
 # --- Trang chủ: Danh sách bảng cần đồng bộ ---
@@ -1608,6 +1927,7 @@ def jobs_deleted_history():
 def user_activity_page():
     limit = request.args.get("limit", 200, type=int)
     user_filter = (request.args.get("user") or "").strip()
+    _cleanup_user_activity_log(ttl_hours=24)
     rows = _load_user_activity(limit=limit)
     if user_filter:
         rows = [r for r in rows if (r.get("user") or "") == user_filter]

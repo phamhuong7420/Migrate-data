@@ -1416,4 +1416,45 @@ Help: https://docs.oracle.com/error-help/db/ora-00904/</message>
     <status>success</status>
     <message />
   </run>
+  <run id="176">
+    <filename>JOB_PN_HINH_PHAT_BO_SUNGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 14:51:50</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="177">
+    <filename>JOB_PN_THI_HANH_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 15:02:47</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="178">
+    <filename>JOB_PN_DOT_THA_CO_DIEU_KIENS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 15:22:07</run_at>
+    <status>error</status>
+    <message>ORA-00933: SQL command not properly ended
+Help: https://docs.oracle.com/error-help/db/ora-00933/</message>
+  </run>
+  <run id="179">
+    <filename>JOB_PN_DOT_THA_CO_DIEU_KIENS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 15:22:31</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="180">
+    <filename>JOB_PHAM_TOI_MOIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 15:35:31</run_at>
+    <status>success</status>
+    <message />
+  </run>
 </runs>

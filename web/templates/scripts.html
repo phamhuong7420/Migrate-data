@@ -35,11 +35,71 @@
     .edit-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:10000;
                   align-items:center; justify-content:center; }
     .edit-modal.show { display:flex; }
-    .edit-modal-box { background:#fff; border-radius:10px; padding:20px; width:90%; max-width:720px;
-                     max-height:85vh; display:flex; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,.3); }
+    .edit-modal-box { background:#fff; border-radius:10px; padding:20px; width:90%; max-width:900px;
+                     max-height:92vh; display:flex; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,.3); }
     .edit-modal-box h3 { margin:0 0 12px 0; font-size:15px; color:#1a237e; }
-    .edit-modal-textarea { flex:1; min-height:280px; font-family:'Courier New',monospace; font-size:13px;
+    .edit-modal-textarea { flex:1; min-height:340px; font-family:'Courier New',monospace; font-size:13px;
                            padding:10px; border:1px solid #ccc; border-radius:6px; resize:vertical; }
+    .edit-modal-textarea:focus { border-color:#1976d2; outline:none; box-shadow:0 0 0 3px rgba(25,118,210,.15); }
+    .sql-editor {
+      min-height:420px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:13.5px;
+      line-height:1.55;
+      background:#0b1220;
+      color:#e5e7eb;
+      border-color:#22304a;
+      tab-size:2;
+      white-space:pre;
+      overflow:auto;
+    }
+    .sql-editor::selection { background: rgba(25,118,210,.35); }
+    /* Syntax highlight editor (overlay pre + textarea) */
+    .sql-highlight-wrap {
+      flex: 1;
+      min-height: 560px;
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #22304a;
+    }
+    .sql-highlight-pre {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 10px;
+      overflow: auto;
+      background: #0b1220;
+      color: #e5e7eb;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13.5px;
+      line-height: 1.55;
+      tab-size: 2;
+      white-space: pre;
+      pointer-events: none; /* không bắt click */
+    }
+    .sql-highlight-pre::selection { background: transparent; }
+    .sql-editor {
+      background: transparent;
+      color: transparent;           /* textarea chỉ để edit (caret vẫn hiển thị) */
+      border: 0;
+      padding: 10px;
+      margin: 0;
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      caret-color: #e5e7eb;
+      outline: none;
+      resize: none;
+      border-radius: 6px;
+      white-space: pre;
+    }
+    .sql-editor::selection { background: rgba(25,118,210,.35); }
+    .tok-keyword { color: #93c5fd; font-weight: 650; }
+    .tok-string  { color: #86efac; }
+    .tok-comment { color: #94a3b8; font-style: italic; }
+    .tok-number  { color: #fbbf24; }
+    .tok-operator { color: #cbd5e1; }
     .edit-modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
     .edit-modal-input { padding:8px 10px; font-size:14px; border:1px solid #ccc; border-radius:6px; width:100%; max-width:320px; }
     .edit-modal-input:focus { border-color:#1976d2; outline:none; }
@@ -162,7 +222,10 @@
   <div class="edit-modal" id="editModal">
     <div class="edit-modal-box">
       <h3 id="editModalTitle">Sửa script</h3>
-      <textarea class="edit-modal-textarea" id="editModalTextarea" spellcheck="false"></textarea>
+      <div class="sql-highlight-wrap">
+        <pre class="sql-highlight-pre" id="editModalPre" aria-hidden="true"></pre>
+        <textarea class="edit-modal-textarea sql-editor" id="editModalTextarea" spellcheck="false"></textarea>
+      </div>
       <div class="edit-modal-footer">
         <button type="button" class="btn" style="background:#f5f5f5;color:#555;border:1px solid #ddd;" onclick="closeEditModal()">Hủy</button>
         <button type="button" class="btn btn-primary" onclick="saveEditModal()">Lưu</button>
@@ -372,11 +435,138 @@
     }
 
     let editModalFilename = '';
+    let _hlTimer = null;
+    const _kwSet = new Set([
+      // DML/DDL keywords
+      "SELECT","FROM","WHERE","INSERT","INTO","VALUES","DELETE","UPDATE","SET",
+      "JOIN","INNER","LEFT","RIGHT","FULL","OUTER","CROSS","ON","AS",
+      "AND","OR","NOT","NULL","IS","IN","EXISTS","LIKE","BETWEEN","DISTINCT",
+      "GROUP","BY","ORDER","HAVING","UNION","ALL",
+      "CASE","WHEN","THEN","ELSE","END",
+      // Oracle-ish / common constructs
+      "SYSDATE","COUNT","SUM","MIN","MAX","AVG","TO_DATE","TO_CHAR","NVL","COALESCE",
+      // hints / direct path
+      "APPEND"
+    ]);
+
+    function escapeHtmlText(s) {
+      return (s + "").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function highlightSql(src) {
+      const s = src == null ? "" : String(src);
+      let i = 0;
+      let out = "";
+
+      while (i < s.length) {
+        const ch = s[i];
+
+        // -- comment
+        if (ch === '-' && s[i + 1] === '-') {
+          let j = i + 2;
+          while (j < s.length && s[j] !== '\n') j++;
+          const tok = s.slice(i, j);
+          out += `<span class="tok-comment">${escapeHtmlText(tok)}</span>`;
+          i = j;
+          continue;
+        }
+
+        // /* block comment */
+        if (ch === '/' && s[i + 1] === '*') {
+          let j = i + 2;
+          while (j < s.length && !(s[j] === '*' && s[j + 1] === '/')) j++;
+          j = Math.min(s.length, j + 2);
+          const tok = s.slice(i, j);
+          out += `<span class="tok-comment">${escapeHtmlText(tok)}</span>`;
+          i = j;
+          continue;
+        }
+
+        // 'string' with '' escape
+        if (ch === '\'') {
+          let j = i + 1;
+          while (j < s.length) {
+            if (s[j] === '\'' && s[j + 1] === '\'') { j += 2; continue; } // escaped quote
+            if (s[j] === '\'') { j++; break; }
+            j++;
+          }
+          const tok = s.slice(i, j);
+          out += `<span class="tok-string">${escapeHtmlText(tok)}</span>`;
+          i = j;
+          continue;
+        }
+
+        // identifier / keyword
+        if (/[A-Za-z_]/.test(ch)) {
+          let j = i + 1;
+          while (j < s.length && /[A-Za-z0-9_$#]/.test(s[j])) j++;
+          const tok = s.slice(i, j);
+          const up = tok.toUpperCase();
+          if (_kwSet.has(up)) {
+            out += `<span class="tok-keyword">${escapeHtmlText(tok)}</span>`;
+          } else {
+            out += escapeHtmlText(tok);
+          }
+          i = j;
+          continue;
+        }
+
+        // number
+        if (/[0-9]/.test(ch)) {
+          let j = i + 1;
+          while (j < s.length && /[0-9.]/.test(s[j])) j++;
+          const tok = s.slice(i, j);
+          out += `<span class="tok-number">${escapeHtmlText(tok)}</span>`;
+          i = j;
+          continue;
+        }
+
+        // operator-ish
+        if (/[=<>+\-*\/]/.test(ch)) {
+          out += `<span class="tok-operator">${escapeHtmlText(ch)}</span>`;
+          i++;
+          continue;
+        }
+
+        // default
+        out += escapeHtmlText(ch);
+        i++;
+      }
+
+      return out;
+    }
+
+    function updateHighlightFromTextarea() {
+      if (_hlTimer) clearTimeout(_hlTimer);
+      _hlTimer = setTimeout(function() {
+        const ta = document.getElementById('editModalTextarea');
+        const pre = document.getElementById('editModalPre');
+        if (!ta || !pre) return;
+        pre.innerHTML = highlightSql(ta.value || '');
+        // Sync scroll
+        pre.scrollTop = ta.scrollTop;
+        pre.scrollLeft = ta.scrollLeft;
+      }, 30);
+    }
+
+    function hookEditorHighlight() {
+      const ta = document.getElementById('editModalTextarea');
+      const pre = document.getElementById('editModalPre');
+      if (!ta || !pre || ta._hlHooked) return;
+      ta._hlHooked = true;
+      ta.addEventListener('input', updateHighlightFromTextarea);
+      ta.addEventListener('scroll', function() {
+        pre.scrollTop = ta.scrollTop;
+        pre.scrollLeft = ta.scrollLeft;
+      });
+    }
+
     function openEditModal(name) {
       editModalFilename = name;
       document.getElementById('editModalTitle').textContent = 'Sửa: ' + name;
       document.getElementById('editModalTextarea').value = '';
       document.getElementById('editModal').classList.add('show');
+      hookEditorHighlight();
       fetch('/api/scripts/' + encodeURIComponent(name))
         .then(function(r) {
           if (!r.ok) throw new Error(r.statusText);
@@ -384,6 +574,7 @@
         })
         .then(function(data) {
           document.getElementById('editModalTextarea').value = data.content || '';
+          updateHighlightFromTextarea();
         })
         .catch(function(e) {
           alert('Lỗi đọc file: ' + e.message);

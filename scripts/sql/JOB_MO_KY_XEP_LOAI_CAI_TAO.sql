@@ -1,8 +1,5 @@
--- New script in ORCL.
--- Date: Mar 17, 2026
--- Time: 6:02:23 PM
-TRUNCATE TABLE QLPN.MO_KY_XEP_LOAI_CAI_TAOS;
-
+DELETE FROM QLPN.MO_KY_XEP_LOAI_CAI_TAO_PN_LAI_LICH;
+DELETE FROM QLPN.MO_KY_XEP_LOAI_CAI_TAOS;
 INSERT INTO QLPN.MO_KY_XEP_LOAI_CAI_TAOS (
     NAM_XEP_LOAI,
     TU_NGAY,
@@ -25,36 +22,55 @@ INSERT INTO QLPN.MO_KY_XEP_LOAI_CAI_TAOS (
 )
 SELECT
     okxl.NAM_XL,
-
     CAST(okxl.TU_NGAY_XL AS TIMESTAMP),
     CAST(okxl.DEN_NGAY_XL AS TIMESTAMP),
-
-    /* TU_NGAY_DEN_TRAI → NGAY_DEN_TRAI_TU */
     CAST(okxl.TU_NGAY_DEN_TRAI AS TIMESTAMP),
-
-    /* TRANG_THAI (không có trong OLD → default) */
-    1,
-
+    /* TRANG_THAI: CLOSE = 0, OPEN = 1 */
+    CASE
+        WHEN UPPER(okxl.ACTION) = 'CLOSE' THEN 0
+        ELSE 1
+    END,
     /* Audit */
     SYSTIMESTAMP,
     NULL,
-    NULL,
+    SYSTIMESTAMP,
     NULL,
     0,
     NULL,
     NULL,
-
-    /* KY_XEP_LOAI */
-    SUBSTR(okxl.KY_XEP_LOAI, 1, 10),
-
+    okxl.KY_XEP_LOAI,
     CAST(okxl.NGAY_HOP_XEP_LOAI AS TIMESTAMP),
     CAST(okxl.NGAY_QD_XL AS TIMESTAMP),
     CAST(okxl.NGAY_TB_XL AS TIMESTAMP),
-
-    /* TU_SO_QD → SO_QUYET_DINH_TU */
     TO_CHAR(okxl.TU_SO_QD),
-
-    /* TU_SO_TB → SO_THONG_BAO_TU */
     TO_CHAR(okxl.TU_SO_TB)
-
-FROM QLPN_OLD.PN_OPEN_KY_XEP_LOAI okxl;
+FROM (
+    SELECT okxl.*,
+           ROW_NUMBER() OVER (
+               ORDER BY GREATEST(
+                   NVL(okxl.NGAY_HOP_XEP_LOAI, DATE '1900-01-01'),
+                   NVL(okxl.NGAY_QD_XL, DATE '1900-01-01'),
+                   NVL(okxl.NGAY_TB_XL, DATE '1900-01-01')
+               ) DESC,
+               okxl.NAM_XL DESC  -- tie-break thêm cho ổn định
+           ) rn
+    FROM QLPN_OLD.PN_OPEN_KY_XEP_LOAI okxl
+) okxl;
+INSERT INTO QLPN.MO_KY_XEP_LOAI_CAI_TAO_PN_LAI_LICH (
+    MO_KY_XEP_LOAI_CAI_TAOS_ID,
+    PN_LAI_LICHS_ID
+)
+SELECT
+    (
+        SELECT t.ID
+        FROM QLPN.MO_KY_XEP_LOAI_CAI_TAOS t
+        ORDER BY t.CREATION_TIME DESC, t.NAM_XEP_LOAI DESC
+        FETCH FIRST 1 ROW ONLY
+    ) AS MO_KY_ID,
+    pll2.ID
+FROM QLPN_OLD.PN_KY_XEP_LOAI pkxl
+LEFT JOIN QLPN_OLD.PN_LAI_LICH pll
+    ON pll.PN_ID = pkxl.PN_ID
+INNER JOIN QLPN.PN_LAI_LICHS pll2
+    ON pll2.LL_SO_HO_SO_LAN_DAU = pll.SO_HSLD;
+--DROP TABLE QLPN.MAP_KY_XL;
