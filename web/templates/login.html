@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập - Oracle Sync</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <main class="layout-main" style="max-width: 420px; margin: 60px auto;">
+    <h1>Đăng nhập</h1>
+
+    {% if error %}
+      <div class="msg error">{{ error }}</div>
+    {% endif %}
+
+    <div class="form-box">
+      <form method="post" action="{{ url_for('login_page') }}?next={{ next | e }}">
+        <div style="margin-bottom: 12px;">
+          <label>Tài khoản</label>
+          <input name="username" required autocomplete="off" style="width: 100%;">
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label>Mật khẩu</label>
+          <input name="password" type="password" required autocomplete="current-password" style="width: 100%;">
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+
+    <p style="margin-top: 14px; color: #777; font-size: 12.5px;">
+      Chỉ người quản trị được phép chạy job/script.
+    </p>
+  </main>
+</body>
+</html>
+

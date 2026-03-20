@@ -33,4 +33,19 @@
   <a href="{{ url_for('scripts_history') }}" class="{{ 'active' if active == 'scripts_history' else '' }}">
     <span class="nav-icon">&#128337;</span> Lịch sử chạy script
   </a>
+  <div class="nav-section-label">Tài khoản</div>
+  {% if session.get('admin_user') == 'sys' %}
+    <a href="{{ url_for('user_activity_page') }}" class="{{ 'active' if active == 'user_activity' else '' }}">
+      <span class="nav-icon">&#128202;</span> Log hoạt động
+    </a>
+  {% endif %}
+  {% if session.get('logged_in') %}
+    <a href="{{ url_for('logout_page') }}">
+      <span class="nav-icon">&#128274;</span> Đăng xuất
+    </a>
+  {% else %}
+    <a href="{{ url_for('login_page') }}">
+      <span class="nav-icon">&#128274;</span> Đăng nhập
+    </a>
+  {% endif %}
 </nav>

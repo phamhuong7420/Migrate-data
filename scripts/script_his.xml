@@ -1400,4 +1400,20 @@ Help: https://docs.oracle.com/error-help/db/ora-00904/</message>
     <status>success</status>
     <message />
   </run>
+  <run id="174">
+    <filename>JOB_PHAN_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 13:53:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="175">
+    <filename>JOB_PN_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-20 14:06:53</run_at>
+    <status>success</status>
+    <message />
+  </run>
 </runs>

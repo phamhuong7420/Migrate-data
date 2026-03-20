@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log hoạt động - Oracle Sync</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .log-head {
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .log-head .sub {
+      font-size:12.5px;
+      color:#777;
+    }
+    table td, table th { vertical-align:top; }
+    .meta-pre {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  {% include '_menu.html' %}
+  <main class="layout-main">
+    <div class="log-head">
+      <div>
+        <h1>Log hoạt động</h1>
+        <div class="sub">Hiển thị tối đa {{ limit }} dòng gần nhất. (Chỉ sys)</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <form method="get" action="{{ url_for('user_activity_page') }}" style="display:flex; gap:8px; align-items:center;">
+          <span style="font-size:13px;color:#666;">Limit</span>
+          <input name="limit" type="number" min="1" max="5000" value="{{ limit }}" style="width:90px;"/>
+          <span style="font-size:13px;color:#666; margin-left:6px;">User</span>
+          <input name="user" type="text" value="{{ user_filter }}" placeholder="(trống = tất cả)" style="width:190px;"/>
+          <button type="submit" class="btn btn-primary" style="margin-right:0;">Lọc</button>
+        </form>
+      </div>
+    </div>
+
+    {% if rows %}
+      <table>
+        <thead>
+          <tr>
+            <th style="width:180px;">run_at</th>
+            <th style="width:120px;">user</th>
+            <th style="width:170px;">action</th>
+            <th style="width:90px;">status</th>
+            <th>message</th>
+            <th style="width:260px;">meta</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in rows %}
+          <tr>
+            <td>{{ r.run_at }}</td>
+            <td>{{ r.user }}</td>
+            <td>{{ r.action }}</td>
+            <td>{{ r.status }}</td>
+            <td style="max-width:520px;">{{ r.message }}</td>
+            <td>
+              {% if r.meta %}
+                <pre class="meta-pre">{{ r.meta }}</pre>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="msg success" style="background:#fff3e0;border:1px solid #ffe0b2;color:#ef6c00;">
+        Chưa có log hoạt động.
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
+

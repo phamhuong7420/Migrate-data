@@ -11,14 +11,17 @@ if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
 import json
+import csv
 import os
 import re
+from datetime import datetime
+from collections import deque
 import queue as _queue
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 import oracledb
-from flask import Flask, request, redirect, url_for, render_template, jsonify, Response, stream_with_context
+from flask import Flask, request, redirect, url_for, render_template, jsonify, Response, stream_with_context, session
 
 from config.file_config import (
     load_connections_only,
@@ -45,6 +48,117 @@ app = Flask(
     template_folder=Path(__file__).parent / "templates",
     static_folder=Path(__file__).parent / "static",
 )
+
+# --- Auth (simple session login) ---
+# Tài khoản quản trị: đọc từ file (scripts/auth_users.txt),
+# mỗi dòng: username:password
+app.secret_key = os.environ.get("ORACLE_SYNC_SESSION_SECRET", "dev-insecure-change-me")
+
+def _is_logged_in() -> bool:
+    return bool(session.get("logged_in"))
+
+AUTH_USERS_FILE = _root / "scripts" / "auth_users.txt"
+
+USER_ACTIVITY_LOG_FILE = _root / "scripts" / "user_activity_log.csv"
+_user_activity_lock = threading.Lock()
+_user_activity_fieldnames = ["run_at", "user", "action", "status", "message", "meta"]
+
+def _load_auth_users() -> dict[str, str]:
+    """
+    Load users từ scripts/auth_users.txt.
+    Nếu file không tồn tại hoặc nội dung rỗng => trả về dict rỗng (không cho login).
+    """
+    if not AUTH_USERS_FILE.exists():
+        return {}
+    users: dict[str, str] = {}
+    try:
+        for raw in AUTH_USERS_FILE.read_text(encoding="utf-8").splitlines():
+            line = (raw or "").strip()
+            if not line or line.startswith("#"):
+                continue
+            if ":" not in line:
+                continue
+            u, p = line.split(":", 1)
+            u = (u or "").strip()
+            p = p or ""
+            if u:
+                users[u] = p
+    except Exception:
+        return {}
+    return users
+
+@app.before_request
+def _auth_guard():
+    # Cho phép assets static và trang login/logout
+    if request.path.startswith("/static/"):
+        return
+    # Chỉ `sys` mới xem được trang log.
+    if request.path.startswith("/user-activity"):
+        if not _is_logged_in():
+            return redirect(url_for("login_page", next=request.path))
+        if session.get("admin_user") != "sys":
+            return ("Unauthorized", 403)
+    if request.path in ("/login", "/logout"):
+        return
+
+    if _is_logged_in():
+        return
+
+    # Chặn API bằng 401 JSON để client JS nhận được lỗi rõ ràng.
+    accept = request.headers.get("Accept", "")
+    if request.path.startswith("/api/") or "text/event-stream" in accept:
+        return jsonify({"ok": False, "error": "Unauthorized"}), 401
+
+    # Các trang HTML: chuyển hướng về trang login.
+    return redirect(url_for("login_page", next=request.path))
+
+
+def _append_user_activity(user: str, action: str, status: str, message: str = "", meta: dict | None = None) -> None:
+    """
+    Append log hoạt động vào scripts/user_activity_log.csv.
+    Lưu ý: meta/messsage có thể chứa ký tự đặc biệt; dùng csv để quote đúng.
+    """
+    run_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    meta_str = ""
+    if meta is not None:
+        try:
+            meta_str = json.dumps(meta, ensure_ascii=False)
+        except Exception:
+            meta_str = ""
+
+    row = {
+        "run_at": run_at,
+        "user": user or "",
+        "action": action or "",
+        "status": status or "",
+        "message": message or "",
+        "meta": meta_str,
+    }
+
+    # Tránh ghi đồng thời từ nhiều thread (job/script).
+    with _user_activity_lock:
+        file_exists = USER_ACTIVITY_LOG_FILE.exists()
+        USER_ACTIVITY_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(USER_ACTIVITY_LOG_FILE, "a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=_user_activity_fieldnames)
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(row)
+
+
+def _load_user_activity(limit: int = 200) -> list[dict]:
+    if not USER_ACTIVITY_LOG_FILE.exists():
+        return []
+    limit = max(1, min(int(limit), 5000))
+    rows: deque[dict] = deque(maxlen=limit)
+    try:
+        with open(USER_ACTIVITY_LOG_FILE, "r", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for r in reader:
+                rows.append(r)
+    except Exception:
+        return []
+    return list(rows)
 
 # run_id -> {"stop": threading.Event, "conns": dict[int, conn], "lock": Lock}
 _active_runs: dict = {}
@@ -287,6 +401,7 @@ def _validate_new_filename(filename: str) -> tuple[Path | None, str | None]:
 @app.route("/api/scripts/new", methods=["POST"])
 def api_script_new():
     """Tạo file script mới."""
+    active_user = session.get("admin_user", "")
     filename = request.form.get("filename", "").strip()
     content = request.form.get("content", "")
     if content is None:
@@ -296,8 +411,22 @@ def api_script_new():
         return jsonify({"error": err}), 400
     try:
         script_file.write_text(content, encoding="utf-8")
+        _append_user_activity(
+            user=active_user,
+            action="script_new",
+            status="success",
+            message="",
+            meta={"filename": filename},
+        )
         return jsonify({"ok": True, "filename": filename})
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="script_new",
+            status="error",
+            message=str(e),
+            meta={"filename": filename},
+        )
         return jsonify({"error": str(e)}), 500
 
 
@@ -317,13 +446,28 @@ def api_script_get(filename: str):
 @app.route("/api/scripts/<path:filename>", methods=["DELETE"])
 def api_script_delete(filename: str):
     """Xóa file script."""
+    active_user = session.get("admin_user", "")
     script_file = _resolve_script_path(filename)
     if not script_file:
         return jsonify({"error": "File không hợp lệ hoặc không tồn tại."}), 404
     try:
         script_file.unlink()
+        _append_user_activity(
+            user=active_user,
+            action="script_delete",
+            status="success",
+            message="",
+            meta={"filename": filename},
+        )
         return jsonify({"ok": True})
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="script_delete",
+            status="error",
+            message=str(e),
+            meta={"filename": filename},
+        )
         return jsonify({"error": str(e)}), 500
 
 
@@ -350,6 +494,7 @@ def _script_run_worker(run_id: str, filename: str, conn_id: int):
     state = _script_runs.get(run_id)
     if not state:
         return
+    log_user = state.get("user", "")
     stop_evt = state["stop"]
     err_fn, err_msg = _run_one_script_with_stop(filename, conn_id, stop_evt)
     data = load_connections_only()
@@ -367,6 +512,19 @@ def _script_run_worker(run_id: str, filename: str, conn_id: int):
                 add_script_run(filename, conn_id, conn_name, "error", err_msg or "Lỗi không xác định.")
             state["status"] = status
             state["result"] = {"ok": False, "error": err_msg or "", "filename": filename}
+    # Ghi log sau khi đã cập nhật trạng thái.
+    final_status = state.get("status", "")
+    final_message = ""
+    res = state.get("result") or {}
+    if final_status in ("error", "stopped"):
+        final_message = res.get("error") or ""
+    _append_user_activity(
+        user=log_user,
+        action="script_run_one",
+        status=final_status,
+        message=final_message,
+        meta={"run_id": run_id, "filename": filename, "connection_id": conn_id},
+    )
 
 
 @app.route("/api/scripts/run-one", methods=["POST"])
@@ -375,6 +533,7 @@ def api_script_run_one():
     filename = request.form.get("filename", "").strip()
     conn_id = request.form.get("connection_id", type=int) or 0
     run_id = request.form.get("run_id", "").strip()
+    active_user = session.get("admin_user", "")
     if not filename:
         return jsonify({"ok": False, "error": "Thiếu tên file."}), 400
     if not conn_id:
@@ -382,7 +541,13 @@ def api_script_run_one():
 
     if run_id:
         stop_evt = threading.Event()
-        state = {"stop": stop_evt, "status": "running", "result": None, "lock": threading.Lock()}
+        state = {
+            "stop": stop_evt,
+            "status": "running",
+            "result": None,
+            "lock": threading.Lock(),
+            "user": active_user,
+        }
         _script_runs[run_id] = state
         t = threading.Thread(target=_script_run_worker, args=(run_id, filename, conn_id))
         t.daemon = True
@@ -396,8 +561,22 @@ def api_script_run_one():
     conn_name = (conn_by_id.get(conn_id) or {}).get("name", "")
     if err_fn is None:
         add_script_run(filename, conn_id, conn_name, "success", "")
+        _append_user_activity(
+            user=active_user,
+            action="script_run_one",
+            status="success",
+            message="",
+            meta={"filename": filename, "connection_id": conn_id},
+        )
         return jsonify({"ok": True, "filename": filename})
     add_script_run(filename, conn_id, conn_name, "error", err_msg or "Lỗi không xác định.")
+    _append_user_activity(
+        user=active_user,
+        action="script_run_one",
+        status="error",
+        message=err_msg or "Lỗi không xác định.",
+        meta={"filename": filename, "connection_id": conn_id},
+    )
     return jsonify({"ok": False, "error": err_msg or "Lỗi không xác định.", "filename": filename}), 500
 
 
@@ -423,6 +602,14 @@ def api_script_stop(run_id: str):
     if not state:
         return jsonify({"ok": False, "error": "Không tìm thấy run_id."}), 404
     state["stop"].set()
+    active_user = session.get("admin_user", "")
+    _append_user_activity(
+        user=active_user,
+        action="scripts_stop",
+        status="success",
+        message="",
+        meta={"run_id": run_id},
+    )
     return jsonify({"ok": True})
 
 
@@ -435,10 +622,25 @@ def api_script_save(filename: str):
     content = request.form.get("content", request.get_data(as_text=True))
     if content is None:
         content = ""
+    active_user = session.get("admin_user", "")
     try:
         script_file.write_text(content, encoding="utf-8")
+        _append_user_activity(
+            user=active_user,
+            action="script_save",
+            status="success",
+            message="",
+            meta={"filename": filename},
+        )
         return jsonify({"ok": True})
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="script_save",
+            status="error",
+            message=str(e),
+            meta={"filename": filename},
+        )
         return jsonify({"error": str(e)}), 500
 
 
@@ -666,6 +868,47 @@ def scripts_run_delete_pn_lai_lichs():
     )
 
 
+# --- Trang đăng nhập ---
+@app.route("/login", methods=["GET", "POST"])
+def login_page():
+    error_msg = None
+    if request.method == "POST":
+        username = (request.form.get("username") or "").strip()
+        password = request.form.get("password") or ""
+
+        users = _load_auth_users()
+        if users.get(username) == password:
+            session["logged_in"] = True
+            session["admin_user"] = username
+            next_url = request.args.get("next", "").strip() or url_for("index")
+            _append_user_activity(
+                user=username,
+                action="login",
+                status="success",
+                message="",
+                meta={"next": next_url},
+            )
+            return redirect(next_url)
+
+        error_msg = "Sai tài khoản hoặc mật khẩu."
+        _append_user_activity(
+            user=username,
+            action="login",
+            status="error",
+            message=error_msg,
+            meta={},
+        )
+
+    next_url = request.args.get("next", "").strip() or url_for("index")
+    return render_template("login.html", error=error_msg, next=next_url)
+
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout_page():
+    session.clear()
+    return redirect(url_for("login_page"))
+
+
 # --- Trang chủ: Danh sách bảng cần đồng bộ ---
 @app.route("/")
 def index():
@@ -701,6 +944,7 @@ def connection_page():
 
 @app.route("/connection/add", methods=["POST"])
 def add_connection():
+    active_user = session.get("admin_user", "")
     name = request.form.get("name", "").strip()
     connection_type = request.form.get("connection_type", "source").strip()
     host = request.form.get("host", "").strip()
@@ -712,8 +956,22 @@ def add_connection():
         return redirect(url_for("connection_page", message="Vui lòng điền đủ: Tên, Host, Service name, Username.", message_type="error"))
     try:
         fc_add_connection(name, connection_type, host, int(port), service_name, username, password or None)
+        _append_user_activity(
+            user=active_user,
+            action="connection_add",
+            status="success",
+            message="",
+            meta={"name": name, "connection_type": connection_type, "host": host, "port": int(port), "service_name": service_name, "username": username},
+        )
         return redirect(url_for("connection_page", message="Đã thêm kết nối."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="connection_add",
+            status="error",
+            message=str(e),
+            meta={"name": name, "connection_type": connection_type},
+        )
         return redirect(url_for("connection_page", message=f"Lỗi: {e}", message_type="error"))
 
 
@@ -732,6 +990,7 @@ def edit_connection(id):
 
 @app.route("/connection/<int:id>/update", methods=["POST"])
 def update_connection(id):
+    active_user = session.get("admin_user", "")
     name = request.form.get("name", "").strip()
     connection_type = request.form.get("connection_type", "source").strip()
     host = request.form.get("host", "").strip()
@@ -743,17 +1002,46 @@ def update_connection(id):
         return redirect(url_for("connection_page", message="Vui lòng điền đủ các trường.", message_type="error"))
     try:
         fc_update_connection(id, name, connection_type, host, int(port), service_name, username, password if password else None)
+        _append_user_activity(
+            user=active_user,
+            action="connection_update",
+            status="success",
+            message="",
+            meta={"id": id, "name": name, "connection_type": connection_type, "host": host, "port": int(port), "service_name": service_name, "username": username},
+        )
         return redirect(url_for("connection_page", message="Đã cập nhật kết nối."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="connection_update",
+            status="error",
+            message=str(e),
+            meta={"id": id, "name": name, "connection_type": connection_type},
+        )
         return redirect(url_for("connection_page", message=f"Lỗi: {e}", message_type="error"))
 
 
 @app.route("/connection/<int:id>/delete", methods=["POST"])
 def delete_connection(id):
+    active_user = session.get("admin_user", "")
     try:
         fc_delete_connection(id)
+        _append_user_activity(
+            user=active_user,
+            action="connection_delete",
+            status="success",
+            message="",
+            meta={"id": id},
+        )
         return redirect(url_for("connection_page", message="Đã xóa kết nối."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="connection_delete",
+            status="error",
+            message=str(e),
+            meta={"id": id},
+        )
         return redirect(url_for("connection_page", message=f"Lỗi: {e}", message_type="error"))
 
 
@@ -794,6 +1082,7 @@ def job_new_page():
 
 @app.route("/job/create", methods=["POST"])
 def job_create():
+    active_user = session.get("admin_user", "")
     job_name = request.form.get("job_name", "").strip()
     source_connection_id = request.form.get("source_connection_id", type=int)
     target_connection_id = request.form.get("target_connection_id", type=int)
@@ -810,12 +1099,33 @@ def job_create():
         pairs = list(zip(source_tables, target_tables))
         if not pairs:
             pairs = [("", "")]
+        pair_count = len(pairs)
         last_id = None
         for src_tbl, tgt_tbl in pairs:
             last_id = add_statement_csv(src_conn_name, tgt_conn_name, src_tbl, tgt_tbl, name=job_name)
+        _append_user_activity(
+            user=active_user,
+            action="job_create",
+            status="success",
+            message="",
+            meta={
+                "job_name": job_name,
+                "source_connection_id": source_connection_id,
+                "target_connection_id": target_connection_id,
+                "pair_count": pair_count,
+                "last_stmt_id": last_id,
+            },
+        )
         return redirect(url_for("man_hinh_them_moi", id=last_id,
                                 message="Đã tạo. Tạo mapping cột và lưu câu lệnh SQL."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="job_create",
+            status="error",
+            message=str(e),
+            meta={"job_name": job_name, "source_connection_id": source_connection_id, "target_connection_id": target_connection_id},
+        )
         return redirect(url_for("job_new_page", message=f"Lỗi: {e}", message_type="error"))
 
 
@@ -850,14 +1160,29 @@ def job_edit_page(id):
 # --- Lưu câu lệnh SQL (UPDATE theo id, không insert mới) ---
 @app.route("/job/<int:stmt_id>/save", methods=["POST"])
 def statement_save(stmt_id):
+    active_user = session.get("admin_user", "")
     sql_text = request.form.get("sql_text", "").strip()
     if not sql_text:
         return redirect(url_for("man_hinh_them_moi", id=stmt_id,
                                 message="Câu lệnh không được trống.", message_type="error"))
     try:
         update_statement_csv(stmt_id, sql_text)
+        _append_user_activity(
+            user=active_user,
+            action="job_update_sql",
+            status="success",
+            message="",
+            meta={"stmt_id": stmt_id},
+        )
         return redirect(url_for("man_hinh_them_moi", id=stmt_id, message="Đã lưu câu lệnh."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="job_update_sql",
+            status="error",
+            message=str(e),
+            meta={"stmt_id": stmt_id},
+        )
         return redirect(url_for("man_hinh_them_moi", id=stmt_id,
                                 message=f"Lỗi: {e}", message_type="error"))
 
@@ -945,6 +1270,7 @@ def jobs_run_stream():
     workers  = min(MAX_WORKERS, max(1, request.args.get("workers", MAX_WORKERS, type=int)))
     stmt_ids = [int(x) for x in ids_str.split(",") if x.strip().lstrip("-").isdigit()]
 
+    active_user = session.get("admin_user", "")
     run_id    = uuid.uuid4().hex[:12]
     stop_evt  = threading.Event()
     conns_map: dict = {}          # sid -> active oracledb connection
@@ -958,6 +1284,13 @@ def jobs_run_stream():
     def _run_one(idx: int, sid: int, data: dict, total: int, evt_q: _queue.Queue):
         """Chạy 1 job trong worker thread, đẩy events vào queue."""
         if stop_evt.is_set():
+            _append_user_activity(
+                user=active_user,
+                action="job_run_stream",
+                status="stopped",
+                message="Bị dừng bởi người dùng.",
+                meta={"run_id": run_id, "idx": idx, "stmt_id": sid},
+            )
             evt_q.put({"type": "progress", "index": idx, "total": total,
                        "id": sid, "name": f"ID {sid}", "table": "?",
                        "status": "error", "message": "Bị dừng bởi người dùng."})
@@ -965,6 +1298,13 @@ def jobs_run_stream():
 
         stmt = get_statement_csv(sid)
         if not stmt:
+            _append_user_activity(
+                user=active_user,
+                action="job_run_stream",
+                status="error",
+                message="Không tìm thấy bản ghi.",
+                meta={"run_id": run_id, "idx": idx, "stmt_id": sid},
+            )
             evt_q.put({"type": "progress", "index": idx, "total": total,
                        "id": sid, "name": f"ID {sid}", "table": "?",
                        "status": "error", "message": "Không tìm thấy bản ghi."})
@@ -982,6 +1322,13 @@ def jobs_run_stream():
         def _err(msg):
             with _history_lock:
                 add_history(sid, label, target_table, "error", None, None, msg)
+            _append_user_activity(
+                user=active_user,
+                action="job_run_stream",
+                status="error",
+                message=msg,
+                meta={"run_id": run_id, "idx": idx, "stmt_id": sid, "target_table": target_table},
+            )
             evt_q.put({"type": "progress", "index": idx, "total": total,
                        "id": sid, "name": label, "table": target_table,
                        "status": "error", "message": msg})
@@ -1035,6 +1382,20 @@ def jobs_run_stream():
 
             with _history_lock:
                 add_history(sid, label, target_table, "success", deleted, inserted, "")
+            _append_user_activity(
+                user=active_user,
+                action="job_run_stream",
+                status="success",
+                message="",
+                meta={
+                    "run_id": run_id,
+                    "idx": idx,
+                    "stmt_id": sid,
+                    "target_table": target_table,
+                    "delete_rows": deleted,
+                    "insert_rows": inserted,
+                },
+            )
             evt_q.put({"type": "progress", "index": idx, "total": total,
                        "id": sid, "name": label, "table": target_table,
                        "status": "success", "delete_rows": deleted, "insert_rows": inserted,
@@ -1044,6 +1405,13 @@ def jobs_run_stream():
             msg = "Bị dừng bởi người dùng." if is_cancel else str(e)
             with _history_lock:
                 add_history(sid, label, target_table, "error", None, None, msg)
+            _append_user_activity(
+                user=active_user,
+                action="job_run_stream",
+                status="error",
+                message=msg,
+                meta={"run_id": run_id, "idx": idx, "stmt_id": sid, "target_table": target_table},
+            )
             evt_q.put({"type": "progress", "index": idx, "total": total,
                        "id": sid, "name": label, "table": target_table,
                        "status": "error", "message": msg})
@@ -1104,6 +1472,14 @@ def jobs_stop(run_id):
     if not run:
         return jsonify({"ok": False, "message": "Run không còn tồn tại hoặc đã kết thúc."})
     run["stop"].set()
+    active_user = session.get("admin_user", "")
+    _append_user_activity(
+        user=active_user,
+        action="jobs_stop",
+        status="success",
+        message="",
+        meta={"run_id": run_id},
+    )
     # Cancel tất cả Oracle connection đang blocking trong các thread
     with run["lock"]:
         for oc in list(run["conns"].values()):
@@ -1115,13 +1491,28 @@ def jobs_stop(run_id):
 # --- API lưu SQL nhanh (dùng cho inline edit ở index) ---
 @app.route("/api/job/<int:stmt_id>/sql", methods=["POST"])
 def api_save_sql(stmt_id):
+    active_user = session.get("admin_user", "")
     sql_text = request.form.get("sql_text", "").strip()
     if not sql_text:
         return jsonify({"error": "Câu lệnh không được trống."}), 400
     try:
         update_statement_csv(stmt_id, sql_text)
+        _append_user_activity(
+            user=active_user,
+            action="job_update_sql",
+            status="success",
+            message="",
+            meta={"stmt_id": stmt_id},
+        )
         return jsonify({"ok": True})
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="job_update_sql",
+            status="error",
+            message=str(e),
+            meta={"stmt_id": stmt_id},
+        )
         return jsonify({"error": str(e)}), 500
 
 
@@ -1148,23 +1539,53 @@ def job_history(stmt_id):
 # --- Xóa 1 dòng khỏi job_sync.csv ---
 @app.route("/job/<int:stmt_id>/delete", methods=["POST"])
 def statement_delete(stmt_id):
+    active_user = session.get("admin_user", "")
     try:
         delete_statement_csv(stmt_id)
+        _append_user_activity(
+            user=active_user,
+            action="job_delete",
+            status="success",
+            message="",
+            meta={"stmt_id": stmt_id},
+        )
         return redirect(url_for("index", message="Đã xóa."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="job_delete",
+            status="error",
+            message=str(e),
+            meta={"stmt_id": stmt_id},
+        )
         return redirect(url_for("index", message=f"Lỗi: {e}", message_type="error"))
 
 
 # --- Xóa nhiều dòng khỏi job_sync.csv ---
 @app.route("/jobs/delete-bulk", methods=["POST"])
 def jobs_delete_bulk():
+    active_user = session.get("admin_user", "")
     stmt_ids = request.form.getlist("stmt_ids", type=int)
     if not stmt_ids:
         return redirect(url_for("index", message="Chưa chọn job nào để xóa.", message_type="error"))
     try:
         delete_statements_csv_bulk(stmt_ids)
+        _append_user_activity(
+            user=active_user,
+            action="job_delete_bulk",
+            status="success",
+            message="",
+            meta={"count": len(stmt_ids), "stmt_ids_preview": stmt_ids[:10]},
+        )
         return redirect(url_for("index", message=f"Đã xóa {len(stmt_ids)} job."))
     except Exception as e:
+        _append_user_activity(
+            user=active_user,
+            action="job_delete_bulk",
+            status="error",
+            message=str(e),
+            meta={"count": len(stmt_ids)},
+        )
         return redirect(url_for("index", message=f"Lỗi: {e}", message_type="error"))
 
 
@@ -1180,6 +1601,23 @@ def jobs_stats_success():
 def jobs_deleted_history():
     rows = get_all_delete_ops()
     return render_template("job_deleted_history.html", active="jobs_deleted", rows=rows)
+
+
+# --- Log hoạt động (sys-only) ---
+@app.route("/user-activity")
+def user_activity_page():
+    limit = request.args.get("limit", 200, type=int)
+    user_filter = (request.args.get("user") or "").strip()
+    rows = _load_user_activity(limit=limit)
+    if user_filter:
+        rows = [r for r in rows if (r.get("user") or "") == user_filter]
+    return render_template(
+        "user_activity_log.html",
+        active="user_activity",
+        rows=rows,
+        limit=limit,
+        user_filter=user_filter,
+    )
 
 
 if __name__ == "__main__":

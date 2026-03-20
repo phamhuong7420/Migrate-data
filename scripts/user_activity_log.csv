@@ -1,0 +1,12 @@
+run_at,user,action,status,message,meta
+2026-03-20 13:48:38,sys,login,success,,"{""next"": ""/""}"
+2026-03-20 13:49:06,thangnd,login,success,,"{""next"": ""/""}"
+2026-03-20 13:50:54,thangnd,job_create,success,,"{""job_name"": ""tesss"", ""source_connection_id"": 1, ""target_connection_id"": 2, ""pair_count"": 1, ""last_stmt_id"": 122}"
+2026-03-20 13:51:03,thangnd,job_update_sql,success,,"{""stmt_id"": 122}"
+2026-03-20 13:51:45,thangnd,job_delete,success,,"{""stmt_id"": 122}"
+2026-03-20 13:52:07,thuyntt,login,success,,"{""next"": ""/""}"
+2026-03-20 13:52:59,thuyntt,script_save,success,,"{""filename"": ""JOB_PHAN_LOAIS.sql""}"
+2026-03-20 13:53:06,thuyntt,script_run_one,success,,"{""run_id"": ""script_1773989591892_0"", ""filename"": ""JOB_PHAN_LOAIS.sql"", ""connection_id"": 2}"
+2026-03-20 14:05:08,thuyntt,script_save,success,,"{""filename"": ""JOB_PN_DAC_XAS.sql""}"
+2026-03-20 14:06:44,thuyntt,script_save,success,,"{""filename"": ""JOB_PN_DAC_XAS.sql""}"
+2026-03-20 14:06:53,thuyntt,script_run_one,success,,"{""run_id"": ""script_1773990417975_0"", ""filename"": ""JOB_PN_DAC_XAS.sql"", ""connection_id"": 2}"
