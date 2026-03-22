@@ -3036,4 +3036,1380 @@ Help: https://docs.oracle.com/error-help/db/ora-00942/</message>
     <status>success</status>
     <message />
   </run>
+  <run id="378">
+    <filename>JOB_DELETE_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:45:39</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="379">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:45:59</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="380">
+    <filename>JOB_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:46:00</run_at>
+    <status>error</status>
+    <message>ORA-02291: integrity constraint (QLPN.FK_PN_LAI_LICHS_DM_DON_VI_HANH_CHINH_LL_NOI_THA_VE_CU_TRU_PROVICE) violated - parent key not found
+Help: https://docs.oracle.com/error-help/db/ora-02291/</message>
+  </run>
+  <run id="381">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:17</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="382">
+    <filename>JOB_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:21</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="383">
+    <filename>JOB_AN_GIAMS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:21</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="384">
+    <filename>JOB_CHUA_BENH_BAT_BUOCS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="385">
+    <filename>JOB_DM_BAN_GIAO_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="386">
+    <filename>JOB_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:23</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="387">
+    <filename>JOB_GIAO_NHAN_PHAM_NHAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:23</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="388">
+    <filename>JOB_HOAN_THI_HANH_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="389">
+    <filename>JOB_HUY_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="390">
+    <filename>JOB_KHEN_THUONGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="391">
+    <filename>JOB_KY_LUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="392">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="393">
+    <filename>JOB_MO_KY_XEP_LOAI_CAI_TAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="394">
+    <filename>JOB_PHAM_NHAN_CHUYEN_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="395">
+    <filename>JOB_PHAM_NHAN_PHAN_BUONG.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="396">
+    <filename>JOB_PHAM_NHAN_PHAN_DOI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:26</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="397">
+    <filename>JOB_PHAM_TOI_MOIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:26</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="398">
+    <filename>JOB_PHAN_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="399">
+    <filename>JOB_PN_BAN_AN_KHACS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="400">
+    <filename>JOB_PN_CHUYEN_GIAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="401">
+    <filename>JOB_PN_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="402">
+    <filename>JOB_PN_DOT_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="403">
+    <filename>JOB_PN_DOT_THA_CO_DIEU_KIENS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="404">
+    <filename>JOB_PN_GIAM_RIENGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="405">
+    <filename>JOB_PN_HINH_PHAT_BO_SUNGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="406">
+    <filename>JOB_PN_HSNVS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="407">
+    <filename>JOB_PN_HSNV_KTS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="408">
+    <filename>JOB_PN_HSNV_KT_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="409">
+    <filename>JOB_PN_KET_THUC_CHETS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="410">
+    <filename>JOB_PN_KET_THUC_RA_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="411">
+    <filename>JOB_PN_NGHIEN_MT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:34</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="412">
+    <filename>JOB_PN_NHAN_DANGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:34</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="413">
+    <filename>JOB_PN_QUYET_DINH_BAK.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:35</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="414">
+    <filename>JOB_PN_SUC_KHOES.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:35</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="415">
+    <filename>JOB_PN_THI_HANH_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:49</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="416">
+    <filename>JOB_PN_TIEN_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:53</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="417">
+    <filename>JOB_TAM_DINH_CHI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:54</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="418">
+    <filename>JOB_TANG_GIAM_HINH_PHAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:56</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="419">
+    <filename>JOB_THAN_NHAN_CON_CAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:50:57</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="420">
+    <filename>JOB_THAN_NHAN_NGUOI_THAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:00</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="421">
+    <filename>JOB_THA_CO_DIEU_KIEN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:01</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="422">
+    <filename>JOB_TIEN_LAO_DONG_SAN_XUAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:01</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="423">
+    <filename>JOB_TIEN_SU.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="424">
+    <filename>JOB_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="425">
+    <filename>JOB_TRON_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:04</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="426">
+    <filename>JOB_XEP_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="427">
+    <filename>PN_BIEN_BAN_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 14:51:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="428">
+    <filename>JOB_DELETE_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:55:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="429">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:55:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="430">
+    <filename>JOB_MAPPING_PROVINCE.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:55:29</run_at>
+    <status>error</status>
+    <message>ORA-06550: line 2, column 80:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following:
+
+   * &amp; = - + ; &lt; / &gt; at in is mod remainder not rem return
+   returning &lt;an exponent (**)&gt; &lt;&gt; or != or ~= &gt;= &lt;= &lt;&gt; and or
+   like like2 like4 likec between into using || multiset bulk
+   member submultiset
+Help: https://docs.oracle.com/error-help/db/ora-06550/</message>
+  </run>
+  <run id="431">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:55:46</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="432">
+    <filename>JOB_MAPPING_PROVINCE.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:55:46</run_at>
+    <status>error</status>
+    <message>ORA-06550: line 2, column 80:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following:
+
+   * &amp; = - + ; &lt; / &gt; at in is mod remainder not rem return
+   returning &lt;an exponent (**)&gt; &lt;&gt; or != or ~= &gt;= &lt;= &lt;&gt; and or
+   like like2 like4 likec between into using || multiset bulk
+   member submultiset
+Help: https://docs.oracle.com/error-help/db/ora-06550/</message>
+  </run>
+  <run id="433">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="434">
+    <filename>JOB_MAPPING_PROVINCE.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:06</run_at>
+    <status>error</status>
+    <message>ORA-06550: line 2, column 80:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following:
+
+   * &amp; = - + ; &lt; / &gt; at in is mod remainder not rem return
+   returning &lt;an exponent (**)&gt; &lt;&gt; or != or ~= &gt;= &lt;= &lt;&gt; and or
+   like like2 like4 likec between into using || multiset bulk
+   member submultiset
+Help: https://docs.oracle.com/error-help/db/ora-06550/</message>
+  </run>
+  <run id="435">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:52</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="436">
+    <filename>JOB_MAPPING_PROVINCE.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:52</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="437">
+    <filename>JOB_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:59</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="438">
+    <filename>JOB_AN_GIAMS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:59</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="439">
+    <filename>JOB_CHUA_BENH_BAT_BUOCS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:56:59</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="440">
+    <filename>JOB_DM_BAN_GIAO_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:00</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="441">
+    <filename>JOB_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:01</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="442">
+    <filename>JOB_GIAO_NHAN_PHAM_NHAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:01</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="443">
+    <filename>JOB_HOAN_THI_HANH_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:01</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="444">
+    <filename>JOB_HUY_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="445">
+    <filename>JOB_KHEN_THUONGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="446">
+    <filename>JOB_KY_LUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="447">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="448">
+    <filename>JOB_MO_KY_XEP_LOAI_CAI_TAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="449">
+    <filename>JOB_PHAM_NHAN_CHUYEN_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="450">
+    <filename>JOB_PHAM_NHAN_PHAN_BUONG.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="451">
+    <filename>JOB_PHAM_NHAN_PHAN_DOI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:04</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="452">
+    <filename>JOB_PHAM_TOI_MOIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:04</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="453">
+    <filename>JOB_PHAN_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="454">
+    <filename>JOB_PN_BAN_AN_KHACS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="455">
+    <filename>JOB_PN_CHUYEN_GIAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="456">
+    <filename>JOB_PN_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="457">
+    <filename>JOB_PN_DOT_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:06</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="458">
+    <filename>JOB_PN_DOT_THA_CO_DIEU_KIENS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:07</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="459">
+    <filename>JOB_PN_GIAM_RIENGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:07</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="460">
+    <filename>JOB_PN_HINH_PHAT_BO_SUNGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:07</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="461">
+    <filename>JOB_PN_HSNVS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:08</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="462">
+    <filename>JOB_PN_HSNV_KTS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:08</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="463">
+    <filename>JOB_PN_HSNV_KT_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:08</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="464">
+    <filename>JOB_PN_KET_THUC_CHETS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:08</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="465">
+    <filename>JOB_PN_KET_THUC_RA_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:20</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="466">
+    <filename>JOB_PN_NGHIEN_MT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:21</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="467">
+    <filename>JOB_PN_NHAN_DANGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:21</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="468">
+    <filename>JOB_PN_QUYET_DINH_BAK.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="469">
+    <filename>JOB_PN_SUC_KHOES.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="470">
+    <filename>JOB_PN_THI_HANH_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:36</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="471">
+    <filename>JOB_PN_TIEN_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:40</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="472">
+    <filename>JOB_TAM_DINH_CHI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:41</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="473">
+    <filename>JOB_TANG_GIAM_HINH_PHAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:42</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="474">
+    <filename>JOB_THAN_NHAN_CON_CAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:42</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="475">
+    <filename>JOB_THAN_NHAN_NGUOI_THAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:44</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="476">
+    <filename>JOB_THA_CO_DIEU_KIEN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:45</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="477">
+    <filename>JOB_TIEN_LAO_DONG_SAN_XUAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:46</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="478">
+    <filename>JOB_TIEN_SU.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:46</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="479">
+    <filename>JOB_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:46</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="480">
+    <filename>JOB_TRON_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:47</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="481">
+    <filename>JOB_XEP_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:47</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="482">
+    <filename>PN_BIEN_BAN_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-21 16:57:48</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="483">
+    <filename>JOB_PN_THI_HANH_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 11:48:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="484">
+    <filename>JOB_THA_CO_DIEU_KIEN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 11:59:02</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="485">
+    <filename>JOB_DELETE_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:17:40</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="486">
+    <filename>JOB_UPDATE_DM_PHAN_DOI_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:19</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="487">
+    <filename>JOB_MAPPING_PROVINCE.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:19</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="488">
+    <filename>JOB_PN_LAI_LICHS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="489">
+    <filename>JOB_AN_GIAMS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="490">
+    <filename>JOB_CHUA_BENH_BAT_BUOCS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="491">
+    <filename>JOB_DM_BAN_GIAO_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:22</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="492">
+    <filename>JOB_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="493">
+    <filename>JOB_GIAO_NHAN_PHAM_NHAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="494">
+    <filename>JOB_HOAN_THI_HANH_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="495">
+    <filename>JOB_HUY_ANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:24</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="496">
+    <filename>JOB_KHEN_THUONGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="497">
+    <filename>JOB_KY_LUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="498">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:25</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="499">
+    <filename>JOB_MO_KY_XEP_LOAI_CAI_TAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:26</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="500">
+    <filename>JOB_PHAM_NHAN_CHUYEN_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:26</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="501">
+    <filename>JOB_PHAM_NHAN_PHAN_BUONG.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:26</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="502">
+    <filename>JOB_PHAM_NHAN_PHAN_DOI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="503">
+    <filename>JOB_PHAM_TOI_MOIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="504">
+    <filename>JOB_PHAN_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:27</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="505">
+    <filename>JOB_PN_BAN_AN_KHACS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="506">
+    <filename>JOB_PN_CHUYEN_GIAO.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:28</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="507">
+    <filename>JOB_PN_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="508">
+    <filename>JOB_PN_DOT_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="509">
+    <filename>JOB_PN_DOT_THA_CO_DIEU_KIENS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="510">
+    <filename>JOB_PN_GIAM_RIENGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:29</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="511">
+    <filename>JOB_PN_HINH_PHAT_BO_SUNGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="512">
+    <filename>JOB_PN_HSNVS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="513">
+    <filename>JOB_PN_HSNV_KTS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="514">
+    <filename>JOB_PN_HSNV_KT_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:30</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="515">
+    <filename>JOB_PN_KET_THUC_CHETS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:31</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="516">
+    <filename>JOB_PN_KET_THUC_RA_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:32</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="517">
+    <filename>JOB_PN_NGHIEN_MT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:32</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="518">
+    <filename>JOB_PN_NHAN_DANGS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:33</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="519">
+    <filename>JOB_PN_QUYET_DINH_BAK.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:33</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="520">
+    <filename>JOB_PN_SUC_KHOES.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:33</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="521">
+    <filename>JOB_PN_THI_HANH_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:51</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="522">
+    <filename>JOB_PN_TIEN_AN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:55</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="523">
+    <filename>JOB_TAM_DINH_CHI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:55</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="524">
+    <filename>JOB_TANG_GIAM_HINH_PHAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:56</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="525">
+    <filename>JOB_THAN_NHAN_CON_CAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:57</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="526">
+    <filename>JOB_THAN_NHAN_NGUOI_THAN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:25:59</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="527">
+    <filename>JOB_THA_CO_DIEU_KIEN.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="528">
+    <filename>JOB_TIEN_LAO_DONG_SAN_XUAT.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="529">
+    <filename>JOB_TIEN_SU.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:03</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="530">
+    <filename>JOB_TRICH_XUATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:04</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="531">
+    <filename>JOB_TRON_TRAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:04</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="532">
+    <filename>JOB_XEP_LOAIS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="533">
+    <filename>PN_BIEN_BAN_PHAM_NHANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 12:26:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="534">
+    <filename>JOB_TAM_DINH_CHI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:19:14</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="535">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:30:46</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="536">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:39:08</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="537">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:44:39</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="538">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:51:37</run_at>
+    <status>error</status>
+    <message>ORA-12704: character set mismatch
+Help: https://docs.oracle.com/error-help/db/ora-12704/</message>
+  </run>
+  <run id="539">
+    <filename>JOB_MIEN_HINH_PHATS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 13:54:41</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="540">
+    <filename>JOB_PHAM_NHAN_CHUYEN_TRAI.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 14:00:05</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="541">
+    <filename>JOB_PN_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 14:17:11</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="542">
+    <filename>JOB_PN_DOT_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 17:23:31</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="543">
+    <filename>JOB_PN_DOT_DAC_XAS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 17:24:10</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="544">
+    <filename>JOB_GTH_KY_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 17:44:26</run_at>
+    <status>error</status>
+    <message>ORA-12704: character set mismatch
+Help: https://docs.oracle.com/error-help/db/ora-12704/</message>
+  </run>
+  <run id="545">
+    <filename>JOB_GTH_KY_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 17:45:42</run_at>
+    <status>success</status>
+    <message />
+  </run>
+  <run id="546">
+    <filename>JOB_GIAM_THOI_HANS.sql</filename>
+    <connection_id>2</connection_id>
+    <connection_name>QLPN</connection_name>
+    <run_at>2026-03-22 17:45:47</run_at>
+    <status>success</status>
+    <message />
+  </run>
 </runs>

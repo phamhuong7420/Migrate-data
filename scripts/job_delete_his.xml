@@ -8514,4 +8514,3226 @@
     <rows_deleted>2577</rows_deleted>
     <run_at>2026-03-20 17:44:24</run_at>
   </delete_op>
+  <delete_op id="947">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 14:24:38</run_at>
+  </delete_op>
+  <delete_op id="948">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:35:06</run_at>
+  </delete_op>
+  <delete_op id="949">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:35:36</run_at>
+  </delete_op>
+  <delete_op id="950">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:37:56</run_at>
+  </delete_op>
+  <delete_op id="951">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 14:38:41</run_at>
+  </delete_op>
+  <delete_op id="952">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:39:04</run_at>
+  </delete_op>
+  <delete_op id="953">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="954">
+    <stmt_id>3</stmt_id>
+    <job_name>JOB_DM_CAP_TOA_XUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAP_TOA_XUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAP_TOA_XUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="955">
+    <stmt_id>4</stmt_id>
+    <job_name>JOB_DM_CHUC_SACS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUC_SACS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUC_SACS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="956">
+    <stmt_id>2</stmt_id>
+    <job_name>JOB_DM_CAN_CU_KEMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_KEMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_KEMS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="957">
+    <stmt_id>5</stmt_id>
+    <job_name>JOB_DM_CHUONG_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUONG_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUONG_TOI_DANHS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="958">
+    <stmt_id>6</stmt_id>
+    <job_name>JOB_DM_CP_TINH_TRANG_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CP_TINH_TRANG_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CP_TINH_TRANG_GIAM_GIUS</sql_delete>
+    <rows_deleted>22</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="959">
+    <stmt_id>7</stmt_id>
+    <job_name>JOB_DM_CO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CO_QUANS</sql_delete>
+    <rows_deleted>1438</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="960">
+    <stmt_id>8</stmt_id>
+    <job_name>JOB_DM_DAN_TOCS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DAN_TOCS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DAN_TOCS</sql_delete>
+    <rows_deleted>487</rows_deleted>
+    <run_at>2026-03-21 14:45:45</run_at>
+  </delete_op>
+  <delete_op id="961">
+    <stmt_id>10</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>99</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="962">
+    <stmt_id>9</stmt_id>
+    <job_name>JOB_DM_DANG_VIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DANG_VIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DANG_VIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="963">
+    <stmt_id>11</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_THOI_GIANS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="964">
+    <stmt_id>12</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="965">
+    <stmt_id>13</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_GIAM_THOI_HANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_GIAM_THOI_HANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_GIAM_THOI_HANS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="966">
+    <stmt_id>14</stmt_id>
+    <job_name>JOB_DM_DON_VI_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DON_VI_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DON_VI_TC8S</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="967">
+    <stmt_id>15</stmt_id>
+    <job_name>JOB_DM_DUOC_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DUOC_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DUOC_DAC_XAS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="968">
+    <stmt_id>16</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_DAC_XAS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="969">
+    <stmt_id>17</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="970">
+    <stmt_id>18</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="971">
+    <stmt_id>19</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_RIENGS</sql_delete>
+    <rows_deleted>132</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="972">
+    <stmt_id>20</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_TIEN_ANS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="973">
+    <stmt_id>21</stmt_id>
+    <job_name>JOB_DM_GIOI_TINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GIOI_TINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GIOI_TINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="974">
+    <stmt_id>22</stmt_id>
+    <job_name>JOB_DM_HANG_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HANG_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HANG_HOAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="975">
+    <stmt_id>23</stmt_id>
+    <job_name>JOB_DM_HE_SO_TIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HE_SO_TIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HE_SO_TIENS</sql_delete>
+    <rows_deleted>19</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="976">
+    <stmt_id>24</stmt_id>
+    <job_name>JOB_DM_MA_HIEU_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_HIEU_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_HIEU_TRAIES</sql_delete>
+    <rows_deleted>363</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="977">
+    <stmt_id>25</stmt_id>
+    <job_name>JOB_DM_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="978">
+    <stmt_id>26</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_CHONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_CHONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_CHONS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="979">
+    <stmt_id>27</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KY_LUATS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="980">
+    <stmt_id>28</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KHEN_THUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KHEN_THUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KHEN_THUONGS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-21 14:45:46</run_at>
+  </delete_op>
+  <delete_op id="981">
+    <stmt_id>29</stmt_id>
+    <job_name>JOB_DM_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HOC_VANS</sql_delete>
+    <rows_deleted>107</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="982">
+    <stmt_id>30</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_XU_LY_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_XU_LY_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_XU_LY_BATS</sql_delete>
+    <rows_deleted>21</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="983">
+    <stmt_id>33</stmt_id>
+    <job_name>JOB_DM_KY_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_KY_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_KY_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="984">
+    <stmt_id>34</stmt_id>
+    <job_name>JOB_DM_LY_DO_AN_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_AN_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_AN_GIAMS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="985">
+    <stmt_id>35</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_GIAMS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="986">
+    <stmt_id>36</stmt_id>
+    <job_name>JOB_DM_LENH_GIAM_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LENH_GIAM_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LENH_GIAM_RIENGS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="987">
+    <stmt_id>37</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="988">
+    <stmt_id>38</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="989">
+    <stmt_id>39</stmt_id>
+    <job_name>JOB_DM_LOAI_BAO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BAO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BAO_QUANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="990">
+    <stmt_id>40</stmt_id>
+    <job_name>JOB_DM_LOAI_BIEN_BAN_GIAO_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BIEN_BAN_GIAO_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BIEN_BAN_GIAO_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="991">
+    <stmt_id>41</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONGS</sql_delete>
+    <rows_deleted>36</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="992">
+    <stmt_id>42</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="993">
+    <stmt_id>43</stmt_id>
+    <job_name>JOB_DM_LOAI_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_HINH_PHATS</sql_delete>
+    <rows_deleted>46</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="994">
+    <stmt_id>44</stmt_id>
+    <job_name>JOB_DM_LOAI_NOP_LUUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_NOP_LUUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_NOP_LUUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="995">
+    <stmt_id>45</stmt_id>
+    <job_name>JOB_DM_MA_PHAN_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_PHAN_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_PHAN_LOAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="996">
+    <stmt_id>46</stmt_id>
+    <job_name>JOB_DM_LOAI_TANG_GIAM_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_TANG_GIAM_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_TANG_GIAM_HINH_PHATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="997">
+    <stmt_id>47</stmt_id>
+    <job_name>JOB_DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</sql_delete>
+    <rows_deleted>16</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="998">
+    <stmt_id>48</stmt_id>
+    <job_name>JOB_DM_LOAI_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_VU_ANS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="999">
+    <stmt_id>49</stmt_id>
+    <job_name>JOB_DM_LY_DO_GIAM_RIENG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_GIAM_RIENG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_GIAM_RIENG_PHAM_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="1000">
+    <stmt_id>50</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_DAC_XAS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:47</run_at>
+  </delete_op>
+  <delete_op id="1001">
+    <stmt_id>51</stmt_id>
+    <job_name>JOB_DM_LY_DO_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KY_LUATS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1002">
+    <stmt_id>52</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHENS</sql_delete>
+    <rows_deleted>31</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1003">
+    <stmt_id>53</stmt_id>
+    <job_name>JOB_DM_LY_DO_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1004">
+    <stmt_id>54</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRICH_XUATS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1005">
+    <stmt_id>55</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRO_LAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRO_LAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRO_LAIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1006">
+    <stmt_id>56</stmt_id>
+    <job_name>JOB_DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1007">
+    <stmt_id>57</stmt_id>
+    <job_name>JOB_DM_CAN_CU_XAC_DINH_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_XAC_DINH_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_XAC_DINH_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1008">
+    <stmt_id>58</stmt_id>
+    <job_name>JOB_DM_CHAT_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHAT_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHAT_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1009">
+    <stmt_id>59</stmt_id>
+    <job_name>JOB_DM_DONG_CO_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DONG_CO_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DONG_CO_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1010">
+    <stmt_id>60</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1011">
+    <stmt_id>61</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1012">
+    <stmt_id>62</stmt_id>
+    <job_name>JOB_DM_MT_HOAN_CANH_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_HOAN_CANH_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_HOAN_CANH_GIA_DINHS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1013">
+    <stmt_id>63</stmt_id>
+    <job_name>JOB_DM_MT_NGHE_NGHIEP_BO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_NGHE_NGHIEP_BO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_NGHE_NGHIEP_BO_MES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1014">
+    <stmt_id>64</stmt_id>
+    <job_name>JOB_DM_NGUON_TIEN_MUA_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUON_TIEN_MUA_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUON_TIEN_MUA_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1015">
+    <stmt_id>65</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1016">
+    <stmt_id>66</stmt_id>
+    <job_name>JOB_DM_SO_LAN_SU_DUNG_MA_TUYS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_SO_LAN_SU_DUNG_MA_TUYS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_SO_LAN_SU_DUNG_MA_TUYS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1017">
+    <stmt_id>67</stmt_id>
+    <job_name>JOB_DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1018">
+    <stmt_id>68</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1019">
+    <stmt_id>69</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_HON_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_HON_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_HON_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1020">
+    <stmt_id>70</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:48</run_at>
+  </delete_op>
+  <delete_op id="1021">
+    <stmt_id>71</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1022">
+    <stmt_id>72</stmt_id>
+    <job_name>JOB_DM_MT_THANH_PHAN_BAN_THANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THANH_PHAN_BAN_THANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THANH_PHAN_BAN_THANS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1023">
+    <stmt_id>73</stmt_id>
+    <job_name>JOB_DM_MT_TRINH_DO_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRINH_DO_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRINH_DO_HOC_VANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1024">
+    <stmt_id>74</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_CAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_CAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_CAIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1025">
+    <stmt_id>75</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1026">
+    <stmt_id>76</stmt_id>
+    <job_name>JOB_DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1027">
+    <stmt_id>78</stmt_id>
+    <job_name>JOB_DM_NGHE_NGHIEPS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGHE_NGHIEPS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGHE_NGHIEPS</sql_delete>
+    <rows_deleted>52</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1028">
+    <stmt_id>77</stmt_id>
+    <job_name>JOB_DM_MA_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_THOI_GIANS</sql_delete>
+    <rows_deleted>17393</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1029">
+    <stmt_id>79</stmt_id>
+    <job_name>JOB_DM_BENH_TATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BENH_TATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BENH_TATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1030">
+    <stmt_id>80</stmt_id>
+    <job_name>JOB_DM_PHAN_LOAI_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_LOAI_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_LOAI_GIAM_GIUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1031">
+    <stmt_id>81</stmt_id>
+    <job_name>JOB_DM_QUAN_HE_VOI_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUAN_HE_VOI_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUAN_HE_VOI_PHAM_NHANS</sql_delete>
+    <rows_deleted>38</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1032">
+    <stmt_id>82</stmt_id>
+    <job_name>JOB_DM_QUOC_TICHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUOC_TICHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUOC_TICHS</sql_delete>
+    <rows_deleted>252</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1033">
+    <stmt_id>83</stmt_id>
+    <job_name>JOB_DM_QUYEN_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUYEN_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUYEN_TC8S</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1034">
+    <stmt_id>84</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_CHETS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1035">
+    <stmt_id>85</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1036">
+    <stmt_id>86</stmt_id>
+    <job_name>JOB_DM_TAI_PHAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TAI_PHAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TAI_PHAMS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1037">
+    <stmt_id>87</stmt_id>
+    <job_name>JOB_DM_THANH_PHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THANH_PHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THANH_PHANS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1038">
+    <stmt_id>88</stmt_id>
+    <job_name>JOB_DM_THA_CO_DIEU_KIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THA_CO_DIEU_KIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THA_CO_DIEU_KIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1039">
+    <stmt_id>89</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BAT_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BAT_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BAT_PHAM_NHANS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-21 14:45:49</run_at>
+  </delete_op>
+  <delete_op id="1040">
+    <stmt_id>90</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHETS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1041">
+    <stmt_id>91</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHUYEN_TRAIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHUYEN_TRAIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHUYEN_TRAIS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1042">
+    <stmt_id>92</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_SINH_CON_THEO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_SINH_CON_THEO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_SINH_CON_THEO_MES</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1043">
+    <stmt_id>93</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_THAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_THAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_THAS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1044">
+    <stmt_id>94</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_TRONS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1045">
+    <stmt_id>95</stmt_id>
+    <job_name>JOB_DM_TIEN_TES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TIEN_TES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TIEN_TES</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1046">
+    <stmt_id>96</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1047">
+    <stmt_id>97</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_BIET_DOC_VIETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_BIET_DOC_VIETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_BIET_DOC_VIETS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1048">
+    <stmt_id>98</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1049">
+    <stmt_id>99</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_PHAM_NHANS</sql_delete>
+    <rows_deleted>41</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1050">
+    <stmt_id>100</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TIEN_ANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1051">
+    <stmt_id>101</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1052">
+    <stmt_id>102</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRONS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1053">
+    <stmt_id>103</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRICH_XUATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1054">
+    <stmt_id>104</stmt_id>
+    <job_name>JOB_DM_DO_TUOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOIS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1055">
+    <stmt_id>105</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_BATS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1056">
+    <stmt_id>106</stmt_id>
+    <job_name>JOB_DM_MUC_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MUC_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MUC_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1057">
+    <stmt_id>107</stmt_id>
+    <job_name>JOB_DM_TOI_DANH_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANH_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANH_DAC_XAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1058">
+    <stmt_id>108</stmt_id>
+    <job_name>JOB_DM_TON_GIAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TON_GIAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TON_GIAOS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-21 14:45:50</run_at>
+  </delete_op>
+  <delete_op id="1059">
+    <stmt_id>109</stmt_id>
+    <job_name>JOB_DM_TRAI_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRAI_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRAI_GIAMS</sql_delete>
+    <rows_deleted>1087</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1060">
+    <stmt_id>110</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BATS</sql_delete>
+    <rows_deleted>23</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1061">
+    <stmt_id>111</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1062">
+    <stmt_id>112</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_MIEN_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_MIEN_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_MIEN_HINH_PHATS</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1063">
+    <stmt_id>113</stmt_id>
+    <job_name>JOB_DM_VAI_TRO_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_VAI_TRO_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_VAI_TRO_VU_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1064">
+    <stmt_id>114</stmt_id>
+    <job_name>JOB_DM_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1065">
+    <stmt_id>115</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1066">
+    <stmt_id>116</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_NGHES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_NGHES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_NGHES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1067">
+    <stmt_id>117</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_VAN_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_VAN_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_VAN_HOAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1068">
+    <stmt_id>118</stmt_id>
+    <job_name>JOB_DM_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANHS</sql_delete>
+    <rows_deleted>1747</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1069">
+    <stmt_id>121</stmt_id>
+    <job_name>JOB_DM_PHAN_DOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_DOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_DOIS</sql_delete>
+    <rows_deleted>2577</rows_deleted>
+    <run_at>2026-03-21 14:45:51</run_at>
+  </delete_op>
+  <delete_op id="1070">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1071">
+    <stmt_id>4</stmt_id>
+    <job_name>JOB_DM_CHUC_SACS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUC_SACS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUC_SACS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1072">
+    <stmt_id>3</stmt_id>
+    <job_name>JOB_DM_CAP_TOA_XUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAP_TOA_XUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAP_TOA_XUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1073">
+    <stmt_id>2</stmt_id>
+    <job_name>JOB_DM_CAN_CU_KEMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_KEMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_KEMS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1074">
+    <stmt_id>5</stmt_id>
+    <job_name>JOB_DM_CHUONG_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUONG_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUONG_TOI_DANHS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1075">
+    <stmt_id>6</stmt_id>
+    <job_name>JOB_DM_CP_TINH_TRANG_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CP_TINH_TRANG_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CP_TINH_TRANG_GIAM_GIUS</sql_delete>
+    <rows_deleted>22</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1076">
+    <stmt_id>7</stmt_id>
+    <job_name>JOB_DM_CO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CO_QUANS</sql_delete>
+    <rows_deleted>1438</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1077">
+    <stmt_id>8</stmt_id>
+    <job_name>JOB_DM_DAN_TOCS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DAN_TOCS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DAN_TOCS</sql_delete>
+    <rows_deleted>487</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1078">
+    <stmt_id>9</stmt_id>
+    <job_name>JOB_DM_DANG_VIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DANG_VIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DANG_VIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1079">
+    <stmt_id>10</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>99</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1080">
+    <stmt_id>11</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_THOI_GIANS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1081">
+    <stmt_id>12</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1082">
+    <stmt_id>13</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_GIAM_THOI_HANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_GIAM_THOI_HANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_GIAM_THOI_HANS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1083">
+    <stmt_id>14</stmt_id>
+    <job_name>JOB_DM_DON_VI_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DON_VI_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DON_VI_TC8S</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1084">
+    <stmt_id>15</stmt_id>
+    <job_name>JOB_DM_DUOC_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DUOC_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DUOC_DAC_XAS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1085">
+    <stmt_id>16</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_DAC_XAS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 16:55:10</run_at>
+  </delete_op>
+  <delete_op id="1086">
+    <stmt_id>17</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1087">
+    <stmt_id>18</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1088">
+    <stmt_id>19</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_RIENGS</sql_delete>
+    <rows_deleted>132</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1089">
+    <stmt_id>20</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_TIEN_ANS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1090">
+    <stmt_id>21</stmt_id>
+    <job_name>JOB_DM_GIOI_TINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GIOI_TINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GIOI_TINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1091">
+    <stmt_id>22</stmt_id>
+    <job_name>JOB_DM_HANG_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HANG_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HANG_HOAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1092">
+    <stmt_id>23</stmt_id>
+    <job_name>JOB_DM_HE_SO_TIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HE_SO_TIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HE_SO_TIENS</sql_delete>
+    <rows_deleted>19</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1093">
+    <stmt_id>24</stmt_id>
+    <job_name>JOB_DM_MA_HIEU_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_HIEU_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_HIEU_TRAIES</sql_delete>
+    <rows_deleted>363</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1094">
+    <stmt_id>25</stmt_id>
+    <job_name>JOB_DM_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1095">
+    <stmt_id>26</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_CHONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_CHONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_CHONS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1096">
+    <stmt_id>27</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KY_LUATS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1097">
+    <stmt_id>28</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KHEN_THUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KHEN_THUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KHEN_THUONGS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1098">
+    <stmt_id>29</stmt_id>
+    <job_name>JOB_DM_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HOC_VANS</sql_delete>
+    <rows_deleted>107</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1099">
+    <stmt_id>30</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_XU_LY_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_XU_LY_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_XU_LY_BATS</sql_delete>
+    <rows_deleted>21</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1100">
+    <stmt_id>33</stmt_id>
+    <job_name>JOB_DM_KY_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_KY_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_KY_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1101">
+    <stmt_id>34</stmt_id>
+    <job_name>JOB_DM_LY_DO_AN_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_AN_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_AN_GIAMS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1102">
+    <stmt_id>35</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_GIAMS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1103">
+    <stmt_id>36</stmt_id>
+    <job_name>JOB_DM_LENH_GIAM_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LENH_GIAM_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LENH_GIAM_RIENGS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1104">
+    <stmt_id>37</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:11</run_at>
+  </delete_op>
+  <delete_op id="1105">
+    <stmt_id>38</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1106">
+    <stmt_id>39</stmt_id>
+    <job_name>JOB_DM_LOAI_BAO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BAO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BAO_QUANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1107">
+    <stmt_id>40</stmt_id>
+    <job_name>JOB_DM_LOAI_BIEN_BAN_GIAO_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BIEN_BAN_GIAO_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BIEN_BAN_GIAO_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1108">
+    <stmt_id>41</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONGS</sql_delete>
+    <rows_deleted>36</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1109">
+    <stmt_id>42</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1110">
+    <stmt_id>43</stmt_id>
+    <job_name>JOB_DM_LOAI_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_HINH_PHATS</sql_delete>
+    <rows_deleted>46</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1111">
+    <stmt_id>44</stmt_id>
+    <job_name>JOB_DM_LOAI_NOP_LUUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_NOP_LUUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_NOP_LUUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1112">
+    <stmt_id>45</stmt_id>
+    <job_name>JOB_DM_MA_PHAN_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_PHAN_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_PHAN_LOAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1113">
+    <stmt_id>46</stmt_id>
+    <job_name>JOB_DM_LOAI_TANG_GIAM_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_TANG_GIAM_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_TANG_GIAM_HINH_PHATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1114">
+    <stmt_id>47</stmt_id>
+    <job_name>JOB_DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</sql_delete>
+    <rows_deleted>16</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1115">
+    <stmt_id>48</stmt_id>
+    <job_name>JOB_DM_LOAI_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_VU_ANS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1116">
+    <stmt_id>49</stmt_id>
+    <job_name>JOB_DM_LY_DO_GIAM_RIENG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_GIAM_RIENG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_GIAM_RIENG_PHAM_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1117">
+    <stmt_id>50</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_DAC_XAS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1118">
+    <stmt_id>51</stmt_id>
+    <job_name>JOB_DM_LY_DO_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KY_LUATS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1119">
+    <stmt_id>52</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHENS</sql_delete>
+    <rows_deleted>31</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1120">
+    <stmt_id>53</stmt_id>
+    <job_name>JOB_DM_LY_DO_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1121">
+    <stmt_id>54</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRICH_XUATS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1122">
+    <stmt_id>55</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRO_LAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRO_LAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRO_LAIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1123">
+    <stmt_id>56</stmt_id>
+    <job_name>JOB_DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:12</run_at>
+  </delete_op>
+  <delete_op id="1124">
+    <stmt_id>57</stmt_id>
+    <job_name>JOB_DM_CAN_CU_XAC_DINH_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_XAC_DINH_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_XAC_DINH_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1125">
+    <stmt_id>58</stmt_id>
+    <job_name>JOB_DM_CHAT_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHAT_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHAT_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1126">
+    <stmt_id>59</stmt_id>
+    <job_name>JOB_DM_DONG_CO_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DONG_CO_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DONG_CO_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1127">
+    <stmt_id>60</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1128">
+    <stmt_id>61</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1129">
+    <stmt_id>62</stmt_id>
+    <job_name>JOB_DM_MT_HOAN_CANH_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_HOAN_CANH_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_HOAN_CANH_GIA_DINHS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1130">
+    <stmt_id>63</stmt_id>
+    <job_name>JOB_DM_MT_NGHE_NGHIEP_BO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_NGHE_NGHIEP_BO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_NGHE_NGHIEP_BO_MES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1131">
+    <stmt_id>64</stmt_id>
+    <job_name>JOB_DM_NGUON_TIEN_MUA_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUON_TIEN_MUA_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUON_TIEN_MUA_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1132">
+    <stmt_id>65</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1133">
+    <stmt_id>66</stmt_id>
+    <job_name>JOB_DM_SO_LAN_SU_DUNG_MA_TUYS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_SO_LAN_SU_DUNG_MA_TUYS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_SO_LAN_SU_DUNG_MA_TUYS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1134">
+    <stmt_id>67</stmt_id>
+    <job_name>JOB_DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1135">
+    <stmt_id>68</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1136">
+    <stmt_id>69</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_HON_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_HON_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_HON_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1137">
+    <stmt_id>70</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1138">
+    <stmt_id>71</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1139">
+    <stmt_id>72</stmt_id>
+    <job_name>JOB_DM_MT_THANH_PHAN_BAN_THANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THANH_PHAN_BAN_THANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THANH_PHAN_BAN_THANS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1140">
+    <stmt_id>73</stmt_id>
+    <job_name>JOB_DM_MT_TRINH_DO_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRINH_DO_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRINH_DO_HOC_VANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1141">
+    <stmt_id>74</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_CAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_CAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_CAIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1142">
+    <stmt_id>75</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:13</run_at>
+  </delete_op>
+  <delete_op id="1143">
+    <stmt_id>76</stmt_id>
+    <job_name>JOB_DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1144">
+    <stmt_id>78</stmt_id>
+    <job_name>JOB_DM_NGHE_NGHIEPS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGHE_NGHIEPS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGHE_NGHIEPS</sql_delete>
+    <rows_deleted>52</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1145">
+    <stmt_id>79</stmt_id>
+    <job_name>JOB_DM_BENH_TATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BENH_TATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BENH_TATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1146">
+    <stmt_id>77</stmt_id>
+    <job_name>JOB_DM_MA_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_THOI_GIANS</sql_delete>
+    <rows_deleted>17393</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1147">
+    <stmt_id>80</stmt_id>
+    <job_name>JOB_DM_PHAN_LOAI_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_LOAI_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_LOAI_GIAM_GIUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1148">
+    <stmt_id>81</stmt_id>
+    <job_name>JOB_DM_QUAN_HE_VOI_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUAN_HE_VOI_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUAN_HE_VOI_PHAM_NHANS</sql_delete>
+    <rows_deleted>38</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1149">
+    <stmt_id>82</stmt_id>
+    <job_name>JOB_DM_QUOC_TICHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUOC_TICHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUOC_TICHS</sql_delete>
+    <rows_deleted>252</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1150">
+    <stmt_id>83</stmt_id>
+    <job_name>JOB_DM_QUYEN_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUYEN_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUYEN_TC8S</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1151">
+    <stmt_id>84</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_CHETS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1152">
+    <stmt_id>85</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1153">
+    <stmt_id>86</stmt_id>
+    <job_name>JOB_DM_TAI_PHAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TAI_PHAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TAI_PHAMS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1154">
+    <stmt_id>87</stmt_id>
+    <job_name>JOB_DM_THANH_PHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THANH_PHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THANH_PHANS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1155">
+    <stmt_id>88</stmt_id>
+    <job_name>JOB_DM_THA_CO_DIEU_KIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THA_CO_DIEU_KIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THA_CO_DIEU_KIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1156">
+    <stmt_id>89</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BAT_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BAT_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BAT_PHAM_NHANS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1157">
+    <stmt_id>90</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHETS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1158">
+    <stmt_id>91</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHUYEN_TRAIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHUYEN_TRAIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHUYEN_TRAIS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:14</run_at>
+  </delete_op>
+  <delete_op id="1159">
+    <stmt_id>92</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_SINH_CON_THEO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_SINH_CON_THEO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_SINH_CON_THEO_MES</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1160">
+    <stmt_id>93</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_THAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_THAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_THAS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1161">
+    <stmt_id>94</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_TRONS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1162">
+    <stmt_id>95</stmt_id>
+    <job_name>JOB_DM_TIEN_TES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TIEN_TES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TIEN_TES</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1163">
+    <stmt_id>96</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1164">
+    <stmt_id>97</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_BIET_DOC_VIETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_BIET_DOC_VIETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_BIET_DOC_VIETS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1165">
+    <stmt_id>98</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1166">
+    <stmt_id>99</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_PHAM_NHANS</sql_delete>
+    <rows_deleted>41</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1167">
+    <stmt_id>100</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TIEN_ANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1168">
+    <stmt_id>101</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1169">
+    <stmt_id>102</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRONS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1170">
+    <stmt_id>103</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRICH_XUATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1171">
+    <stmt_id>104</stmt_id>
+    <job_name>JOB_DM_DO_TUOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOIS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1172">
+    <stmt_id>105</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_BATS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1173">
+    <stmt_id>106</stmt_id>
+    <job_name>JOB_DM_MUC_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MUC_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MUC_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1174">
+    <stmt_id>107</stmt_id>
+    <job_name>JOB_DM_TOI_DANH_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANH_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANH_DAC_XAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1175">
+    <stmt_id>108</stmt_id>
+    <job_name>JOB_DM_TON_GIAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TON_GIAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TON_GIAOS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1176">
+    <stmt_id>110</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BATS</sql_delete>
+    <rows_deleted>23</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1177">
+    <stmt_id>109</stmt_id>
+    <job_name>JOB_DM_TRAI_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRAI_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRAI_GIAMS</sql_delete>
+    <rows_deleted>1087</rows_deleted>
+    <run_at>2026-03-21 16:55:15</run_at>
+  </delete_op>
+  <delete_op id="1178">
+    <stmt_id>111</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1179">
+    <stmt_id>112</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_MIEN_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_MIEN_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_MIEN_HINH_PHATS</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1180">
+    <stmt_id>113</stmt_id>
+    <job_name>JOB_DM_VAI_TRO_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_VAI_TRO_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_VAI_TRO_VU_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1181">
+    <stmt_id>114</stmt_id>
+    <job_name>JOB_DM_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1182">
+    <stmt_id>115</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1183">
+    <stmt_id>116</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_NGHES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_NGHES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_NGHES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1184">
+    <stmt_id>117</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_VAN_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_VAN_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_VAN_HOAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1185">
+    <stmt_id>118</stmt_id>
+    <job_name>JOB_DM_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANHS</sql_delete>
+    <rows_deleted>1747</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1186">
+    <stmt_id>121</stmt_id>
+    <job_name>JOB_DM_PHAN_DOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_DOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_DOIS</sql_delete>
+    <rows_deleted>2577</rows_deleted>
+    <run_at>2026-03-21 16:55:16</run_at>
+  </delete_op>
+  <delete_op id="1187">
+    <stmt_id>88</stmt_id>
+    <job_name>JOB_DM_THA_CO_DIEU_KIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THA_CO_DIEU_KIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THA_CO_DIEU_KIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-21 17:58:46</run_at>
+  </delete_op>
+  <delete_op id="1188">
+    <stmt_id>1</stmt_id>
+    <job_name>JOB_DM_BAN_GIAO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BAN_GIAO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BAN_GIAO_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1189">
+    <stmt_id>4</stmt_id>
+    <job_name>JOB_DM_CHUC_SACS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUC_SACS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUC_SACS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1190">
+    <stmt_id>3</stmt_id>
+    <job_name>JOB_DM_CAP_TOA_XUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAP_TOA_XUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAP_TOA_XUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1191">
+    <stmt_id>2</stmt_id>
+    <job_name>JOB_DM_CAN_CU_KEMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_KEMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_KEMS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1192">
+    <stmt_id>5</stmt_id>
+    <job_name>JOB_DM_CHUONG_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHUONG_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHUONG_TOI_DANHS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1193">
+    <stmt_id>6</stmt_id>
+    <job_name>JOB_DM_CP_TINH_TRANG_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CP_TINH_TRANG_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CP_TINH_TRANG_GIAM_GIUS</sql_delete>
+    <rows_deleted>22</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1194">
+    <stmt_id>7</stmt_id>
+    <job_name>JOB_DM_CO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CO_QUANS</sql_delete>
+    <rows_deleted>1438</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1195">
+    <stmt_id>8</stmt_id>
+    <job_name>JOB_DM_DAN_TOCS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DAN_TOCS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DAN_TOCS</sql_delete>
+    <rows_deleted>487</rows_deleted>
+    <run_at>2026-03-22 12:21:55</run_at>
+  </delete_op>
+  <delete_op id="1196">
+    <stmt_id>9</stmt_id>
+    <job_name>JOB_DM_DANG_VIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DANG_VIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DANG_VIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1197">
+    <stmt_id>10</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>99</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1198">
+    <stmt_id>11</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_THOI_GIANS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1199">
+    <stmt_id>12</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1200">
+    <stmt_id>13</stmt_id>
+    <job_name>JOB_DM_DIEU_KIEN_GIAM_THOI_HANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DIEU_KIEN_GIAM_THOI_HANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DIEU_KIEN_GIAM_THOI_HANS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1201">
+    <stmt_id>14</stmt_id>
+    <job_name>JOB_DM_DON_VI_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DON_VI_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DON_VI_TC8S</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1202">
+    <stmt_id>15</stmt_id>
+    <job_name>JOB_DM_DUOC_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DUOC_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DUOC_DAC_XAS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1203">
+    <stmt_id>16</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_DAC_XAS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1204">
+    <stmt_id>17</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1205">
+    <stmt_id>18</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_HINH_PHAT_BO_SUNG_THUC_HIENS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1206">
+    <stmt_id>19</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_RIENGS</sql_delete>
+    <rows_deleted>132</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1207">
+    <stmt_id>20</stmt_id>
+    <job_name>JOB_DM_GHI_CHU_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GHI_CHU_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GHI_CHU_TIEN_ANS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1208">
+    <stmt_id>21</stmt_id>
+    <job_name>JOB_DM_GIOI_TINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_GIOI_TINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_GIOI_TINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1209">
+    <stmt_id>22</stmt_id>
+    <job_name>JOB_DM_HANG_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HANG_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HANG_HOAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1210">
+    <stmt_id>23</stmt_id>
+    <job_name>JOB_DM_HE_SO_TIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HE_SO_TIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HE_SO_TIENS</sql_delete>
+    <rows_deleted>19</rows_deleted>
+    <run_at>2026-03-22 12:21:56</run_at>
+  </delete_op>
+  <delete_op id="1211">
+    <stmt_id>24</stmt_id>
+    <job_name>JOB_DM_MA_HIEU_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_HIEU_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_HIEU_TRAIES</sql_delete>
+    <rows_deleted>363</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1212">
+    <stmt_id>25</stmt_id>
+    <job_name>JOB_DM_HINH_PHAT_BO_SUNGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_PHAT_BO_SUNGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_PHAT_BO_SUNGS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1213">
+    <stmt_id>26</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_CHONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_CHONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_CHONS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1214">
+    <stmt_id>27</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KY_LUATS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1215">
+    <stmt_id>28</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_KHEN_THUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_KHEN_THUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_KHEN_THUONGS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1216">
+    <stmt_id>29</stmt_id>
+    <job_name>JOB_DM_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HOC_VANS</sql_delete>
+    <rows_deleted>107</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1217">
+    <stmt_id>30</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_XU_LY_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_XU_LY_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_XU_LY_BATS</sql_delete>
+    <rows_deleted>21</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1218">
+    <stmt_id>33</stmt_id>
+    <job_name>JOB_DM_KY_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_KY_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_KY_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1219">
+    <stmt_id>34</stmt_id>
+    <job_name>JOB_DM_LY_DO_AN_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_AN_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_AN_GIAMS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1220">
+    <stmt_id>35</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_GIAMS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1221">
+    <stmt_id>36</stmt_id>
+    <job_name>JOB_DM_LENH_GIAM_RIENGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LENH_GIAM_RIENGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LENH_GIAM_RIENGS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1222">
+    <stmt_id>37</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1223">
+    <stmt_id>38</stmt_id>
+    <job_name>JOB_DM_LOAI_QUYET_DINH_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_QUYET_DINH_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_QUYET_DINH_TRICH_XUATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1224">
+    <stmt_id>39</stmt_id>
+    <job_name>JOB_DM_LOAI_BAO_QUANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BAO_QUANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BAO_QUANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1225">
+    <stmt_id>40</stmt_id>
+    <job_name>JOB_DM_LOAI_BIEN_BAN_GIAO_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_BIEN_BAN_GIAO_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_BIEN_BAN_GIAO_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:57</run_at>
+  </delete_op>
+  <delete_op id="1226">
+    <stmt_id>41</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONGS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONGS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONGS</sql_delete>
+    <rows_deleted>36</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1227">
+    <stmt_id>42</stmt_id>
+    <job_name>JOB_DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_DOI_TUONG_AN_NINH_QUOC_GIAS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1228">
+    <stmt_id>43</stmt_id>
+    <job_name>JOB_DM_LOAI_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_HINH_PHATS</sql_delete>
+    <rows_deleted>46</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1229">
+    <stmt_id>44</stmt_id>
+    <job_name>JOB_DM_LOAI_NOP_LUUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_NOP_LUUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_NOP_LUUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1230">
+    <stmt_id>45</stmt_id>
+    <job_name>JOB_DM_MA_PHAN_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_PHAN_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_PHAN_LOAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1231">
+    <stmt_id>46</stmt_id>
+    <job_name>JOB_DM_LOAI_TANG_GIAM_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_TANG_GIAM_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_TANG_GIAM_HINH_PHATS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1232">
+    <stmt_id>47</stmt_id>
+    <job_name>JOB_DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_THOI_GIAN_BAO_QUAN_HO_SO_PHAM_NHANS</sql_delete>
+    <rows_deleted>16</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1233">
+    <stmt_id>48</stmt_id>
+    <job_name>JOB_DM_LOAI_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LOAI_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LOAI_VU_ANS</sql_delete>
+    <rows_deleted>14</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1234">
+    <stmt_id>49</stmt_id>
+    <job_name>JOB_DM_LY_DO_GIAM_RIENG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_GIAM_RIENG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_GIAM_RIENG_PHAM_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1235">
+    <stmt_id>50</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHONG_XET_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHONG_XET_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHONG_XET_DAC_XAS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1236">
+    <stmt_id>51</stmt_id>
+    <job_name>JOB_DM_LY_DO_KY_LUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KY_LUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KY_LUATS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1237">
+    <stmt_id>52</stmt_id>
+    <job_name>JOB_DM_LY_DO_KHENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_KHENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_KHENS</sql_delete>
+    <rows_deleted>31</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1238">
+    <stmt_id>53</stmt_id>
+    <job_name>JOB_DM_LY_DO_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1239">
+    <stmt_id>54</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRICH_XUATS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1240">
+    <stmt_id>55</stmt_id>
+    <job_name>JOB_DM_LY_DO_TRO_LAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_LY_DO_TRO_LAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_LY_DO_TRO_LAIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1241">
+    <stmt_id>56</stmt_id>
+    <job_name>JOB_DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BIEN_PHAP_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:58</run_at>
+  </delete_op>
+  <delete_op id="1242">
+    <stmt_id>57</stmt_id>
+    <job_name>JOB_DM_CAN_CU_XAC_DINH_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CAN_CU_XAC_DINH_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CAN_CU_XAC_DINH_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1243">
+    <stmt_id>58</stmt_id>
+    <job_name>JOB_DM_CHAT_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_CHAT_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_CHAT_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1244">
+    <stmt_id>59</stmt_id>
+    <job_name>JOB_DM_DONG_CO_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DONG_CO_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DONG_CO_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1245">
+    <stmt_id>60</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1246">
+    <stmt_id>61</stmt_id>
+    <job_name>JOB_DM_HINH_THUC_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_HINH_THUC_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_HINH_THUC_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1247">
+    <stmt_id>62</stmt_id>
+    <job_name>JOB_DM_MT_HOAN_CANH_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_HOAN_CANH_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_HOAN_CANH_GIA_DINHS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1248">
+    <stmt_id>63</stmt_id>
+    <job_name>JOB_DM_MT_NGHE_NGHIEP_BO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_NGHE_NGHIEP_BO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_NGHE_NGHIEP_BO_MES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1249">
+    <stmt_id>64</stmt_id>
+    <job_name>JOB_DM_NGUON_TIEN_MUA_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUON_TIEN_MUA_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUON_TIEN_MUA_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1250">
+    <stmt_id>65</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_TAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1251">
+    <stmt_id>66</stmt_id>
+    <job_name>JOB_DM_SO_LAN_SU_DUNG_MA_TUYS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_SO_LAN_SU_DUNG_MA_TUYS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_SO_LAN_SU_DUNG_MA_TUYS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1252">
+    <stmt_id>67</stmt_id>
+    <job_name>JOB_DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THOI_GIAN_SU_DUNG_MA_TUIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1253">
+    <stmt_id>68</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_CAI_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1254">
+    <stmt_id>69</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_HON_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_HON_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_HON_NHANS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1255">
+    <stmt_id>70</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_KINH_TE_GIA_DINHS</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1256">
+    <stmt_id>71</stmt_id>
+    <job_name>JOB_DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TINH_TRANG_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:21:59</run_at>
+  </delete_op>
+  <delete_op id="1257">
+    <stmt_id>72</stmt_id>
+    <job_name>JOB_DM_MT_THANH_PHAN_BAN_THANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_THANH_PHAN_BAN_THANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_THANH_PHAN_BAN_THANS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1258">
+    <stmt_id>73</stmt_id>
+    <job_name>JOB_DM_MT_TRINH_DO_HOC_VANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRINH_DO_HOC_VANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRINH_DO_HOC_VANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1259">
+    <stmt_id>74</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_CAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_CAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_CAIES</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1260">
+    <stmt_id>75</stmt_id>
+    <job_name>JOB_DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_TRUONG_HOP_NGHIEN_MA_TUIES</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1261">
+    <stmt_id>76</stmt_id>
+    <job_name>JOB_DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MT_YEU_TO_CAI_NGHIEN_HIEU_QUAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1262">
+    <stmt_id>78</stmt_id>
+    <job_name>JOB_DM_NGHE_NGHIEPS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGHE_NGHIEPS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGHE_NGHIEPS</sql_delete>
+    <rows_deleted>52</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1263">
+    <stmt_id>77</stmt_id>
+    <job_name>JOB_DM_MA_THOI_GIANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MA_THOI_GIANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MA_THOI_GIANS</sql_delete>
+    <rows_deleted>17393</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1264">
+    <stmt_id>79</stmt_id>
+    <job_name>JOB_DM_BENH_TATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_BENH_TATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_BENH_TATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1265">
+    <stmt_id>80</stmt_id>
+    <job_name>JOB_DM_PHAN_LOAI_GIAM_GIUS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_LOAI_GIAM_GIUS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_LOAI_GIAM_GIUS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1266">
+    <stmt_id>81</stmt_id>
+    <job_name>JOB_DM_QUAN_HE_VOI_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUAN_HE_VOI_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUAN_HE_VOI_PHAM_NHANS</sql_delete>
+    <rows_deleted>38</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1267">
+    <stmt_id>82</stmt_id>
+    <job_name>JOB_DM_QUOC_TICHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUOC_TICHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUOC_TICHS</sql_delete>
+    <rows_deleted>252</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1268">
+    <stmt_id>83</stmt_id>
+    <job_name>JOB_DM_QUYEN_TC8S</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_QUYEN_TC8S</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_QUYEN_TC8S</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1269">
+    <stmt_id>84</stmt_id>
+    <job_name>JOB_DM_NGUYEN_NHAN_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_NGUYEN_NHAN_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_NGUYEN_NHAN_CHETS</sql_delete>
+    <rows_deleted>138</rows_deleted>
+    <run_at>2026-03-22 12:22:00</run_at>
+  </delete_op>
+  <delete_op id="1270">
+    <stmt_id>85</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_SUC_KHOE_PHAM_NHANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1271">
+    <stmt_id>86</stmt_id>
+    <job_name>JOB_DM_TAI_PHAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TAI_PHAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TAI_PHAMS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1272">
+    <stmt_id>87</stmt_id>
+    <job_name>JOB_DM_THANH_PHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THANH_PHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THANH_PHANS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1273">
+    <stmt_id>88</stmt_id>
+    <job_name>JOB_DM_THA_CO_DIEU_KIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_THA_CO_DIEU_KIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_THA_CO_DIEU_KIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1274">
+    <stmt_id>89</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BAT_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BAT_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BAT_PHAM_NHANS</sql_delete>
+    <rows_deleted>17</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1275">
+    <stmt_id>90</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHETS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1276">
+    <stmt_id>91</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_CHUYEN_TRAIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_CHUYEN_TRAIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_CHUYEN_TRAIS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1277">
+    <stmt_id>92</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_SINH_CON_THEO_MES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_SINH_CON_THEO_MES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_SINH_CON_THEO_MES</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1278">
+    <stmt_id>93</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_THAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_THAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_THAS</sql_delete>
+    <rows_deleted>6</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1279">
+    <stmt_id>94</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_TRONS</sql_delete>
+    <rows_deleted>27</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1280">
+    <stmt_id>95</stmt_id>
+    <job_name>JOB_DM_TIEN_TES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TIEN_TES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TIEN_TES</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1281">
+    <stmt_id>96</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_CON_THEO_ME_VAO_TRAIES</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1282">
+    <stmt_id>97</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_BIET_DOC_VIETS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_BIET_DOC_VIETS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_BIET_DOC_VIETS</sql_delete>
+    <rows_deleted>8</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1283">
+    <stmt_id>98</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_HOC_TAP_PHAM_NHAN_VI_THANH_NIENS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1284">
+    <stmt_id>99</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_PHAM_NHANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_PHAM_NHANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_PHAM_NHANS</sql_delete>
+    <rows_deleted>41</rows_deleted>
+    <run_at>2026-03-22 12:22:01</run_at>
+  </delete_op>
+  <delete_op id="1285">
+    <stmt_id>100</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TIEN_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TIEN_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TIEN_ANS</sql_delete>
+    <rows_deleted>2</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1286">
+    <stmt_id>101</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TAM_DINH_CHIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TAM_DINH_CHIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TAM_DINH_CHIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1287">
+    <stmt_id>102</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRONS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRONS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRONS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1288">
+    <stmt_id>103</stmt_id>
+    <job_name>JOB_DM_TINH_TRANG_TRICH_XUATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TINH_TRANG_TRICH_XUATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TINH_TRANG_TRICH_XUATS</sql_delete>
+    <rows_deleted>13</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1289">
+    <stmt_id>104</stmt_id>
+    <job_name>JOB_DM_DO_TUOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOIS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1290">
+    <stmt_id>105</stmt_id>
+    <job_name>JOB_DM_DO_TUOI_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_DO_TUOI_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_DO_TUOI_BATS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1291">
+    <stmt_id>106</stmt_id>
+    <job_name>JOB_DM_MUC_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_MUC_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_MUC_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1292">
+    <stmt_id>107</stmt_id>
+    <job_name>JOB_DM_TOI_DANH_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANH_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANH_DAC_XAS</sql_delete>
+    <rows_deleted>0</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1293">
+    <stmt_id>108</stmt_id>
+    <job_name>JOB_DM_TON_GIAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TON_GIAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TON_GIAOS</sql_delete>
+    <rows_deleted>18</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1294">
+    <stmt_id>109</stmt_id>
+    <job_name>JOB_DM_TRAI_GIAMS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRAI_GIAMS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRAI_GIAMS</sql_delete>
+    <rows_deleted>1087</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1295">
+    <stmt_id>110</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_BATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_BATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_BATS</sql_delete>
+    <rows_deleted>23</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1296">
+    <stmt_id>111</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_DU_DIEU_KIEN_DAC_XAS</sql_delete>
+    <rows_deleted>3</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1297">
+    <stmt_id>112</stmt_id>
+    <job_name>JOB_DM_TRUONG_HOP_MIEN_HINH_PHATS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TRUONG_HOP_MIEN_HINH_PHATS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TRUONG_HOP_MIEN_HINH_PHATS</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1298">
+    <stmt_id>113</stmt_id>
+    <job_name>JOB_DM_VAI_TRO_VU_ANS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_VAI_TRO_VU_ANS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_VAI_TRO_VU_ANS</sql_delete>
+    <rows_deleted>7</rows_deleted>
+    <run_at>2026-03-22 12:22:02</run_at>
+  </delete_op>
+  <delete_op id="1299">
+    <stmt_id>114</stmt_id>
+    <job_name>JOB_DM_XEP_LOAIES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAIES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAIES</sql_delete>
+    <rows_deleted>10</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
+  <delete_op id="1300">
+    <stmt_id>115</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_CAI_TAOS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_CAI_TAOS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_CAI_TAOS</sql_delete>
+    <rows_deleted>12</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
+  <delete_op id="1301">
+    <stmt_id>116</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_NGHES</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_NGHES</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_NGHES</sql_delete>
+    <rows_deleted>4</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
+  <delete_op id="1302">
+    <stmt_id>117</stmt_id>
+    <job_name>JOB_DM_XEP_LOAI_HOC_VAN_HOAS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_XEP_LOAI_HOC_VAN_HOAS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_XEP_LOAI_HOC_VAN_HOAS</sql_delete>
+    <rows_deleted>5</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
+  <delete_op id="1303">
+    <stmt_id>118</stmt_id>
+    <job_name>JOB_DM_TOI_DANHS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_TOI_DANHS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_TOI_DANHS</sql_delete>
+    <rows_deleted>1747</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
+  <delete_op id="1304">
+    <stmt_id>121</stmt_id>
+    <job_name>JOB_DM_PHAN_DOIS</job_name>
+    <target_connection_name>QLPN</target_connection_name>
+    <target_table>DM_PHAN_DOIS</target_table>
+    <sql_delete>DELETE FROM QLPN.DM_PHAN_DOIS</sql_delete>
+    <rows_deleted>2577</rows_deleted>
+    <run_at>2026-03-22 12:22:03</run_at>
+  </delete_op>
 </delete_ops>

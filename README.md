@@ -58,7 +58,8 @@ Clone_data/
 │       ├── job_stats_success.html  # Thống kê job chạy thành công
 │       ├── job_deleted_history.html# Lịch sử câu lệnh DELETE
 │       ├── run_result.html         # Kết quả chạy (non-SSE)
-│       ├── scripts.html           # Chạy script .sql
+│       ├── scripts_add.html       # Thêm/quản lý file .sql
+│       ├── scripts_run.html       # Chạy script .sql
 │       ├── run_delete_scripts.html # Chạy JOB_DELETE_*.sql
 │       └── script_history.html    # Lịch sử chạy script
 │

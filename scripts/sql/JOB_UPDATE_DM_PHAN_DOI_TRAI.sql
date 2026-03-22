@@ -1,3 +1,19 @@
+-- Script dựng QLPN.DM_PHAN_TRAIS từ QLPN.DM_PHAN_DOIS và map lại QLPN.DM_PHAN_DOIS.PD_DM_PHAN_TRAI_ID
+-- Quy tắc:
+--   - PT_TEN = phần SAU dấu ',' của PD_TEN
+--   - Sau khi map PD_DM_PHAN_TRAI_ID: PD_TEN chỉ giữ phần phân đội (TRƯỚC dấu ','); không có ',' thì giữ nguyên cả chuỗi
+--   - Loại PT_TEN = 'Chưa phân trại' trong phần trích và bổ sung riêng
+--   - PT_TEN = 'Chưa phân trại' được bổ sung riêng
+--   - PT_DM_TRAI_GIAM_ID lấy từ QLPN.DM_TRAI_GIAMS (không dùng QLPN_ETC)
+-- Lưu ý:
+--   - Script dùng INSERT (NOT EXISTS) cho DM_PHAN_TRAIS
+--   - Script dùng MERGE để UPDATE PD_DM_PHAN_TRAI_ID cho DM_PHAN_DOIS
+--   - Script dùng UPDATE để chuẩn hóa PD_TEN (phần trước dấu ',')
+-- Chạy trên: C10 (Oracle QLPN)
+-- ======================================================================
+/* =========================================================
+   1) INSERT QLPN.DM_PHAN_TRAIS
+   ========================================================= */
 INSERT INTO QLPN.DM_PHAN_TRAIS (
     ID,
     PT_MA,
@@ -32,7 +48,10 @@ tg AS (
     SELECT MIN(id) AS PT_DM_TRAI_GIAM_ID
     FROM QLPN.DM_TRAI_GIAMS
     WHERE NVL(is_deleted, 0) = 0
-      AND TG_TEN = N'Trại giam Xuân Nguyên'
+      AND (
+        UPPER(TG_TEN) LIKE N'%XUÂN NGUYÊN%'
+        OR UPPER(TG_TEN) LIKE N'%XUAN NGUYEN%'
+      )
 ),
 mx AS (
     /* Lấy ID hiện tại lớn nhất để tránh trùng PK */
@@ -78,3 +97,15 @@ USING (
 ON (d.ID = s.DOI_ID)
 WHEN MATCHED THEN
 UPDATE SET d.PD_DM_PHAN_TRAI_ID = s.NEW_PD_DM_PHAN_TRAI_ID;
+/* =========================================================
+   3) Chuẩn hóa PD_TEN: chỉ giữ phân đội (trước dấu ','); không có ',' thì giữ nguyên
+   (chạy sau MERGE để join map PD_DM_PHAN_TRAI_ID vẫn dùng PD_TEN đầy đủ)
+   ========================================================= */
+UPDATE QLPN.DM_PHAN_DOIS d
+SET d.PD_TEN =
+    CASE
+        WHEN INSTR(d.PD_TEN, ',') > 0
+            THEN TRIM(SUBSTR(d.PD_TEN, 1, INSTR(d.PD_TEN, ',') - 1))
+        ELSE d.PD_TEN
+    END
+WHERE INSTR(d.PD_TEN, ',') > 0;

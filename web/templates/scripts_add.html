@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chạy script SQL</title>
+  <title>Thêm Script</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <style>
     .scripts-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
@@ -100,6 +100,9 @@
     .tok-comment { color: #94a3b8; font-style: italic; }
     .tok-number  { color: #fbbf24; }
     .tok-operator { color: #cbd5e1; }
+    .edit-modal-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+    .edit-modal-header h3 { margin:0; font-size:15px; color:#1a237e; flex:1; min-width:0; }
+    .btn-copy-code { font-size:13px; padding:6px 12px; white-space:nowrap; }
     .edit-modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
     .edit-modal-input { padding:8px 10px; font-size:14px; border:1px solid #ccc; border-radius:6px; width:100%; max-width:320px; }
     .edit-modal-input:focus { border-color:#1976d2; outline:none; }
@@ -122,7 +125,7 @@
 <body>
   {% include '_menu.html' %}
   <main class="layout-main">
-    <h1>Chạy script SQL</h1>
+    <h1>Thêm Script</h1>
     {% if message %}<div class="msg {{ message_type }}">{{ message }}</div>{% endif %}
 
     <div class="scripts-header">
@@ -140,10 +143,6 @@
 
     <div class="toolbar" style="margin-bottom:10px;">
       <button type="button" class="btn btn-primary" onclick="openNewModal()">+ Thêm file SQL</button>
-      {% if scripts %}
-      <button type="button" class="btn btn-success" onclick="runSelectedScripts()">&#9654; Chạy đã chọn</button>
-      <span id="selCount" style="font-size:13px;color:#1565c0;font-weight:600;margin-left:8px;"></span>
-      {% endif %}
     </div>
 
     {% if not scripts %}
@@ -152,35 +151,20 @@
       <table class="scripts-table">
         <thead>
           <tr>
-            <th style="width:36px;text-align:center;">
-              <input type="checkbox" id="checkAllScripts" title="Chọn tất cả">
-            </th>
             <th style="width:40px;">#</th>
             <th style="width:1%; white-space:nowrap;">Tên file</th>
             <th style="width:180px;">Note</th>
             <th style="width:100px;text-align:right;">Kích thước (byte)</th>
-            <th style="width:220px;">Kết nối thực thi</th>
             <th style="width:40px;text-align:center;"></th>
           </tr>
         </thead>
         <tbody>
           {% for s in scripts %}
           <tr data-filename="{{ s.name }}">
-            <td style="text-align:center;">
-              <input type="checkbox" class="script-row-check" value="{{ s.name }}">
-            </td>
             <td>{{ loop.index }}</td>
             <td style="white-space:nowrap;"><a href="#" class="script-name-link" data-filename="{{ s.name | e }}" onclick="openEditModal(this.getAttribute('data-filename')); return false;">{{ s.name }}</a></td>
             <td class="script-note-cell {{ 'empty' if not notes_map.get(s.name) }}" data-filename="{{ s.name | e }}" data-note="{{ (notes_map.get(s.name) or '') | e }}" onclick="openNoteModal(this)" title="{{ (notes_map.get(s.name) or 'Click để thêm/sửa note') | e }}">{{ (notes_map.get(s.name) or '— Thêm note —') | e }}</td>
             <td style="text-align:right;">{{ s.size }}</td>
-            <td>
-              <select class="row-conn-select" data-filename="{{ s.name }}">
-                <option value="">-- Chọn kết nối --</option>
-                {% for c in connections %}
-                <option value="{{ c.id }}" {% if loop.first %}selected{% endif %}>{{ c.id }} - {{ c.name }}</option>
-                {% endfor %}
-              </select>
-            </td>
             <td style="text-align:center;">
               <button type="button" class="btn-script-del" data-filename="{{ s.name | e }}" onclick="deleteScript(this.getAttribute('data-filename'))" title="Xóa file">&#128465;</button>
             </td>
@@ -190,9 +174,6 @@
       </table>
     {% endif %}
 
-    <form id="runForm" method="post" action="{{ url_for('scripts_run') }}" style="display:none;" data-redirect-base="{{ url_for('scripts_page') }}">
-      <div id="runFormInputs"></div>
-    </form>
   </main>
 
   <div class="edit-modal" id="noteModal">
@@ -221,7 +202,10 @@
 
   <div class="edit-modal" id="editModal">
     <div class="edit-modal-box">
-      <h3 id="editModalTitle">Sửa script</h3>
+      <div class="edit-modal-header">
+        <h3 id="editModalTitle">Sửa script</h3>
+        <button type="button" class="btn btn-copy-code" id="btnCopyEditModal" onclick="copyEditModalCode()" title="Sao chép toàn bộ mã trong ô soạn thảo">&#128203; Sao chép</button>
+      </div>
       <div class="sql-highlight-wrap">
         <pre class="sql-highlight-pre" id="editModalPre" aria-hidden="true"></pre>
         <textarea class="edit-modal-textarea sql-editor" id="editModalTextarea" spellcheck="false"></textarea>
@@ -233,48 +217,7 @@
     </div>
   </div>
 
-  <div class="scripts-running-overlay" id="scriptsOverlay">
-    <div class="scripts-running-box" style="flex-direction:column;align-items:stretch;gap:14px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="scripts-spinner"></div>
-        <div>
-          <div style="font-weight:600;color:#1a237e;">Đang chạy script...</div>
-          <div id="scriptsOverlayText" style="font-size:13px;color:#555;margin-top:2px;"></div>
-        </div>
-      </div>
-      <button type="button" id="scriptsStopBtn" class="btn" style="background:#ffebee;color:#c62828;border:1px solid #ef9a9a;align-self:flex-end;">Dừng</button>
-    </div>
-  </div>
-
   <script>
-    const checkAllEl = document.getElementById('checkAllScripts');
-    const selCountEl = document.getElementById('selCount');
-
-    function updateSelCount() {
-      if (!selCountEl) return;
-      const visibleRows = document.querySelectorAll('tbody tr[data-filename]:not(.script-row-hidden)');
-      const visibleChecks = visibleRows.length ? visibleRows.length : document.querySelectorAll('.script-row-check').length;
-      const checked = document.querySelectorAll('.script-row-check:checked').length;
-      selCountEl.textContent = checked > 0 ? 'Đã chọn: ' + checked : '';
-      if (checkAllEl) {
-        const total = visibleChecks;
-        const checkedInVisible = Array.from(visibleRows).filter(function(tr) { return tr.querySelector('.script-row-check')?.checked; }).length;
-        checkAllEl.indeterminate = checkedInVisible > 0 && checkedInVisible < total;
-        checkAllEl.checked = total > 0 && checkedInVisible === total;
-      }
-    }
-
-    if (checkAllEl) {
-      checkAllEl.addEventListener('change', function() {
-        document.querySelectorAll('tbody tr[data-filename]:not(.script-row-hidden) .script-row-check').forEach(function(cb) { cb.checked = this.checked; }, this);
-        updateSelCount();
-      });
-    }
-    document.querySelector('tbody')?.addEventListener('change', function(e) {
-      if (e.target.classList.contains('script-row-check')) updateSelCount();
-    });
-    updateSelCount();
-
     const searchScriptEl = document.getElementById('searchScript');
     const searchScriptCountEl = document.getElementById('searchScriptCount');
     function applyScriptSearch(kw) {
@@ -288,7 +231,6 @@
         if (match) visible++;
       });
       searchScriptCountEl.textContent = kw ? visible + ' / ' + rows.length + ' file' : '';
-      updateSelCount();
     }
     if (searchScriptEl) {
       searchScriptEl.addEventListener('input', function() {
@@ -304,149 +246,6 @@
         searchScriptEl.value = savedSearch;
         applyScriptSearch(savedSearch.toLowerCase());
       }
-    }
-
-    let scriptsRunStopped = false;
-    let currentScriptRunId = null;
-    function runSelectedScripts() {
-      const checked = document.querySelectorAll('.script-row-check:checked');
-      if (checked.length === 0) {
-        alert('Vui lòng chọn ít nhất 1 script để chạy.');
-        return;
-      }
-      const pairs = [];
-      checked.forEach(function(cb) {
-        const rowIndex = Array.prototype.indexOf.call(checked, cb);
-        const row = cb.closest('tr');
-        const connSel = row ? row.querySelector('.row-conn-select') : null;
-        const connId = connSel ? connSel.value : '';
-        if (!connId) {
-          alert('Script "' + cb.value + '" chưa chọn kết nối.');
-          return;
-        }
-        pairs.push({ name: cb.value, connId: connId, _orig: rowIndex });
-      });
-      if (pairs.length !== checked.length) return;
-
-      // Luôn ưu tiên chạy trước JOB_UPDATE_DM_PHAN_DOI_TRAI.sql (nếu được chọn)
-      // trước JOB_PN_LAI_LICHS.sql, để tránh phụ thuộc dữ liệu không đúng thứ tự.
-      const priority = {
-        "JOB_UPDATE_DM_PHAN_DOI_TRAI.sql": 0,
-        "JOB_PN_LAI_LICHS.sql": 1,
-      };
-      pairs.sort(function(a, b) {
-        const ra = (priority[a.name] ?? 999);
-        const rb = (priority[b.name] ?? 999);
-        if (ra !== rb) return ra - rb;
-        return (a._orig ?? 0) - (b._orig ?? 0);
-      });
-
-      if (!confirm('Chạy ' + pairs.length + ' script đã chọn?')) return;
-      scriptsRunStopped = false;
-      currentScriptRunId = null;
-      showOverlay(1, pairs.length, pairs[0].name);
-      const stopBtn = document.getElementById('scriptsStopBtn');
-      if (stopBtn) stopBtn.onclick = function() {
-        scriptsRunStopped = true;
-        if (currentScriptRunId) {
-          fetch('api/scripts/stop/' + currentScriptRunId, { method: 'POST' }).catch(function() {});
-        }
-      };
-      runScriptsSequential(pairs, 0);
-    }
-
-    function runScriptsSequential(pairs, index) {
-      if (scriptsRunStopped || index >= pairs.length) {
-        hideOverlay();
-        const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts';
-        const total = pairs.length;
-        const ran = scriptsRunStopped ? index : total;
-        const msg = scriptsRunStopped ? 'Đã dừng. Chạy ' + ran + '/' + total + ' script.' : (total > 1 ? 'Đã chạy ' + total + ' script.' : 'Đã chạy script: ' + pairs[0].name);
-        window.location.href = base + '?message=' + encodeURIComponent(msg) + '&message_type=success';
-        return;
-      }
-      const p = pairs[index];
-      const run_id = 'script_' + Date.now() + '_' + index;
-      currentScriptRunId = run_id;
-      const fd = new FormData();
-      fd.append('filename', p.name);
-      fd.append('connection_id', p.connId);
-      fd.append('run_id', run_id);
-      fetch('api/scripts/run-one', { method: 'POST', body: fd })
-        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
-        .then(function(res) {
-          if (scriptsRunStopped) {
-            runScriptsSequential(pairs, pairs.length);
-            return;
-          }
-          if (!res.ok || !res.data || !res.data.run_id) {
-            hideOverlay();
-            const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts';
-            window.location.href = base + '?message=' + encodeURIComponent('Lỗi khi chạy: ' + (res.data && res.data.error ? res.data.error : 'Không xác định')) + '&message_type=error';
-            return;
-          }
-          pollScriptStatus(run_id, pairs, index);
-        })
-        .catch(function(e) {
-          hideOverlay();
-          const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts';
-          window.location.href = base + '?message=' + encodeURIComponent('Lỗi: ' + e.message) + '&message_type=error';
-        });
-    }
-
-    function pollScriptStatus(run_id, pairs, index) {
-      if (scriptsRunStopped) {
-        runScriptsSequential(pairs, pairs.length);
-        return;
-      }
-      fetch('api/scripts/run-status/' + run_id)
-        .then(function(r) { return r.json(); })
-        .then(function(d) {
-          if (scriptsRunStopped) {
-            runScriptsSequential(pairs, pairs.length);
-            return;
-          }
-          if (d.status === 'running') {
-            setTimeout(function() { pollScriptStatus(run_id, pairs, index); }, 200);
-            return;
-          }
-          if (d.status === 'error' && d.result) {
-            hideOverlay();
-            const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts';
-            window.location.href = base + '?message=' + encodeURIComponent('Lỗi khi chạy ' + (d.result.filename || '') + ': ' + (d.result.error || '')) + '&message_type=error';
-            return;
-          }
-          updateOverlayProgress(index + 1, pairs.length, index + 1 < pairs.length ? pairs[index + 1].name : '');
-          runScriptsSequential(pairs, index + 1);
-        })
-        .catch(function(e) {
-          hideOverlay();
-          const base = document.getElementById('runForm').getAttribute('data-redirect-base') || '/scripts';
-          window.location.href = base + '?message=' + encodeURIComponent('Lỗi: ' + e.message) + '&message_type=error';
-        });
-    }
-
-    function showOverlay(current, total, filename) {
-      const overlay = document.getElementById('scriptsOverlay');
-      const textEl = document.getElementById('scriptsOverlayText');
-      if (textEl) textEl.textContent = total > 1 ? 'Đang chạy ' + current + '/' + total + ': ' + filename : filename;
-      if (overlay) overlay.classList.add('show');
-    }
-
-    function updateOverlayProgress(current, total, nextFilename) {
-      const textEl = document.getElementById('scriptsOverlayText');
-      if (textEl) textEl.textContent = total > 1 ? 'Đang chạy ' + current + '/' + total + ': ' + (nextFilename || 'Hoàn tất') : (nextFilename || 'Hoàn tất');
-    }
-
-    function hideOverlay() {
-      const overlay = document.getElementById('scriptsOverlay');
-      if (overlay) overlay.classList.remove('show');
-    }
-
-    function escapeHtml(s) {
-      const div = document.createElement('div');
-      div.textContent = s;
-      return div.innerHTML;
     }
 
     let editModalFilename = '';
@@ -582,7 +381,7 @@
       document.getElementById('editModalTextarea').value = '';
       document.getElementById('editModal').classList.add('show');
       hookEditorHighlight();
-      const apiUrl = 'api/scripts/' + encodeURIComponent(name);
+      const apiUrl = '/api/scripts/' + encodeURIComponent(name);
       fetch(apiUrl, { credentials: 'same-origin' })
         .then(function(r) {
           if (!r.ok) throw new Error(r.statusText);
@@ -596,6 +395,40 @@
           alert('Lỗi đọc file: ' + e.message + '\\nURL: ' + apiUrl);
           closeEditModal();
         });
+    }
+    function copyEditModalCode() {
+      const ta = document.getElementById('editModalTextarea');
+      const btn = document.getElementById('btnCopyEditModal');
+      if (!ta) return;
+      const text = ta.value || '';
+      function feedback() {
+        if (btn) {
+          var old = btn.innerHTML;
+          btn.innerHTML = '✓ Đã chép';
+          btn.disabled = true;
+          setTimeout(function() { btn.innerHTML = old; btn.disabled = false; }, 1800);
+        }
+      }
+      function fail() {
+        alert('Không thể sao chép. Hãy chọn toàn bộ trong ô và Ctrl+C.');
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(feedback).catch(function() {
+          try {
+            ta.focus();
+            ta.select();
+            ta.setSelectionRange(0, text.length);
+            if (document.execCommand('copy')) feedback(); else fail();
+          } catch (e) { fail(); }
+        });
+      } else {
+        try {
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0, text.length);
+          if (document.execCommand('copy')) feedback(); else fail();
+        } catch (e) { fail(); }
+      }
     }
     function closeEditModal() {
       document.getElementById('editModal').classList.remove('show');
@@ -627,7 +460,7 @@
       const formData = new FormData();
       formData.append('filename', noteModalFilename);
       formData.append('note', note);
-      fetch('api/scripts/note', { method: 'POST', body: formData })
+      fetch('/api/scripts/note', { method: 'POST', body: formData })
         .then(function(r) {
           if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
           return r.json();
@@ -641,7 +474,7 @@
 
     function deleteScript(name) {
       if (!confirm('Xóa file "' + name + '"? Thao tác không thể hoàn tác.')) return;
-      fetch('api/scripts/' + encodeURIComponent(name), { method: 'DELETE' })
+      fetch('/api/scripts/' + encodeURIComponent(name), { method: 'DELETE' })
         .then(function(r) {
           if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || r.statusText); });
           return r.json();
@@ -662,7 +495,7 @@
       }
       const formData = new FormData();
       formData.append('filename', filename);
-      fetch('api/scripts/new', {
+      fetch('/api/scripts/new', {
         method: 'POST',
         body: formData
       })
@@ -684,7 +517,7 @@
       const content = document.getElementById('editModalTextarea').value;
       const formData = new FormData();
       formData.append('content', content);
-      fetch('api/scripts/' + encodeURIComponent(editModalFilename), {
+      fetch('/api/scripts/' + encodeURIComponent(editModalFilename), {
         method: 'POST',
         body: formData
       })

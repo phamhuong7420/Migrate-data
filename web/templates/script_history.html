@@ -58,7 +58,7 @@
           <td class="run-at">{{ r.run_at }}</td>
           <td style="color:#aaa;text-align:center;">{{ r.id }}</td>
           <td>
-            <a href="{{ url_for('scripts_page') }}?open={{ r.filename | urlencode }}" class="link-script">{{ r.filename or '—' }}</a>
+            <a href="{{ url_for('scripts_run') }}?open={{ r.filename | urlencode }}" class="link-script">{{ r.filename or '—' }}</a>
           </td>
           <td>{{ r.connection_id }} - {{ r.connection_name or '—' }}</td>
           <td style="text-align:center;">

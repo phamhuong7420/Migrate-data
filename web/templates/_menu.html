@@ -3,18 +3,34 @@
     <span class="nav-brand-icon">&#128257;</span>
     <span class="nav-brand-text">Oracle Sync</span>
   </div>
-  <div class="nav-section-label">Cấu hình</div>
+
+  <div class="nav-section-label">Thiết lập</div>
   {% if current_perms.get('edit_connections') == 1 %}
     <a href="{{ url_for('connection_page') }}" class="{{ 'active' if active == 'connection' else '' }}">
       <span class="nav-icon">&#128279;</span> Kết nối
     </a>
   {% endif %}
-  <div class="nav-section-label">Đồng bộ</div>
+  {% if session.get('admin_user') == 'sys' %}
+    <a href="{{ url_for('user_manage_page') }}" class="{{ 'active' if active == 'user_manage' else '' }}">
+      <span class="nav-icon">&#128100;</span> Quản lý user
+    </a>
+  {% endif %}
+  <a href="{{ url_for('job_new_page') }}" class="{{ 'active' if active == 'job_new' else '' }}">
+    <span class="nav-icon">&#43;</span> Thêm job mới
+  </a>
+  <a href="{{ url_for('scripts_add_page') }}" class="{{ 'active' if active == 'scripts_add' else '' }}">
+    <span class="nav-icon">&#128221;</span> Thêm script
+  </a>
+
+  <div class="nav-section-label">Hoạt động</div>
+  <a href="{{ url_for('scripts_run_delete_pn_lai_lichs') }}" class="{{ 'active' if active == 'scripts_run_delete_pn_lai_lichs' else '' }}">
+    <span class="nav-icon">&#9654;</span> CHẠY DELETE
+  </a>
   <a href="{{ url_for('index') }}" class="{{ 'active' if active == 'jobs' else '' }}">
     <span class="nav-icon">&#9776;</span> Danh sách job
   </a>
-  <a href="{{ url_for('job_new_page') }}" class="{{ 'active' if active == 'job_new' else '' }}">
-    <span class="nav-icon">&#43;</span> Thêm job mới
+  <a href="{{ url_for('scripts_run') }}" class="{{ 'active' if active == 'scripts_run' else '' }}">
+    <span class="nav-icon">&#9654;</span> Chạy script
   </a>
   <a href="{{ url_for('jobs_errors') }}" class="{{ 'active' if active == 'jobs_errors' else '' }}">
     <span class="nav-icon">&#10007;</span> Bảng lỗi
@@ -25,31 +41,20 @@
   <a href="{{ url_for('jobs_deleted_history') }}" class="{{ 'active' if active == 'jobs_deleted' else '' }}">
     <span class="nav-icon">&#128337;</span> Lịch sử câu lệnh DELETE
   </a>
-  <div class="nav-section-label">Script</div>
-  <a href="{{ url_for('scripts_page') }}" class="{{ 'active' if active == 'scripts' else '' }}">
-    <span class="nav-icon">&#128221;</span> Chạy script .sql
-  </a>
-  <a href="{{ url_for('scripts_run_delete_pn_lai_lichs') }}" class="{{ 'active' if active == 'scripts_run_delete_pn_lai_lichs' else '' }}">
-    <span class="nav-icon">&#9654;</span> Chạy JOB_DELETE_PN_LAI_LICHS
-  </a>
   <a href="{{ url_for('scripts_history') }}" class="{{ 'active' if active == 'scripts_history' else '' }}">
     <span class="nav-icon">&#128337;</span> Lịch sử chạy script
   </a>
-  <div class="nav-section-label">Tài khoản</div>
   {% if session.get('admin_user') == 'sys' %}
-    <a href="{{ url_for('user_manage_page') }}" class="{{ 'active' if active == 'user_manage' else '' }}">
-      <span class="nav-icon">&#128100;</span> Quản lý user
-    </a>
     <a href="{{ url_for('user_activity_page') }}" class="{{ 'active' if active == 'user_activity' else '' }}">
       <span class="nav-icon">&#128202;</span> Log hoạt động
     </a>
   {% endif %}
   {% if session.get('logged_in') %}
-    <a href="{{ url_for('logout_page') }}">
+    <a href="{{ url_for('logout_page') }}" class="nav-session-link">
       <span class="nav-icon">&#128274;</span> Đăng xuất
     </a>
   {% else %}
-    <a href="{{ url_for('login_page') }}">
+    <a href="{{ url_for('login_page') }}" class="nav-session-link">
       <span class="nav-icon">&#128274;</span> Đăng nhập
     </a>
   {% endif %}

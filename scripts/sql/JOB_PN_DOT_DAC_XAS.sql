@@ -1,7 +1,11 @@
--- New script in ORCL.
--- Date: Mar 17, 2026
--- Time: 6:23:55 PM
--- 1. DELETE toàn bộ bảng con & FK liên quan
+-- =============================================================================
+-- SCRIPT_DOT_DAC_XA.SQL — Nạp PN_DOT_DAC_XAS từ QLPN_OLD.PN_DX_DOT_DAC_XA
+-- Bổ sung trường thiếu từ QLPN_OLD.PN_OPEN_DOT_DAC_XA (LEFT JOIN 1 dòng; nếu không có OPEN vẫn nạp từ DX).
+-- Quy ước migrate: .cursor/rules/sql-migration-qlpn-conventions.mdc
+--   - Không INSERT: ID, CREATOR_USER_ID, LAST_MODIFICATION_TIME,
+--     LAST_MODIFIER_USER_ID, DELETER_USER_ID, DELETION_TIME
+-- =============================================================================
+-- 1. Xóa bảng con / phụ thuộc đợt đặc xá (thứ tự an toàn FK)
 DELETE FROM QLPN.DX_THOI_GIAN_CON_LAIES;
 DELETE FROM QLPN.DX_XEP_LOAI_CAI_TAOS;
 DELETE FROM QLPN.DX_THOI_GIAN_CHAP_HANHS;
@@ -9,10 +13,9 @@ DELETE FROM QLPN.DX_HINH_PHAT_BO_SUNGS;
 DELETE FROM QLPN.DX_TOI_DANH_RIENGS;
 DELETE FROM QLPN.DX_DIEU_KIEN_DAC_XAS;
 DELETE FROM QLPN.DX_DU_DIEU_KIEN_DAC_XAS;
--- 2. TRUNCATE bảng cha
+-- 2. Đợt đặc xá
 DELETE FROM QLPN.PN_DOT_DAC_XAS;
-
-INSERT INTO QLPN.PN_DOT_DAC_XAS (
+INSERT /*+ APPEND */ INTO QLPN.PN_DOT_DAC_XAS (
     DDX_NAM_DAC_XA,
     DDX_TEN_DOT,
     DDX_NGAY_XET,
@@ -38,92 +41,70 @@ INSERT INTO QLPN.PN_DOT_DAC_XAS (
     DDX_TG_KET_QUA_THI_DUA_TU,
     DDX_TG_KET_QUA_THI_DUA_DEN,
     CREATION_TIME,
-    CREATOR_USER_ID,
-    LAST_MODIFICATION_TIME,
-    LAST_MODIFIER_USER_ID,
-    IS_DELETED,
-    DELETER_USER_ID,
-    DELETION_TIME
+    IS_DELETED
+)
+WITH dot_dac_xa_src AS (
+    SELECT
+        TO_NCHAR(TO_CHAR(COALESCE(dx.NGAY_XET_DX, op.NGAY_XET_DX), 'YYYY')) AS DDX_NAM_DAC_XA,
+        N'Đợt đặc xá ' || TO_NCHAR(TO_CHAR(COALESCE(dx.NGAY_XET_DX, op.NGAY_XET_DX), 'YYYY')) AS DDX_TEN_DOT,
+        CAST(COALESCE(dx.NGAY_XET_DX, op.NGAY_XET_DX) AS TIMESTAMP(7)) AS DDX_NGAY_XET,
+        NVL(dx.QD_DX_SO, op.QD_DX_SO) AS DDX_SO_QUYET_DINH,
+        CAST(COALESCE(dx.QD_DX_NGAY, op.QD_DX_NGAY) AS TIMESTAMP(7)) AS DDX_NGAY_QUYET_DINH,
+        NVL(dx.HD_LAM_DX_SO, op.HD_DX_SO) AS DDX_SO_HUONG_DAN,
+        CAST(COALESCE(dx.HD_LAM_DX_NGAY, op.HD_DX_NGAY) AS TIMESTAMP(7)) AS DDX_NGAY_HUONG_DAN,
+        0 AS DDX_TRANG_THAI,
+        op.CHECK_XL_NAM AS DDX_DA_KHOA_LAN_DAU,
+        CAST(NULL AS NVARCHAR2(2000)) AS DDX_MA_XAC_THUC_CUC,
+        CAST(NULL AS NVARCHAR2(2000)) AS DDX_TG_MA_TRAI_GIAM,
+        CAST(NULL AS NVARCHAR2(2000)) AS DDX_TG_MA_XAC_THUC,
+        CAST(COALESCE(op.NGAY_DE_NGHI, dx.NGAY_XET_DX) AS TIMESTAMP(7)) AS DDX_TG_NGAY_DE_NGHI,
+        NVL(dx.QD_LAM_DX_SO, TO_NCHAR(op.TU_SO_PHIEU)) AS DDX_TG_SO_PHIEU,
+        NVL(dx.QD_BIEU_MAU_SO, TO_NCHAR(op.TU_SO_CNDX)) AS DDX_TG_SO_GCN,
+        NVL(dx.QD_LAM_DX_SO, op.HD_DX_SO) AS DDX_TG_QUYET_DINH_TU,
+        CAST(COALESCE(dx.QD_LAM_DX_NGAY, op.HD_DX_NGAY) AS TIMESTAMP(7)) AS DDX_TG_NGAY_QUYET_DINH,
+        TO_NCHAR(op.TU_SO_QD_KQTD) AS DDX_TG_SO_QUYET_DINH_THI_DUA,
+        CAST(op.NGAY_QD_KQTD AS TIMESTAMP(7)) AS DDX_TG_NGAY_QUYET_DINH_THI_DUA,
+        CAST(COALESCE(dx.NGAY_HOP_HOI_DONG, op.NGAY_HOP_KQTD) AS TIMESTAMP(7)) AS DDX_TG_NGAY_HOP,
+        NVL(dx.HD_LAM_DX_SO, op.HD_DX_SO) AS DDX_TG_SO_HUONG_DAN,
+        CAST(COALESCE(dx.HD_LAM_DX_NGAY, op.HD_DX_NGAY) AS TIMESTAMP(7)) AS DDX_TG_NGAY_HUONG_DAN,
+        CAST(op.TU_NGAY_KQTD AS TIMESTAMP(7)) AS DDX_TG_KET_QUA_THI_DUA_TU,
+        CAST(op.DEN_NGAY_KQTD AS TIMESTAMP(7)) AS DDX_TG_KET_QUA_THI_DUA_DEN,
+        SYSTIMESTAMP AS CREATION_TIME,
+        0 AS IS_DELETED
+    FROM QLPN_OLD.PN_DX_DOT_DAC_XA dx
+    LEFT JOIN (
+        SELECT op_inner.*
+        FROM QLPN_OLD.PN_OPEN_DOT_DAC_XA op_inner
+        WHERE ROWNUM = 1
+    ) op
+        ON 1 = 1
 )
 SELECT
-    /* năm đặc xá từ ngày xét */
-	-- DDX_NAM_DAC_XA
-    TO_CHAR(dx.NGAY_XET_DX, 'YYYY'),
-	
-	--    DDX_TEN_DOT
-    /* tên đợt → không có → generate */
-    'Đợt đặc xá ' || TO_CHAR(dx.NGAY_XET_DX, 'YYYY'),
-	
-	--    DDX_NGAY_XET
-    CAST(dx.NGAY_XET_DX AS TIMESTAMP),
-	-- DDX_SO_QUYET_DINH
-    dx.QD_DX_SO,
-    -- DDX_NGAY_QUYET_DINH
-    CAST(dx.QD_DX_NGAY AS TIMESTAMP),
-	
-    -- DDX_SO_HUONG_DAN
-    dx.HD_LAM_DX_SO,
-    
-    -- DDX_NGAY_HUONG_DAN
-    CAST(dx.HD_LAM_DX_NGAY AS TIMESTAMP),
-	
-    -- DDX_TRANG_THAI
-    /* NOT NULL → default */
-    1,
-
-    -- DDX_DA_KHOA_LAN_DAU
-    /* chưa có khái niệm → NULL */
-    NULL,
-	
-    /* ====== block trại giam (mapping tạm) ====== */
-	
-    /* mã xác thực cục → không có */
-    NULL,
-
-    /* mã trại giam → không có */
-    NULL,
---    dmmtg.id,
-	
-    -- DDX_TG_MA_XAC_THUC
-    NULL,
-
-    /* ngày đề nghị → dùng ngày xét */
-    CAST(dx.NGAY_XET_DX AS TIMESTAMP),
-
-    /* số phiếu → reuse */
-    dx.QD_LAM_DX_SO,
-
-    /* số GCN → reuse */
-    dx.QD_BIEU_MAU_SO,
-
-    /* quyết định từ → reuse */
-    dx.QD_LAM_DX_SO,
-
-    CAST(dx.QD_LAM_DX_NGAY AS TIMESTAMP),
-
-    /* thi đua → không có */
-    NULL,
-    NULL,
-
-    /* ngày họp */
-    CAST(dx.NGAY_HOP_HOI_DONG AS TIMESTAMP),
-
-    /* hướng dẫn TG → reuse */
-    dx.HD_LAM_DX_SO,
-    CAST(dx.HD_LAM_DX_NGAY AS TIMESTAMP),
-
-    /* kết quả thi đua → không có */
-    NULL,
-    NULL,
-
-    /* audit */
-    SYSTIMESTAMP,
-    NULL,
-    NULL,
-    NULL,
-    0,
-    NULL,
-    NULL
-
-FROM QLPN_OLD.PN_DX_DOT_DAC_XA dx;
-
+    s.DDX_NAM_DAC_XA,
+    s.DDX_TEN_DOT,
+    s.DDX_NGAY_XET,
+    s.DDX_SO_QUYET_DINH,
+    s.DDX_NGAY_QUYET_DINH,
+    s.DDX_SO_HUONG_DAN,
+    s.DDX_NGAY_HUONG_DAN,
+    s.DDX_TRANG_THAI,
+    s.DDX_DA_KHOA_LAN_DAU,
+    s.DDX_MA_XAC_THUC_CUC,
+    s.DDX_TG_MA_TRAI_GIAM,
+    s.DDX_TG_MA_XAC_THUC,
+    s.DDX_TG_NGAY_DE_NGHI,
+    s.DDX_TG_SO_PHIEU,
+    s.DDX_TG_SO_GCN,
+    s.DDX_TG_QUYET_DINH_TU,
+    s.DDX_TG_NGAY_QUYET_DINH,
+    s.DDX_TG_SO_QUYET_DINH_THI_DUA,
+    s.DDX_TG_NGAY_QUYET_DINH_THI_DUA,
+    s.DDX_TG_NGAY_HOP,
+    s.DDX_TG_SO_HUONG_DAN,
+    s.DDX_TG_NGAY_HUONG_DAN,
+    s.DDX_TG_KET_QUA_THI_DUA_TU,
+    s.DDX_TG_KET_QUA_THI_DUA_DEN,
+    s.CREATION_TIME,
+    s.IS_DELETED
+FROM dot_dac_xa_src s;
+COMMIT;
